@@ -40,5 +40,12 @@ public class TransacionDaoDefult implements TransactionDao {
 		this.date = date;
 	}
 
+	@Override
+	public String toString() {
+		return "TransacionDaoDefult [from=" + from + ", to=" + to + ", reason=" + reason + ", value=" + value
+				+ ", date=" + date + "]";
+	}
+	
+	
 
 }

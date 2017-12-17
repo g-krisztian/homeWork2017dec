@@ -15,4 +15,7 @@ public interface Transactions {
 	BigDecimal borrowFromBank(TransactionDao transactionData);
 
 	TransactionDao getBalance();
+	
+	@Override
+	String toString();
 }

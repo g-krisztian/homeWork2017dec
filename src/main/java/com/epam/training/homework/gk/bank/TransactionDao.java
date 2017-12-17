@@ -10,4 +10,7 @@ public interface TransactionDao {
 	void setValue(BigDecimal value);
 	BigDecimal getValue();
 	void setDate(Date date);
+	
+	@Override
+	String toString();
 }
