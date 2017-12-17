@@ -6,7 +6,6 @@ public interface User {
 
 	String getName();
 	
-	List<Account> getAccounts();
-
+	List<BankAccount> getAccounts();
 	
 }

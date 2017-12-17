@@ -3,15 +3,16 @@ package com.epam.training.homework.gk.bank;
 import java.math.BigDecimal;
 
 public interface Transactions {
-	void putMoney(TransactionData transactionData);
+	
+	void putMoney(TransactionDao transactionData);
 
-	void takeOutMoney(TransactionData transactionData);
+	void takeOutMoney(TransactionDao transactionData);
 
-	void sendGift(TransactionData transactionData);
+	void sendGift(TransactionDao transactionData);
 
-	void lentToBank(TransactionData transactionData);
+	void lentToBank(TransactionDao transactionData);
 
-	BigDecimal borrowFromBank(TransactionData transactionData);
+	BigDecimal borrowFromBank(TransactionDao transactionData);
 
-	TransactionData getBalance();
+	TransactionDao getBalance();
 }
