@@ -4,17 +4,17 @@ import java.math.BigDecimal;
 
 public interface Transactions {
 	
-	void putMoney(TransactionDao transactionData);
+	void putMoney(Transaction transactionData);
 
-	void takeOutMoney(TransactionDao transactionData);
+	void takeOutMoney(Transaction transactionData);
 
-	void sendGift(TransactionDao transactionData);
+	void sendGift(Transaction transactionData);
 
-	void lentToBank(TransactionDao transactionData);
+	void lentToBank(Transaction transactionData);
 
-	BigDecimal borrowFromBank(TransactionDao transactionData);
+	BigDecimal borrowFromBank(Transaction transactionData);
 
-	TransactionDao getBalance();
+	Transaction getBalance();
 	
 	@Override
 	String toString();

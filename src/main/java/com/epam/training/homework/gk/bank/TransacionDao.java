@@ -3,12 +3,11 @@ package com.epam.training.homework.gk.bank;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TransacionDaoDefult implements TransactionDao {
-	BankAccount from;
-	BankAccount to;
-	String reason;
-	BigDecimal value;
-	Date date;
+import com.epam.training.homework.gk.dto.TransactionDTO;
+
+public class TransacionDao extends TransactionDTO implements Transaction {
+	
+
 
 	@Override
 	public void setAccountFrom(BankAccount from) {
@@ -29,11 +28,22 @@ public class TransacionDaoDefult implements TransactionDao {
 	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
-	
+
 	@Override
 	public BigDecimal getValue() {
 		return this.value;
 	}
+	
+	@Override
+	public double getInterest() {
+		return interest;
+	}
+	
+	@Override
+	public void setInterest(double interest) {
+		this.interest = interest;
+	}
+
 
 	@Override
 	public void setDate(Date date) {
@@ -45,7 +55,5 @@ public class TransacionDaoDefult implements TransactionDao {
 		return "TransacionDaoDefult [from=" + from + ", to=" + to + ", reason=" + reason + ", value=" + value
 				+ ", date=" + date + "]";
 	}
-	
-	
 
 }

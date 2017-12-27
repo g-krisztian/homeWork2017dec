@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface BankAccount {
 	
-	void change(TransactionDao transactionData);
+	void change(Transaction transactionData);
 
 	List<HistoryJdo> getHistory();
 	

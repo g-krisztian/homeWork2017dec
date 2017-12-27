@@ -10,12 +10,12 @@ public class BankAccountWithArrayList implements BankAccount {
 	private BigDecimal balance;
 
 	@Override
-	public void change(TransactionDao transactionData) {
+	public void change(Transaction transactionData) {
 		this.balance = this.balance.add(transactionData.getValue());
 		addToHistory(transactionData);
 	}
 
-	private void addToHistory(TransactionDao transactionData) {
+	private void addToHistory(Transaction transactionData) {
 		history.add(new HistoryJdo(transactionData, this.balance));
 	}
 
