@@ -3,9 +3,9 @@ package com.epam.training.homework.gk.dao;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.epam.training.homework.gk.bank.AccountInterface;
-import com.epam.training.homework.gk.bank.TransactionInterface;
 import com.epam.training.homework.gk.dto.TransactionDto;
+import com.epam.training.homework.gk.interfaces.AccountInterface;
+import com.epam.training.homework.gk.interfaces.TransactionInterface;
 
 public class TransacionDao extends TransactionDto implements TransactionInterface {
 	

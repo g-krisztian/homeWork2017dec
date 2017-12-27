@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank;
+package com.epam.training.homework.gk.interfaces;
 
 import java.math.BigDecimal;
 import java.util.Date;

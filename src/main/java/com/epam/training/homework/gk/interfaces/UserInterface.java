@@ -1,12 +1,10 @@
-package com.epam.training.homework.gk.bank;
-
-import java.util.List;
+package com.epam.training.homework.gk.interfaces;
 
 public interface UserInterface {
 
 	int getId();
 
-	void setId(int Id);
+	void setId(int id);
 
 	String getName();
 
@@ -16,6 +14,6 @@ public interface UserInterface {
 
 	void removeAccount(AccountInterface account);
 
-	List<AccountInterface> getAccounts();
+	AccountInterface[] getAccounts();
 
 }

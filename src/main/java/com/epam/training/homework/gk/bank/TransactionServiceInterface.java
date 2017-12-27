@@ -2,7 +2,9 @@ package com.epam.training.homework.gk.bank;
 
 import java.math.BigDecimal;
 
-public interface TransactionService {
+import com.epam.training.homework.gk.interfaces.TransactionInterface;
+
+public interface TransactionServiceInterface {
 	
 	void putMoney(TransactionInterface transactionData);
 

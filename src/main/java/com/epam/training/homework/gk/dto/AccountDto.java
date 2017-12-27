@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.homework.gk.bank.HistoryJdo;
+import com.epam.training.homework.gk.dao.HistoryDao;
 
 public class AccountDto {
 	protected int id;
-	protected List<HistoryJdo> history = new ArrayList<>();
+	protected List<HistoryDao> history = new ArrayList<>();
 	protected BigDecimal balance;
 }

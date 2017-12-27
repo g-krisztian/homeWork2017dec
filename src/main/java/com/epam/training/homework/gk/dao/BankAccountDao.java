@@ -4,10 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.homework.gk.bank.AccountInterface;
-import com.epam.training.homework.gk.bank.HistoryJdo;
-import com.epam.training.homework.gk.bank.TransactionInterface;
 import com.epam.training.homework.gk.dto.AccountDto;
+import com.epam.training.homework.gk.interfaces.AccountInterface;
+import com.epam.training.homework.gk.interfaces.TransactionInterface;
 
 public class BankAccountDao extends AccountDto implements AccountInterface {
 
@@ -19,12 +18,12 @@ public class BankAccountDao extends AccountDto implements AccountInterface {
 	}
 
 	private void addToHistory(TransactionInterface transactionData) {
-		history.add(new HistoryJdo(transactionData, this.balance));
+		history.add(new HistoryDao(transactionData, this.balance));
 	}
 
 	@Override
-	public List<HistoryJdo> getHistory() {
-		List<HistoryJdo> history = new ArrayList<>();
+	public List<HistoryDao> getHistory() {
+		List<HistoryDao> history = new ArrayList<>();
 		history.addAll(this.history);
 		return history;
 	}
