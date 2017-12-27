@@ -1,9 +1,8 @@
 package com.epam.training.homework.gk.interfaces;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import com.epam.training.homework.gk.dto.HistoryDto;
+import com.epam.training.homework.gk.dao.HistoryDao;
 
 public interface Account {
 	
@@ -11,9 +10,7 @@ public interface Account {
 	
 	int getId(int id);
 	
-	void change(Transaction transactionData);
-
-	HistoryDto[] getHistory();
+	HistoryDao[] getHistory();
 	
 	BigDecimal getBalance();
 }

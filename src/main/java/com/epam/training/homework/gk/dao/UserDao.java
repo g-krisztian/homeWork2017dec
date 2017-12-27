@@ -1,11 +1,15 @@
 package com.epam.training.homework.gk.dao;
 
-import com.epam.training.homework.gk.dto.UserDto;
+import java.util.List;
+
 import com.epam.training.homework.gk.interfaces.Account;
 import com.epam.training.homework.gk.interfaces.User;
 
-public class UserDao extends UserDto implements User {
-
+public class UserDao implements User {
+	
+	private int id;
+	private String name;
+	private List<Account> accounts;
 	@Override
 	public int getId() {
 		return this.id;

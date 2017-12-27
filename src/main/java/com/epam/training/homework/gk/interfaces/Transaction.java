@@ -9,9 +9,9 @@ public interface Transaction {
 	
 	int getId();
 	
-	void setAccountFromId(Account from);
+	void setFromAccountId(int from);
 
-	void setAccountToId(Account to);
+	void setToAccountId(int to);
 
 	void setReason(String reason);
 
