@@ -3,11 +3,11 @@ package com.epam.training.homework.gk.dao;
 import java.math.BigDecimal;
 
 import com.epam.training.homework.gk.dto.HistoryDto;
-import com.epam.training.homework.gk.interfaces.TransactionInterface;
+import com.epam.training.homework.gk.interfaces.Transaction;
 
 public class HistoryDao extends HistoryDto{
 
-	public HistoryDao(TransactionInterface transactionDao, BigDecimal balance) {
+	public HistoryDao(Transaction transactionDao, BigDecimal balance) {
 		this.transactionDao= transactionDao;
 		this.balance = balance;
 	}

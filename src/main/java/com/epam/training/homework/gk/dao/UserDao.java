@@ -1,10 +1,10 @@
 package com.epam.training.homework.gk.dao;
 
 import com.epam.training.homework.gk.dto.UserDto;
-import com.epam.training.homework.gk.interfaces.AccountInterface;
-import com.epam.training.homework.gk.interfaces.UserInterface;
+import com.epam.training.homework.gk.interfaces.Account;
+import com.epam.training.homework.gk.interfaces.User;
 
-public class UserDao extends UserDto implements UserInterface {
+public class UserDao extends UserDto implements User {
 
 	@Override
 	public int getId() {
@@ -29,19 +29,19 @@ public class UserDao extends UserDto implements UserInterface {
 	}
 
 	@Override
-	public void addAccount(AccountInterface account) {
+	public void addAccount(Account account) {
 		this.accounts.add(account);
 	}
 
 	@Override
-	public void removeAccount(AccountInterface account) {
+	public void removeAccount(Account account) {
 		this.accounts.remove(account);
 
 	}
 
 	@Override
-	public AccountInterface[] getAccounts() {
-		return (AccountInterface[]) accounts.toArray(new AccountInterface[accounts.size()]); 
+	public Account[] getAccounts() {
+		return (Account[]) accounts.toArray(new Account[accounts.size()]); 
 
 	}
 

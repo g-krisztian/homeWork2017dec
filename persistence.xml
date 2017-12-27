@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <entity-mappings>
-    <entity class="com.epam.training.homework.dto.UserDto">        
-        <attributes>
-            <id name="id">
-            <generated-value strategy="sequence"/>
-            
-            </id>
-        </attributes>
-   </entity>
+	<entity class="com.epam.training.homework.dto.UserDto">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="sequence" />
+				<column name="id" />
+			</id>
+			<name name="name">
+			
+		</attributes>
+	</entity>
 </entity-mappings>

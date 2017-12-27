@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.epam.training.homework.gk.dto.TransactionDto;
-import com.epam.training.homework.gk.interfaces.AccountInterface;
-import com.epam.training.homework.gk.interfaces.TransactionInterface;
+import com.epam.training.homework.gk.interfaces.Account;
+import com.epam.training.homework.gk.interfaces.Transaction;
 
-public class TransacionDao extends TransactionDto implements TransactionInterface {
+public class TransacionDao extends TransactionDto implements Transaction {
 	
 
 
 	@Override
-	public void setAccountFromId(AccountInterface from) {
+	public void setAccountFromId(Account from) {
 		this.fromId = from;
 	}
 
 	@Override
-	public void setAccountToId(AccountInterface to) {
+	public void setAccountToId(Account to) {
 		this.toId = to;
 	}
 

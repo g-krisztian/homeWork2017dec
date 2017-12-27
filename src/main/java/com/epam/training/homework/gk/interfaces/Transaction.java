@@ -3,15 +3,15 @@ package com.epam.training.homework.gk.interfaces;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public interface TransactionInterface {
+public interface Transaction {
 	
 	void setId(int id);
 	
 	int getId();
 	
-	void setAccountFromId(AccountInterface from);
+	void setAccountFromId(Account from);
 
-	void setAccountToId(AccountInterface to);
+	void setAccountToId(Account to);
 
 	void setReason(String reason);
 
