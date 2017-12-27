@@ -3,10 +3,10 @@ package com.epam.training.homework.gk.bank;
 import java.math.BigDecimal;
 
 public class HistoryJdo {
-	Transaction transactionDao;
+	TransactionInterface transactionDao;
 	BigDecimal balance;
 	
-	public HistoryJdo(Transaction transactionDao, BigDecimal balance) {
+	public HistoryJdo(TransactionInterface transactionDao, BigDecimal balance) {
 		this.transactionDao= transactionDao;
 		this.balance = balance;
 	}

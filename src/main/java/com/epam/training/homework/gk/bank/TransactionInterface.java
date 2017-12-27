@@ -3,26 +3,29 @@ package com.epam.training.homework.gk.bank;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public interface Transaction {
-	void setAccountFrom(BankAccount from);
+public interface TransactionInterface {
+	
+	void setId(int id);
+	
+	int getId();
+	
+	void setAccountFromId(AccountInterface from);
 
-	void setAccountTo(BankAccount to);
+	void setAccountToId(AccountInterface to);
 
 	void setReason(String reason);
 
 	void setValue(BigDecimal value);
 
 	BigDecimal getValue();
-	
-	void setInterest(double interest);
+
+	void setInterest(BigDecimal interest);
+
+	BigDecimal getInterest();
 
 	void setDate(Date date);
-	
-	
 
 	@Override
 	String toString();
-
-	double getInterest();
 
 }

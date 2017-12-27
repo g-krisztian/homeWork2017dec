@@ -3,9 +3,13 @@ package com.epam.training.homework.gk.bank;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface BankAccount {
+public interface AccountInterface {
 	
-	void change(Transaction transactionData);
+	void setId(int id);
+	
+	int getId(int id);
+	
+	void change(TransactionInterface transactionData);
 
 	List<HistoryJdo> getHistory();
 	
