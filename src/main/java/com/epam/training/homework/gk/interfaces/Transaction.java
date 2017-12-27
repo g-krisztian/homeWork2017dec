@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public interface Transaction {
-	
+
 	void setId(int id);
-	
+
 	int getId();
-	
+
 	void setFromAccountId(int from);
 
 	void setToAccountId(int to);

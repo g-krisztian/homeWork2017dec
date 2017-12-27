@@ -2,12 +2,12 @@ package com.epam.training.homework.gk.dao;
 
 import java.math.BigDecimal;
 
-public class HistoryDao{
+public class HistoryDao {
 	int transactionId;
 	protected BigDecimal balance;
-	
+
 	public HistoryDao(int transactionId, BigDecimal balance) {
-		this.transactionId= transactionId;
+		this.transactionId = transactionId;
 		this.balance = balance;
 	}
 
@@ -16,6 +16,4 @@ public class HistoryDao{
 		return "HistoryDao [transactionId=" + transactionId + ", balance=" + balance + "]";
 	}
 
-	
-	
 }

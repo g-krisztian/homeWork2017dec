@@ -6,10 +6,11 @@ import com.epam.training.homework.gk.interfaces.Account;
 import com.epam.training.homework.gk.interfaces.User;
 
 public class UserDao implements User {
-	
+
 	private int id;
 	private String name;
 	private List<Account> accounts;
+
 	@Override
 	public int getId() {
 		return this.id;
@@ -45,7 +46,7 @@ public class UserDao implements User {
 
 	@Override
 	public Account[] getAccounts() {
-		return (Account[]) accounts.toArray(new Account[accounts.size()]); 
+		return (Account[]) accounts.toArray(new Account[accounts.size()]);
 
 	}
 
