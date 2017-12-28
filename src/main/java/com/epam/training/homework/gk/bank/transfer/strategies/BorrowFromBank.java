@@ -10,6 +10,7 @@ public class BorrowFromBank implements TransferStrategy{
 	@Override
 	public void doTransfer(TransferDao dao, BankService bankService) {
 		Account fromAccount = bankService.createAccount();
+		bankService.addAccountToBank(fromAccount);
 		Account toAccount= bankService.getAccountById(dao.getToAccountId());
 		toAccount.change(dao);
 		dao.setValue(dao.getValue().negate());

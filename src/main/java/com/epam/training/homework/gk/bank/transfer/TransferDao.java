@@ -3,7 +3,14 @@ package com.epam.training.homework.gk.bank.transfer;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class TransferDao {
+	@Id
+	@GeneratedValue
 	private int id;
 	private int fromAccountId;
 	private int toAccountId;

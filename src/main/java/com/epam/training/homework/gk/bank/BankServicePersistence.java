@@ -2,20 +2,29 @@ package com.epam.training.homework.gk.bank;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.account.AccountDao;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.user.User;
 import com.epam.training.homework.gk.bank.user.customer.Customer;
 
-public class BankServiceInMemory implements BankService {
-	List<Account> userAccounts;
+@Entity
+public class BankServicePersistence implements BankService {
+	@OneToMany
 	List<Account> allAccounts;
+	@OneToMany
+	List<Account> userAccounts;
+	@OneToMany
 	List<Account> virtualAccounts;
+	@OneToMany
 	List<User> users;
+	@OneToMany
 	List<Transfer> transfers;
 
-	public BankServiceInMemory(List<Account> accounts, List<User> users, List<Transfer> transfers) {
+	public BankServicePersistence(List<Account> accounts, List<User> users, List<Transfer> transfers) {
 		this.userAccounts = accounts;
 		this.users = users;
 		this.transfers = transfers;
