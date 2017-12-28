@@ -9,9 +9,15 @@ public interface Transaction {
 
 	int getId();
 
+	int getFromAccountId();
+
 	void setFromAccountId(int from);
 
+	int getToAccountId();
+
 	void setToAccountId(int to);
+
+	String getReason();
 
 	void setReason(String reason);
 
@@ -22,6 +28,8 @@ public interface Transaction {
 	void setInterest(BigDecimal interest);
 
 	BigDecimal getInterest();
+
+	Date getDate();
 
 	void setDate(Date date);
 

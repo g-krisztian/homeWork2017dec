@@ -5,7 +5,7 @@ import java.util.List;
 import com.epam.training.homework.gk.interfaces.Account;
 import com.epam.training.homework.gk.interfaces.User;
 
-public class UserDao implements User {
+public class Customer implements User {
 
 	private int id;
 	private String name;

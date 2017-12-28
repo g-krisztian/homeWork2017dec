@@ -1,21 +1,10 @@
 package com.epam.training.homework.gk.interfaces;
 
-import java.math.BigDecimal;
-
 public interface TransactionService {
 
-	void putMoney(Transaction transactionData);
+	Account getAccount(int toAccountId);
 
-	void takeOutMoney(Transaction transactionData);
+	void askChange(Transaction transaction);
+	
 
-	void sendGift(Transaction transactionData);
-
-	void lentToBank(Transaction transactionData);
-
-	BigDecimal borrowFromBank(Transaction transactionData);
-
-	Transaction getBalance();
-
-	@Override
-	String toString();
 }

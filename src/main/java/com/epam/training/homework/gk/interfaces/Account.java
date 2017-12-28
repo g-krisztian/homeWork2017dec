@@ -13,4 +13,6 @@ public interface Account {
 	HistoryDao[] getHistory();
 
 	BigDecimal getBalance();
+
+	void change(Transaction transaction);
 }
