@@ -16,15 +16,15 @@ public class BankServicePersistence implements BankService {
 	@OneToMany
 	List<Account> allAccounts;
 	@OneToMany
-	List<Account> userAccounts;
+	List<Integer> userAccounts;
 	@OneToMany
-	List<Account> virtualAccounts;
+	List<Integer> virtualAccounts;
 	@OneToMany
 	List<User> users;
 	@OneToMany
 	List<Transfer> transfers;
 
-	public BankServicePersistence(List<Account> accounts, List<User> users, List<Transfer> transfers) {
+	public BankServicePersistence(List<Integer> accounts, List<User> users, List<Transfer> transfers) {
 		this.userAccounts = accounts;
 		this.users = users;
 		this.transfers = transfers;
@@ -39,22 +39,22 @@ public class BankServicePersistence implements BankService {
 	}
 
 	@Override
-	public void addAccountToBank(Account account) {
-		virtualAccounts.add(account);
+	public void addAccountToBank(int accountId) {
+		virtualAccounts.add(accountId);
 	}
 
 	@Override
-	public void addAccountToUser(Account account, User user) {
-		userAccounts.add(account);
-		user.addNewAccount(account);
+	public void addAccountToUser(int accountId, User user) {
+		userAccounts.add(accountId);
+		user.addNewAccount(accountId);
 	}
 
 	@Override
 	public Account getAccountById(int id) {
 		Account account = null;
-		for (Account a : userAccounts) {
-			if (a.getId() == id) {
-				account = a;
+		for (Integer a : userAccounts) {
+			if (a == id) {
+				account = allAccounts.get(id);
 				break;
 			}
 		}
@@ -68,7 +68,7 @@ public class BankServicePersistence implements BankService {
 
 	@Override
 	public void deleteAccountById(int id) {
-		userAccounts.remove(getAccountById(id));
+		userAccounts.remove(id);
 	}
 
 	@Override

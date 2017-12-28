@@ -9,9 +9,9 @@ public interface User extends Persist{
 
 	void setName(String name);
 
-	void addNewAccount(Account account);
+	void addNewAccount(int accountId);
 
-	void removeAccount(Account account);
+	void removeAccount(int accountId);
 
 	Account[] getAccounts();
 

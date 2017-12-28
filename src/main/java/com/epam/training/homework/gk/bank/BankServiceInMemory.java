@@ -9,14 +9,14 @@ import com.epam.training.homework.gk.bank.user.User;
 import com.epam.training.homework.gk.bank.user.customer.Customer;
 
 public class BankServiceInMemory implements BankService {
-	List<Account> userAccounts;
 	List<Account> allAccounts;
-	List<Account> virtualAccounts;
+	List<Integer> userAccounts;
+	List<Integer> virtualAccounts;
 	List<User> users;
 	List<Transfer> transfers;
 
 	public BankServiceInMemory(List<Account> accounts, List<User> users, List<Transfer> transfers) {
-		this.userAccounts = accounts;
+		this.allAccounts = accounts;
 		this.users = users;
 		this.transfers = transfers;
 	}
@@ -30,22 +30,22 @@ public class BankServiceInMemory implements BankService {
 	}
 
 	@Override
-	public void addAccountToBank(Account account) {
-		virtualAccounts.add(account);
+	public void addAccountToBank(int accountId) {
+		virtualAccounts.add(accountId);
 	}
 
 	@Override
-	public void addAccountToUser(Account account, User user) {
-		userAccounts.add(account);
-		user.addNewAccount(account);
+	public void addAccountToUser(int accountId, User user) {
+		userAccounts.add(accountId);
+		user.addNewAccount(accountId);
 	}
 
 	@Override
 	public Account getAccountById(int id) {
 		Account account = null;
-		for (Account a : userAccounts) {
-			if (a.getId() == id) {
-				account = a;
+		for (int a : userAccounts) {
+			if (a == id) {
+				account = allAccounts.get(a);
 				break;
 			}
 		}
@@ -59,7 +59,7 @@ public class BankServiceInMemory implements BankService {
 
 	@Override
 	public void deleteAccountById(int id) {
-		userAccounts.remove(getAccountById(id));
+		userAccounts.remove(id);
 	}
 
 	@Override

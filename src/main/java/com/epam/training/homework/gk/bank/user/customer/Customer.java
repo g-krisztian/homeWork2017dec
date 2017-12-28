@@ -17,7 +17,7 @@ public class Customer implements User {
 	private int id;
 	private String name;
 	@OneToMany
-	private List<Account> accounts;
+	private List<Integer> accounts;
 
 	@Override
 	public int getId() {
@@ -42,19 +42,18 @@ public class Customer implements User {
 	}
 
 	@Override
-	public void addNewAccount(Account account) {
-		this.accounts.add(account);
+	public void addNewAccount(int accountId) {
+		this.accounts.add(accountId);
 	}
 
 	@Override
-	public void removeAccount(Account account) {
-		this.accounts.remove(account);
-
+	public void removeAccount(int accountId) {
+		this.accounts.remove(accountId);
 	}
 
 	@Override
 	public Account[] getAccounts() {
-		return (Account[]) accounts.toArray(new Account[accounts.size()]);
+		return accounts.toArray(new Account[accounts.size()]);
 
 	}
 

@@ -11,7 +11,7 @@ public class LentToBank implements TransferStrategy {
 	public void doTransfer(TransferDao dao, BankService bankService) {
 
 		Account toAccount = bankService.createAccount();
-		bankService.addAccountToBank(toAccount);
+		bankService.addAccountToBank(toAccount.getId());
 		dao.setToAccountId(toAccount.getId());
 		toAccount.change(dao);
 
