@@ -1,12 +1,9 @@
 package com.epam.training.homework.gk.bank.user;
 
+import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
 
-public interface User {
-
-	int getId();
-
-	void setId(int id);
+public interface User extends Persist{
 
 	String getName();
 

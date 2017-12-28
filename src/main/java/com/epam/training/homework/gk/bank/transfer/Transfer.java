@@ -1,39 +1,41 @@
 package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
-public interface Transfer {
+import com.epam.training.homework.gk.bank.BankService;
 
-	void setId(int id);
+public class Transfer {
 
-	int getId();
+	TransferDao dao;
+	TransferType transferType;
 
-	int getFromAccountId();
+	public Transfer(TransferDao dao) {
+		this.dao = dao;
+	}
 
-	void setFromAccountId(int from);
+	public TransferType getType() {
+		return transferType;
+	}
 
-	int getToAccountId();
+	public void setType(TransferType type) {
+		this.transferType = type;
+	}
 
-	void setToAccountId(int to);
+	public int getId() {
+		return this.dao.getId();
+	}
 
-	String getReason();
+	public BigDecimal getValue() {
 
-	void setReason(String reason);
+		return this.dao.getValue();
+	}
 
-	void setValue(BigDecimal value);
+	public void doTransfer(BankService bankService) {
+		
+		
+		
+	}
 
-	BigDecimal getValue();
 
-	void setInterest(BigDecimal interest);
-
-	BigDecimal getInterest();
-
-	Date getDate();
-
-	void setDate(Date date);
-
-	@Override
-	String toString();
 
 }

@@ -4,7 +4,8 @@ import com.epam.training.homework.gk.bank.BankService;
 
 public interface TransferType {
 
-	void doTransfer(Transfer transaction, BankService bankService);
+	void doTransfer(TransferDao transaction, BankService bankService);
+
 
 	// void putMoney(Transaction transactionData);
 	//

@@ -22,6 +22,7 @@ public class BankServiceInMemory implements BankService {
 	@Override
 	public Account createAccount() {
 		Account account = new AccountDao();
+		account.setId(getMaxId(accounts) + 1);
 		accounts.add(account);
 		return account;
 	}
@@ -45,15 +46,26 @@ public class BankServiceInMemory implements BankService {
 
 	@Override
 	public void deleteAccountById(int id) {
-		// TODO Auto-generated method stub
+		accounts.remove(getAccountById(id));
 	}
 
 	@Override
 	public User createUser(String name) {
 		User user = new Customer();
 		user.setName(name);
+		user.setId(getMaxId(users) + 1);
 		users.add(user);
 		return user;
+	}
+
+	private int getMaxId(List<? extends Persist> lst) {
+		int max = 0;
+		for (Persist p : lst) {
+			if (max < p.getId()) {
+				max = p.getId();
+			}
+		}
+		return max;
 	}
 
 	@Override
@@ -75,13 +87,12 @@ public class BankServiceInMemory implements BankService {
 
 	@Override
 	public void deleteUserById(int id) {
-		// TODO Auto-generated method stub
+		users.remove(getUserById(id));
 	}
 
 	@Override
 	public void doTransaction(Transfer transfer) {
-		// TODO Auto-generated method stub
+		transfer.doTransfer(this);
 	}
 
 }
-
