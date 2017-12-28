@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.account.history.HistoryDao;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 public class AccountDao implements Account {
 	private int id;
@@ -33,9 +33,9 @@ public class AccountDao implements Account {
 	}
 
 	@Override
-	public void change(Transfer transaction) {
-		BigDecimal balance = this.balance.add(transaction.getValue());
-		this.history.add(new HistoryDao(transaction.getId(), balance));
+	public void change(TransferDao dao) {
+		BigDecimal balance = this.balance.add(dao.getValue());
+		this.history.add(new HistoryDao(dao.getId(), balance));
 		this.balance = balance;
 
 	}

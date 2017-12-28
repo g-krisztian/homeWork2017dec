@@ -9,12 +9,13 @@ import com.epam.training.homework.gk.bank.user.User;
 import com.epam.training.homework.gk.bank.user.customer.Customer;
 
 public class BankServiceInMemory implements BankService {
-	List<Account> accounts;
+	List<Account> allAccounts;
+	List<Account> virtualAccounts;
 	List<User> users;
 	List<Transfer> transfers;
 
 	public BankServiceInMemory(List<Account> accounts, List<User> users, List<Transfer> transfers) {
-		this.accounts = accounts;
+		this.allAccounts = accounts;
 		this.users = users;
 		this.transfers = transfers;
 	}
@@ -22,15 +23,15 @@ public class BankServiceInMemory implements BankService {
 	@Override
 	public Account createAccount() {
 		Account account = new AccountDao();
-		account.setId(getMaxId(accounts) + 1);
-		accounts.add(account);
+		account.setId(getMaxId(allAccounts) + 1);
+		allAccounts.add(account);
 		return account;
 	}
 
 	@Override
 	public Account getAccountById(int id) {
 		Account account = null;
-		for (Account a : accounts) {
+		for (Account a : allAccounts) {
 			if (a.getId() == id) {
 				account = a;
 				break;
@@ -41,12 +42,12 @@ public class BankServiceInMemory implements BankService {
 
 	@Override
 	public Account[] getAllAccounts() {
-		return accounts.toArray(new Account[accounts.size()]);
+		return allAccounts.toArray(new Account[allAccounts.size()]);
 	}
 
 	@Override
 	public void deleteAccountById(int id) {
-		accounts.remove(getAccountById(id));
+		allAccounts.remove(getAccountById(id));
 	}
 
 	@Override

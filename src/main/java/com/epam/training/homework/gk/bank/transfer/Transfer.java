@@ -7,18 +7,18 @@ import com.epam.training.homework.gk.bank.BankService;
 public class Transfer {
 
 	TransferDao dao;
-	TransferType transferType;
+	TransferStrategy strategy;
 
 	public Transfer(TransferDao dao) {
 		this.dao = dao;
 	}
 
-	public TransferType getType() {
-		return transferType;
+	public TransferStrategy getStrategy() {
+		return strategy;
 	}
 
-	public void setType(TransferType type) {
-		this.transferType = type;
+	public void setType(TransferStrategy type) {
+		this.strategy = type;
 	}
 
 	public int getId() {
@@ -31,8 +31,8 @@ public class Transfer {
 	}
 
 	public void doTransfer(BankService bankService) {
-		
-		
+		strategy.doTransfer(this.dao, bankService);
+
 		
 	}
 

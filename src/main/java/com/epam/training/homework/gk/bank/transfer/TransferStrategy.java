@@ -2,9 +2,9 @@ package com.epam.training.homework.gk.bank.transfer;
 
 import com.epam.training.homework.gk.bank.BankService;
 
-public interface TransferType {
+public interface TransferStrategy {
 
-	void doTransfer(TransferDao transaction, BankService bankService);
+	void doTransfer(TransferDao dao, BankService bankService);
 
 
 	// void putMoney(Transaction transactionData);
@@ -15,10 +15,7 @@ public interface TransferType {
 	//
 	// void lentToBank(Transaction transactionData);
 	//
-	// BigDecimal borrowFromBank(Transaction transactionData);
+	// void borrowFromBank(Transaction transactionData);
 	//
-	// Transaction getBalance(Transaction transactionData);
-	//
-	// @Override
-	// String toString();
+
 }

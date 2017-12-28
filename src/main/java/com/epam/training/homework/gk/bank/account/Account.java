@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.history.HistoryDao;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 public interface Account extends Persist {
 
@@ -12,5 +12,5 @@ public interface Account extends Persist {
 
 	BigDecimal getBalance();
 
-	void change(Transfer transaction);
+	void change(TransferDao dao);
 }
