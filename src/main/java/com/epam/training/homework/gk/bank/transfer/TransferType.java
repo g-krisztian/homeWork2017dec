@@ -1,8 +1,10 @@
-package com.epam.training.homework.gk.interfaces;
+package com.epam.training.homework.gk.bank.transfer;
+
+import com.epam.training.homework.gk.bank.BankService;
 
 public interface TransferType {
 
-	void doTransfer(Transaction transaction, TransactionService bankService);
+	void doTransfer(Transfer transaction, BankService bankService);
 
 	// void putMoney(Transaction transactionData);
 	//

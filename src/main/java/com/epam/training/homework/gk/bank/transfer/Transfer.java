@@ -1,9 +1,9 @@
-package com.epam.training.homework.gk.interfaces;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public interface Transaction {
+public interface Transfer {
 
 	void setId(int id);
 

@@ -1,10 +1,9 @@
-package com.epam.training.homework.gk.interfaces;
+package com.epam.training.homework.gk.bank;
 
-public interface TransactionService {
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
-	Account getAccount(int toAccountId);
+public interface BankService extends AccountService, UserService {
 
-	void askChange(Transaction transaction);
-	
+	void doTransaction(Transfer transfer);
 
 }

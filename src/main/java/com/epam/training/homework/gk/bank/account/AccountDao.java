@@ -1,11 +1,11 @@
-package com.epam.training.homework.gk.dao;
+package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.training.homework.gk.interfaces.Account;
-import com.epam.training.homework.gk.interfaces.Transaction;
+import com.epam.training.homework.gk.bank.account.history.HistoryDao;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public class AccountDao implements Account {
 	private int id;
@@ -28,12 +28,12 @@ public class AccountDao implements Account {
 	}
 
 	@Override
-	public int getId(int id) {
+	public int getId() {
 		return this.id;
 	}
 
 	@Override
-	public void change(Transaction transaction) {
+	public void change(Transfer transaction) {
 		BigDecimal balance = this.balance.add(transaction.getValue());
 		this.history.add(new HistoryDao(transaction.getId(), balance));
 		this.balance = balance;

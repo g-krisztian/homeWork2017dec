@@ -1,11 +1,9 @@
-package com.epam.training.homework.gk.dao;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.epam.training.homework.gk.interfaces.Transaction;
-
-public class TransactionDao implements Transaction {
+public class TransferDao implements Transfer {
 	private int id;
 	private int fromAccountId;
 	private int toAccountId;

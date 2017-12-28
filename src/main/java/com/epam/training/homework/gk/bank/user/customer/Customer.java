@@ -1,9 +1,9 @@
-package com.epam.training.homework.gk.dao;
+package com.epam.training.homework.gk.bank.user.customer;
 
 import java.util.List;
 
-import com.epam.training.homework.gk.interfaces.Account;
-import com.epam.training.homework.gk.interfaces.User;
+import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.user.User;
 
 public class Customer implements User {
 
@@ -34,7 +34,7 @@ public class Customer implements User {
 	}
 
 	@Override
-	public void addAccount(Account account) {
+	public void addNewAccount(Account account) {
 		this.accounts.add(account);
 	}
 

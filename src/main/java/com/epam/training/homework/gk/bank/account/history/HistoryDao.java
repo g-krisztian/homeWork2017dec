@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.dao;
+package com.epam.training.homework.gk.bank.account.history;
 
 import java.math.BigDecimal;
 

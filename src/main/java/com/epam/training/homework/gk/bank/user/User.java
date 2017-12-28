@@ -1,4 +1,6 @@
-package com.epam.training.homework.gk.interfaces;
+package com.epam.training.homework.gk.bank.user;
+
+import com.epam.training.homework.gk.bank.account.Account;
 
 public interface User {
 
@@ -10,7 +12,7 @@ public interface User {
 
 	void setName(String name);
 
-	void addAccount(Account account);
+	void addNewAccount(Account account);
 
 	void removeAccount(Account account);
 
