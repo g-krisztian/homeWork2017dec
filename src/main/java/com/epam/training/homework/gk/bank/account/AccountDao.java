@@ -1,7 +1,6 @@
 package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +17,17 @@ public class AccountDao implements Account {
 	@Id
 	@GeneratedValue
 	private int id;
+	BigDecimal balance;
 	@OneToMany
-	private List<HistoryDao> history = new ArrayList<>();
-	private BigDecimal balance;
+	List<HistoryDao> history = new ArrayList<>();
+	boolean active;
 
 	@Override
-	public HistoryDao[] getHistory() {
-		return history.toArray(new HistoryDao[history.size()]);
+	public void change(TransferDao dao) {
+		BigDecimal balance = this.balance.add(dao.getValue());
+		this.history.add(new HistoryDao(dao, balance));
+		this.balance = balance;
+
 	}
 
 	@Override
@@ -33,8 +36,8 @@ public class AccountDao implements Account {
 	}
 
 	@Override
-	public void setId(int id) {
-		this.id = id;
+	public HistoryDao[] getHistory() {
+		return history.toArray(new HistoryDao[history.size()]);
 	}
 
 	@Override
@@ -43,11 +46,17 @@ public class AccountDao implements Account {
 	}
 
 	@Override
-	public void change(TransferDao dao) {
-		BigDecimal balance = this.balance.add(dao.getValue());
-		this.history.add(new HistoryDao(dao.getId(), balance));
-		this.balance = balance;
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

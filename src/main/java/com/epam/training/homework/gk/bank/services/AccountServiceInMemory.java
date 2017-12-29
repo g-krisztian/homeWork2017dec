@@ -4,36 +4,35 @@ import java.util.List;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.account.AccountDao;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
-import com.epam.training.homework.gk.bank.user.User;
 
 public class AccountServiceInMemory implements AccountService {
 
 	List<Account> allAccounts;
-	List<Integer> userAccounts;
-	List<User> users;
-	List<Transfer> transfers;
 
 	public AccountServiceInMemory(DataStoreInMemory datastore) {
-		this.allAccounts = datastore.getAllAccounts();
-		this.users = datastore.getUsers();
-		this.transfers = datastore.getTransfers();
+		this.allAccounts = datastore.getAccounts();
 	}
 
 	@Override
 	public Account createAccount() {
 		Account account = new AccountDao();
 		account.setId(getMaxId(allAccounts) + 1);
+		account.setActive(true);
 		allAccounts.add(account);
 		return account;
 	}
 
 	@Override
+	public void deleteAccount(Account account) {
+		account.setActive(false);
+	}
+
+	@Override
 	public Account getAccountById(int id) {
 		Account account = null;
-		for (int a : userAccounts) {
-			if (a == id) {
-				account = allAccounts.get(a);
+		for (Account a : allAccounts) {
+			if (a.getId() == id) {
+				account = a;
 				break;
 			}
 		}
@@ -42,12 +41,7 @@ public class AccountServiceInMemory implements AccountService {
 
 	@Override
 	public Account[] getAllAccounts() {
-		return userAccounts.toArray(new Account[userAccounts.size()]);
-	}
-
-	@Override
-	public void deleteAccountById(int id) {
-		userAccounts.remove(id);
+		return allAccounts.toArray(new Account[allAccounts.size()]);
 	}
 
 	int getMaxId(List<? extends Persist> lst) {
@@ -59,4 +53,5 @@ public class AccountServiceInMemory implements AccountService {
 		}
 		return max;
 	}
+
 }

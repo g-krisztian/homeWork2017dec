@@ -6,11 +6,10 @@ public interface AccountService {
 
 	Account createAccount();
 
-	Account[] getAllAccounts();
-
+	void deleteAccount(Account account);
 
 	Account getAccountById(int fromAccountId);
 
-	void deleteAccountById(int id);
+	Account[] getAllAccounts();
 
 }

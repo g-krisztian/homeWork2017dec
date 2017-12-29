@@ -5,5 +5,5 @@ public interface Persist {
 	int getId();
 
 	void setId(int id);
-	
+
 }

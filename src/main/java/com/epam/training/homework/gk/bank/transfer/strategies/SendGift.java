@@ -9,10 +9,8 @@ public class SendGift implements TransferStrategy {
 
 	@Override
 	public void doTransfer(TransferDao dao, Services service) {
-		int fromId = dao.getFromAccountId();
-		int toId = dao.getToAccountId();
-		Account fromAccount = service.getAccountService().getAccountById(fromId);
-		Account toAccount = service.getAccountService().getAccountById(toId);
+		Account fromAccount = dao.getFromAccount();
+		Account toAccount = dao.getToAccount();
 		toAccount.change(dao);
 		dao.setValue(dao.getValue().negate());
 		fromAccount.change(dao);

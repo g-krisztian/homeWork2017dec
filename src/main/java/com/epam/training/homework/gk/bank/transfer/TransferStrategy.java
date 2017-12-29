@@ -4,9 +4,7 @@ import com.epam.training.homework.gk.bank.services.Services;
 
 public interface TransferStrategy {
 
-
 	void doTransfer(TransferDao dao, Services service);
-
 
 	// void putMoney(Transaction transactionData);
 	//

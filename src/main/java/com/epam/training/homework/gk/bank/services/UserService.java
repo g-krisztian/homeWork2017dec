@@ -1,17 +1,18 @@
 package com.epam.training.homework.gk.bank.services;
 
+import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.user.User;
 
 public interface UserService {
 
+	void addAccountToUser(Account account, User user);
+
 	User createUser(String name);
 
-	User getUserById(int id);
+	void deleteUser(User user);
 
 	User[] getAllUsers();
 
-	void deleteUserById(int id);
-
-	void addAccountToUser(int accountId, User user);
+	User getUserById(int id);
 
 }

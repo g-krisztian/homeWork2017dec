@@ -6,73 +6,78 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.epam.training.homework.gk.bank.account.Account;
 
 @Entity
 public class TransferDao {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int fromAccountId;
-	private int toAccountId;
+	@OneToOne
+	private Account toAccount;
+	@OneToOne
+	private Account fromAccount;
 	private String reason;
 	private BigDecimal value;
 	private BigDecimal interest;
 	private Date date;
 
+	public Date getDate() {
+		return date;
+	}
+
+	public Account getFromAccount() {
+		return fromAccount;
+	}
+
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getFromAccountId() {
-		return fromAccountId;
-	}
-
-	public void setFromAccountId(int fromId) {
-		this.fromAccountId = fromId;
-	}
-
-	public int getToAccountId() {
-		return toAccountId;
-	}
-
-	public void setToAccountId(int toId) {
-		this.toAccountId = toId;
-	}
-
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
 	}
 
 	public BigDecimal getInterest() {
 		return interest;
 	}
 
-	public void setInterest(BigDecimal interest) {
-		this.interest = interest;
+	public String getReason() {
+		return reason;
 	}
 
-	public Date getDate() {
-		return date;
+	public Account getToAccount() {
+		return toAccount;
+	}
+
+	public BigDecimal getValue() {
+		return value;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public void setFromAccount(Account from) {
+		this.fromAccount = from;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setInterest(BigDecimal interest) {
+		this.interest = interest;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public void setToAccount(Account to) {
+		this.toAccount = to;
+	}
+
+	public void setValue(BigDecimal value) {
+		this.value = value;
 	}
 
 }

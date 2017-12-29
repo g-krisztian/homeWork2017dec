@@ -17,11 +17,41 @@ public class Customer implements User {
 	private int id;
 	private String name;
 	@OneToMany
-	private List<Integer> accounts;
+	private List<Account> accounts;
+	private boolean active; 
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	@Override
+	public void addNewAccount(Account account) {
+		this.accounts.add(account);
+	}
+
+	@Override
+	public Account[] getAccounts() {
+		return accounts.toArray(new Account[accounts.size()]);
+
+	}
 
 	@Override
 	public int getId() {
 		return this.id;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
+	public void removeAccount(Account account) {
+		this.accounts.remove(account);
 	}
 
 	@Override
@@ -31,29 +61,8 @@ public class Customer implements User {
 	}
 
 	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
 	public void setName(String name) {
 		this.name = name;
-
-	}
-
-	@Override
-	public void addNewAccount(int accountId) {
-		this.accounts.add(accountId);
-	}
-
-	@Override
-	public void removeAccount(int accountId) {
-		this.accounts.remove(accountId);
-	}
-
-	@Override
-	public Account[] getAccounts() {
-		return accounts.toArray(new Account[accounts.size()]);
 
 	}
 

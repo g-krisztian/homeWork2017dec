@@ -3,20 +3,35 @@ package com.epam.training.homework.gk.bank.account.history;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 @Entity
 public class HistoryDao {
-	int transactionId;
-	protected BigDecimal balance;
+	@Id
+	@GeneratedValue
+	private int id;
+	private BigDecimal balance;
+	private TransferDao transferDao;
 
-	public HistoryDao(int transactionId, BigDecimal balance) {
-		this.transactionId = transactionId;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public HistoryDao(TransferDao transferDao, BigDecimal balance) {
+		this.transferDao = transferDao;
 		this.balance = balance;
 	}
 
 	@Override
 	public String toString() {
-		return "HistoryDao [transactionId=" + transactionId + ", balance=" + balance + "]";
+		return "HistoryDao [transferDao=" + transferDao + ", balance=" + balance + "]";
 	}
 
 }

@@ -8,9 +8,11 @@ import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 public interface Account extends Persist {
 
-	HistoryDao[] getHistory();
+	void change(TransferDao dao);
 
 	BigDecimal getBalance();
 
-	void change(TransferDao dao);
+	HistoryDao[] getHistory();
+
+	void setActive(boolean b);
 }

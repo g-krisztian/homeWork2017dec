@@ -9,14 +9,11 @@ public class LentToBank implements TransferStrategy {
 
 	@Override
 	public void doTransfer(TransferDao dao, Services service) {
-
 		Account toAccount = service.getAccountService().createAccount();
-		service.getBankService().addAccountToBank(toAccount.getId());
-		dao.setToAccountId(toAccount.getId());
+		dao.setToAccount(toAccount);
 		toAccount.change(dao);
-
-		Account fromAccount = service.getAccountService().getAccountById(dao.getFromAccountId());
 		dao.setValue(dao.getValue().negate());
+		Account fromAccount = dao.getFromAccount();
 		fromAccount.change(dao);
 	}
 
