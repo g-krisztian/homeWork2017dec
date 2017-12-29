@@ -2,6 +2,9 @@ package com.epam.training.homework.gk.bank.account.history;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+
+@Entity
 public class HistoryDao {
 	int transactionId;
 	protected BigDecimal balance;

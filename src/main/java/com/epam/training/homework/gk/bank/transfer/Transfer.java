@@ -2,7 +2,7 @@ package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
 
-import com.epam.training.homework.gk.bank.BankService;
+import com.epam.training.homework.gk.bank.services.Services;
 
 public class Transfer {
 
@@ -30,8 +30,8 @@ public class Transfer {
 		return this.dao.getValue();
 	}
 
-	public void doTransfer(BankService bankService) {
-		strategy.doTransfer(this.dao, bankService);
+	public void doTransfer(Services service) {
+		strategy.doTransfer(this.dao, service);
 
 		
 	}

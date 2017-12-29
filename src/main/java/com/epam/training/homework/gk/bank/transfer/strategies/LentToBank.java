@@ -1,21 +1,21 @@
 package com.epam.training.homework.gk.bank.transfer.strategies;
 
-import com.epam.training.homework.gk.bank.BankService;
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.services.Services;
 import com.epam.training.homework.gk.bank.transfer.TransferDao;
 import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 
 public class LentToBank implements TransferStrategy {
 
 	@Override
-	public void doTransfer(TransferDao dao, BankService bankService) {
+	public void doTransfer(TransferDao dao, Services service) {
 
-		Account toAccount = bankService.createAccount();
-		bankService.addAccountToBank(toAccount.getId());
+		Account toAccount = service.getAccountService().createAccount();
+		service.getBankService().addAccountToBank(toAccount.getId());
 		dao.setToAccountId(toAccount.getId());
 		toAccount.change(dao);
 
-		Account fromAccount = bankService.getAccountById(dao.getFromAccountId());
+		Account fromAccount = service.getAccountService().getAccountById(dao.getFromAccountId());
 		dao.setValue(dao.getValue().negate());
 		fromAccount.change(dao);
 	}
