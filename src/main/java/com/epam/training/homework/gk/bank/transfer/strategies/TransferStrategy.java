@@ -1,6 +1,8 @@
-package com.epam.training.homework.gk.bank.transfer;
+package com.epam.training.homework.gk.bank.transfer.strategies;
 
-import com.epam.training.homework.gk.bank.services.Services;
+import com.epam.training.homework.gk.bank.application.Services;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 public interface TransferStrategy {
 
@@ -16,8 +18,10 @@ public interface TransferStrategy {
 	//
 	// void borrowFromBank(Transaction transactionData);
 	//
+	// 	HistoryDao[] getHistory();
+
 	default Transfer copyDao(Transfer dao) {
-		Transfer newDao = new Transfer();
+		Transfer newDao = new TransferDao();
 		newDao.setDate(dao.getDate());
 		newDao.setFromAccount(dao.getFromAccount());
 		newDao.setInterest(dao.getInterest());

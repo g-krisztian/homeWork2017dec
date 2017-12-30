@@ -1,8 +1,7 @@
 package com.epam.training.homework.gk.bank.transfer.strategies;
 
-import com.epam.training.homework.gk.bank.services.Services;
+import com.epam.training.homework.gk.bank.application.Services;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
-import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 
 public class TakeMoneyOut implements TransferStrategy {
 
