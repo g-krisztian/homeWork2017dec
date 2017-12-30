@@ -7,18 +7,18 @@ import com.epam.training.homework.gk.bank.account.AccountDao;
 
 public class AccountServiceInMemory implements AccountService {
 
-	List<Account> allAccounts;
+	List<Account> accounts;
 
-	public AccountServiceInMemory(DataStoreInMemory datastore) {
-		this.allAccounts = datastore.getAccounts();
+	public AccountServiceInMemory(DataStore datastore) {
+		this.accounts = datastore.getAccounts();
 	}
 
 	@Override
 	public Account createAccount() {
 		Account account = new AccountDao();
-		account.setId(getMaxId(allAccounts) + 1);
+		account.setId(getMaxId(accounts) + 1);
 		account.setActive(true);
-		allAccounts.add(account);
+		accounts.add(account);
 		return account;
 	}
 
@@ -30,7 +30,7 @@ public class AccountServiceInMemory implements AccountService {
 	@Override
 	public Account getAccountById(int id) {
 		Account account = null;
-		for (Account a : allAccounts) {
+		for (Account a : accounts) {
 			if (a.getId() == id) {
 				account = a;
 				break;
@@ -41,7 +41,7 @@ public class AccountServiceInMemory implements AccountService {
 
 	@Override
 	public Account[] getAllAccounts() {
-		return allAccounts.toArray(new Account[allAccounts.size()]);
+		return accounts.toArray(new Account[accounts.size()]);
 	}
 
 	int getMaxId(List<? extends Persist> lst) {

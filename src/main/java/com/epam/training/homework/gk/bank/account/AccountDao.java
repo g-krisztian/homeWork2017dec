@@ -10,24 +10,30 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.epam.training.homework.gk.bank.account.history.HistoryDao;
-import com.epam.training.homework.gk.bank.transfer.TransferDao;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 @Entity
 public class AccountDao implements Account {
+
 	@Id
 	@GeneratedValue
 	private int id;
 	BigDecimal balance;
 	@OneToMany
-	List<HistoryDao> history = new ArrayList<>();
+	List<HistoryDao> history;
 	boolean active;
 
+	public AccountDao() {
+		active = true;
+		history = new ArrayList<>();
+		balance = new BigDecimal("0");
+	}
+
 	@Override
-	public void change(TransferDao dao) {
+	public void change(Transfer dao) {
 		BigDecimal balance = this.balance.add(dao.getValue());
 		this.history.add(new HistoryDao(dao, balance));
 		this.balance = balance;
-
 	}
 
 	@Override
@@ -59,4 +65,8 @@ public class AccountDao implements Account {
 		this.active = active;
 	}
 
+	@Override
+	public String toString() {
+		return "\nAccountDao [id=" + id + ", balance=" + balance + ", active=" + active + ",\n history=" + history + "]";
+	}
 }

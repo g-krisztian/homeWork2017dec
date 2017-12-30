@@ -3,26 +3,24 @@ package com.epam.training.homework.gk.bank.services;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.user.UserDao;
 import com.epam.training.homework.gk.bank.user.User;
-import com.epam.training.homework.gk.bank.user.customer.Customer;
 
 public class UserServiceInMemory implements UserService {
-	List<Account> userAccounts;
 	List<User> users;
 
-	public UserServiceInMemory(DataStoreInMemory datastore) {
+	public UserServiceInMemory(DataStore datastore) {
 		this.users = datastore.getUsers();
 	}
 
 	@Override
 	public void addAccountToUser(Account account, User user) {
 		user.addNewAccount(account);
-		userAccounts.add(account);
 	}
 
 	@Override
 	public User createUser(String name) {
-		User user = new Customer();
+		User user = new UserDao();
 		user.setName(name);
 		user.setId(getMaxId(users) + 1);
 		users.add(user);

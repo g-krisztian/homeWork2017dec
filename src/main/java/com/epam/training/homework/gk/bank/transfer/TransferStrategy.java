@@ -4,7 +4,7 @@ import com.epam.training.homework.gk.bank.services.Services;
 
 public interface TransferStrategy {
 
-	void doTransfer(TransferDao dao, Services service);
+	void doTransfer(Transfer dao, Services service);
 
 	// void putMoney(Transaction transactionData);
 	//
@@ -16,5 +16,17 @@ public interface TransferStrategy {
 	//
 	// void borrowFromBank(Transaction transactionData);
 	//
+	default Transfer copyDao(Transfer dao) {
+		Transfer newDao = new Transfer();
+		newDao.setDate(dao.getDate());
+		newDao.setFromAccount(dao.getFromAccount());
+		newDao.setInterest(dao.getInterest());
+		newDao.setReason(dao.getReason());
+		newDao.setService(dao.getService());
+		newDao.setStrategy(dao.getStrategy());
+		newDao.setToAccount(dao.getToAccount());
+		newDao.setValue(dao.getValue());
+		return newDao;
+	}
 
 }

@@ -16,5 +16,8 @@ public interface User extends Persist {
 	void setName(String name);
 
 	void setActive(boolean b);
+	
+	@Override
+	String toString();
 
 }

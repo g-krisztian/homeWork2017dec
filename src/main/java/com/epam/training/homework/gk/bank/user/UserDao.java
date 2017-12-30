@@ -1,5 +1,6 @@
-package com.epam.training.homework.gk.bank.user.customer;
+package com.epam.training.homework.gk.bank.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,17 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.user.User;
 
 @Entity
-public class Customer implements User {
+public class UserDao implements User {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
 	@OneToMany
 	private List<Account> accounts;
-	private boolean active; 
+	private boolean active;
+
+	public UserDao() {
+		accounts = new ArrayList<Account>();
+		active = true;
+	}
 
 	public boolean isActive() {
 		return active;
@@ -64,6 +69,11 @@ public class Customer implements User {
 	public void setName(String name) {
 		this.name = name;
 
+	}
+
+	@Override
+	public String toString() {
+		return "\nUserDao [id=" + id + ", name=" + name + ", active=" + active + ",\n accounts=" + accounts + "]";
 	}
 
 }
