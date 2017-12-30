@@ -11,7 +11,7 @@ import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 @Entity
-public class AccountDao implements Account, Persist{
+public class AccountDao implements Account, Persist {
 
 	@Id
 	@GeneratedValue
@@ -35,7 +35,6 @@ public class AccountDao implements Account, Persist{
 	public BigDecimal getBalance() {
 		return this.balance;
 	}
-
 
 	@Override
 	public int getId() {

@@ -4,49 +4,49 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.epam.training.homework.gk.bank.Persist;
+import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.application.Services;
-import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public interface Transfer extends Persist {
 
-	Date getDate();
-
 	TransferStrategy getStrategy();
 
-	void setStrategy(TransferStrategy strategy);
+	Transfer setStrategy(TransferStrategy strategy);
 
 	Services getService();
 
-	void setService(Services service);
+	Transfer setService(Services service);
 
 	Account getFromAccount();
 
-	BigDecimal getInterest();
+	Transfer setFrom(Account from);
+
+	Account getTo();
+
+	Transfer setTo(Account account);
+
+	Transfer setReason(String reason);
 
 	String getReason();
 
-	Account getToAccount();
-
 	BigDecimal getValue();
 
-	void setDate(Date date);
+	Transfer setValue(BigDecimal value);
 
-	void setFromAccount(Account from);
+	BigDecimal getInterest();
 
-	void setInterest(BigDecimal interest);
+	Transfer setInterest(BigDecimal interest);
 
-	void setReason(String reason);
+	Date getDate();
 
-	void setToAccount(Account to);
-
-	void setValue(BigDecimal value);
-	
-	History[] getHistory(Account account);
+	Transfer setDate(Date date);
 
 	void doTransfer();
 
+	Transfer build();
+
 	String toString();
+
 
 }

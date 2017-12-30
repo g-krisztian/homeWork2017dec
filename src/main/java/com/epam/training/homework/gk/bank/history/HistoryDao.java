@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 @Entity
@@ -14,7 +15,7 @@ public class HistoryDao implements History {
 	@GeneratedValue
 	private int id;
 	private BigDecimal balance;
-	private Transfer dao;
+	private Transfer transfer;
 
 	@Override
 	public int getId() {
@@ -26,8 +27,8 @@ public class HistoryDao implements History {
 		this.id = id;
 	}
 
-	public HistoryDao(Transfer transferDao, BigDecimal balance) {
-		this.dao = transferDao;
+	public HistoryDao(Transfer transfer, BigDecimal balance) {
+		this.transfer = transfer;
 		this.balance = balance;
 	}
 
@@ -39,8 +40,8 @@ public class HistoryDao implements History {
 		builder.append(id);
 		builder.append(", balance=");
 		builder.append(balance);
-		builder.append(", transferDao=");
-		builder.append(dao);
+		builder.append(", transfer=");
+		builder.append(transfer);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -56,19 +57,19 @@ public class HistoryDao implements History {
 	}
 
 	@Override
-	public Transfer getDao() {
-		return dao;
-	}
-
-	@Override
-	public void setDao(Transfer dao) {
-		this.dao = dao;
-	}
-
-	@Override
 	public void setActive(boolean b) {
-	
 
+	}
+
+
+	@Override
+	public Account getToAccount() {
+		return this.transfer.getTo();
+	}
+
+	@Override
+	public Account getFromAccount() {
+		return this.transfer.getFromAccount();
 	}
 
 }

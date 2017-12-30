@@ -3,7 +3,7 @@ package com.epam.training.homework.gk.bank.history;
 import java.math.BigDecimal;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.account.Account;
 
 public interface History extends Persist{
 
@@ -17,8 +17,8 @@ public interface History extends Persist{
 
 	void setBalance(BigDecimal balance);
 
-	Transfer getDao();
+	Account getFromAccount();
 
-	void setDao(Transfer dao);
+	Account getToAccount();
 
 }
