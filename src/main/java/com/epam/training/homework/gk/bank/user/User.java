@@ -1,7 +1,11 @@
 package com.epam.training.homework.gk.bank.user;
 
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
+
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
+
 
 public interface User extends Persist {
 

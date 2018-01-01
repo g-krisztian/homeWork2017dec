@@ -7,12 +7,13 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public interface Account extends Persist {
 
+	
 	void change(Transfer dao);
 
 	BigDecimal getBalance();
 
 	void setActive(boolean b);
-	
+
 	@Override
 	String toString();
 }

@@ -3,18 +3,31 @@ package com.epam.training.homework.gk.bank.transfer;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.account.AccountDaoPersist;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
-
+@Entity
 public class TransferDao implements Transfer, Persist {
+	@Id
+	@GeneratedValue
 	Long id;
 	boolean active;
+	@Transient
 	TransferStrategy strategy;
+	@Transient
 	private Services service;
-	private Account fromAccount;
-	private Account toAccount;
+	@ManyToOne
+	private AccountDaoPersist fromAccount;
+	@ManyToOne
+	private AccountDaoPersist toAccount;
 	private String reason;
 	private BigDecimal value;
 	private BigDecimal interest;
@@ -66,7 +79,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setFrom(Account from) {
-		this.fromAccount = from;
+		this.fromAccount = (AccountDaoPersist) from;
 		return this;
 	}
 
@@ -77,7 +90,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setTo(Account account) {
-		this.toAccount = account;
+		this.toAccount = (AccountDaoPersist) account;
 		return this;
 	}
 

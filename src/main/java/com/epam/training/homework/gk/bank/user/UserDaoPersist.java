@@ -6,20 +6,26 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.account.AccountDaoPersist;
 
-
-public class UserDao implements User {
-
+@Entity
+public class UserDaoPersist implements User {
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
-
-	private List<Account> accounts;
 	private boolean active;
 	
-	public UserDao() {
-		accounts = new ArrayList<Account>();
+	@OneToMany 
+	@JoinColumn(name="id")
+	private List<AccountDaoPersist> accounts;
+	
+	public UserDaoPersist() {
+		accounts = new ArrayList<AccountDaoPersist>();
 		active = true;
 	}
 
@@ -33,7 +39,7 @@ public class UserDao implements User {
 
 	@Override
 	public void addNewAccount(Account account) {
-		this.accounts.add(account);
+		this.accounts.add((AccountDaoPersist) account);
 	}
 
 	@Override

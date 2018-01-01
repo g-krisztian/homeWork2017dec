@@ -2,15 +2,23 @@ package com.epam.training.homework.gk.bank.history;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
-
+@Entity
 public class HistoryDao implements History {
-
+	@Id
+	@GeneratedValue
 	private Long  id;
 	private BigDecimal balance;
-	private Transfer transfer;
+	@OneToOne
+	private TransferDao transfer;
 
 	@Override
 	public Long getId() {
@@ -23,7 +31,7 @@ public class HistoryDao implements History {
 	}
 
 	public HistoryDao(Transfer transfer, BigDecimal balance) {
-		this.transfer = transfer;
+		this.transfer = (TransferDao) transfer;
 		this.balance = balance;
 	}
 
