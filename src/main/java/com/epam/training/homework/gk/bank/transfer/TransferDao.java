@@ -9,7 +9,7 @@ import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public class TransferDao implements Transfer, Persist {
-	int id;
+	Long id;
 	boolean active;
 	TransferStrategy strategy;
 	private Services service;
@@ -21,12 +21,12 @@ public class TransferDao implements Transfer, Persist {
 	private Date date;
 
 	@Override
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -142,7 +142,7 @@ public class TransferDao implements Transfer, Persist {
 	@Override
     public String toString() {
             StringBuilder builder = new StringBuilder();
-            if ((Integer) id != null)
+            if (id != null)
                     builder.append("Transfer [id=").append(id);
             if (fromAccount != null)
                     builder.append(", fromAccount=").append(fromAccount.getId());

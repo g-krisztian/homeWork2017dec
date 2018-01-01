@@ -21,7 +21,7 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	}
 
 	@Override
-	public Transfer getById(int id) {
+	public Transfer getById(Long id) {
 		Transfer transfer = null;
 		for (Transfer t : transfers) {
 			if (t.getId() == id) {
@@ -49,7 +49,7 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	}
 
 	@Override
-	public Transfer setId(int id) {
+	public Transfer setId(Long id) {
 		selfBuild.setId(id);
 		return selfBuild;
 	}

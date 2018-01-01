@@ -2,22 +2,14 @@ package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 
-@Entity
+
 public class AccountDao implements Account, Persist {
 
-	@Id
-	@GeneratedValue
-	private int id;
+	private Long id;
 	BigDecimal balance;
-	@OneToMany
 	boolean active;
 
 	public AccountDao() {
@@ -37,12 +29,12 @@ public class AccountDao implements Account, Persist {
 	}
 
 	@Override
-	public int getId() {
+	public Long  getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

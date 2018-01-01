@@ -2,9 +2,9 @@ package com.epam.training.homework.gk.bank;
 
 public interface Persist {
 
-	int getId();
+	Long getId();
 
-	void setId(int id);
+	void setId(Long id);
 	
 	void setActive(boolean b);
 

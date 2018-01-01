@@ -23,7 +23,7 @@ import com.epam.training.homework.gk.bank.user.User;
 import com.epam.training.homework.gk.bank.user.UserService;
 import com.epam.training.homework.gk.bank.user.UserServiceInMemory;
 
-public class Application {
+public class InMemoryApplication {
 	public static void main(String[] args) {
 		List<User> users = new ArrayList<>();
 		List<Account> accounts = new ArrayList<>();

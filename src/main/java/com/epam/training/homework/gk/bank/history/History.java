@@ -7,9 +7,9 @@ import com.epam.training.homework.gk.bank.account.Account;
 
 public interface History extends Persist{
 
-	int getId();
+	Long getId();
 
-	void setId(int id);
+	void setId(Long id);
 
 	String toString();
 

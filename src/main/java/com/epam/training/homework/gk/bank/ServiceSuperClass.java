@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ServiceSuperClass {
 
-	protected int getMaxId(List<? extends Persist> lst) {
-		int max = 0;
+	protected Long getMaxId(List<? extends Persist> lst) {
+		Long max = 0L;
 		for (Persist p : lst) {
 			if (max < p.getId()) {
 				max = p.getId();

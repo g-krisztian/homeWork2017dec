@@ -9,7 +9,7 @@ public interface TransferService {
 
 	Transfer create();
 
-	Transfer getById(int id);
+	Transfer getById(Long id);
 
 	Transfer[] getAll();
 	
@@ -17,7 +17,7 @@ public interface TransferService {
 
 	Transfer setFrom(Account from);
 
-	Transfer setId(int id);
+	Transfer setId(Long id);
 
 	Transfer setInterest(BigDecimal interest);
 

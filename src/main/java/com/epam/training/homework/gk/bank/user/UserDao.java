@@ -3,20 +3,14 @@ package com.epam.training.homework.gk.bank.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.epam.training.homework.gk.bank.account.Account;
 
-@Entity
+
 public class UserDao implements User {
-	@Id
-	@GeneratedValue
-	private int id;
+
+	private Long id;
 	private String name;
-	@OneToMany
+
 	private List<Account> accounts;
 	private boolean active;
 
@@ -45,7 +39,7 @@ public class UserDao implements User {
 	}
 
 	@Override
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -60,7 +54,7 @@ public class UserDao implements User {
 	}
 
 	@Override
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 
 	}
