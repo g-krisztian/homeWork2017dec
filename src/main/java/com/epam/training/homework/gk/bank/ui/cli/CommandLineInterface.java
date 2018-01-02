@@ -3,9 +3,6 @@ package com.epam.training.homework.gk.bank.ui.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
 import com.epam.training.homework.gk.bank.history.History;
@@ -46,7 +43,8 @@ public class CommandLineInterface implements UserInterface {
 			for (User user : users) {
 				prompt.append(user);
 			}
-			prompt.append("\n");
+			prompt.append("\ntype 'quit' for exit");
+			
 
 			System.out.println(prompt);
 			command = br.readLine();
@@ -54,6 +52,7 @@ public class CommandLineInterface implements UserInterface {
 			if (command.equals("new")) {
 				prompt.setLength(0);
 				prompt.append("Add name to user:");
+				System.out.println(prompt);
 				String name = br.readLine();
 				facade.addUser(name);
 			} else {
@@ -67,7 +66,6 @@ public class CommandLineInterface implements UserInterface {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -79,12 +77,12 @@ public class CommandLineInterface implements UserInterface {
 			prompt.setLength(0);
 			prompt.append("Selected user: ");
 			prompt.append(user);
-			prompt.append("Select account by Id, or type 'new' for add a new one:");
+			prompt.append("\nSelect account by Id, or type 'new' for add a new one:");
 			for (Account account : accounts) {
 				prompt.append("\n");
 				prompt.append(account);
 			}
-			prompt.append("or type 'exit' to select new user");
+			prompt.append("\nor type 'exit' to select new user");
 
 			System.out.println(prompt);
 
@@ -109,8 +107,9 @@ public class CommandLineInterface implements UserInterface {
 		} while (!command.toLowerCase().equals("exit"));
 	}
 
-	private void transactionMenu(Account accountById) {
-		// TODO Auto-generated method stub
+	private void transactionMenu(Account account) {
+		System.out.println("transaction level reached");
+		
 
 	}
 

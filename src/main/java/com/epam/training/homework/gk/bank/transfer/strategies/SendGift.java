@@ -2,7 +2,6 @@ package com.epam.training.homework.gk.bank.transfer.strategies;
 
 import java.math.BigDecimal;
 
-import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.history.HistoryService;

@@ -1,6 +1,5 @@
 package com.epam.training.homework.gk.bank.transfer.strategies;
 
-import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 

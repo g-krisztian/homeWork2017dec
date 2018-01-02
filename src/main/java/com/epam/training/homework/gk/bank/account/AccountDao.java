@@ -59,7 +59,7 @@ public class AccountDao implements Account, Persist {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AccountDao [id=");
+		builder.append("Account [id=");
 		builder.append(id);
 		builder.append(", balance=");
 		builder.append(balance);
