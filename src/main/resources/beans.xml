@@ -8,17 +8,17 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-
-
-
 	<util:list id="accounts"
 		value-type="com.epam.training.homework.gk.bank.account.Account">
 	</util:list>
+
 	<util:list id="users" value-type="com.epam.training.homework.gk.bank.user.User">
+
 	</util:list>
 	<util:list id="transfers"
 		value-type="com.epam.training.homework.gk.bank.transfer.Transfer">
 	</util:list>
+
 	<util:list id="history"
 		value-type="com.epam.training.homework.gk.bank.history.History">
 	</util:list>

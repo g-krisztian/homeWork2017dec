@@ -10,7 +10,6 @@ public class HistoryDao implements History {
 
 	private Long  id;
 	private BigDecimal balance;
-
 	private TransferDao transfer;
 
 	@Override

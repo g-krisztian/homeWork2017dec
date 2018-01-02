@@ -15,17 +15,6 @@ public interface TransferStrategy {
 
 	Map<String, Boolean> getFiledsInUse();
 
-	// void putMoney(Transaction transactionData);
-	//
-	// void takeOutMoney(Transaction transactionData);
-	//
-	// void sendGift(Transaction transactionData);
-	//
-	// void lentToBank(Transaction transactionData);
-	//
-	// void borrowFromBank(Transaction transactionData);
-
-
 
 	enum Strategies implements TransferStrategy {
 		BorrowFromBank {
@@ -34,6 +23,7 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				Account fromAccount = dao.getService().getAccountService().create();
 				dao.setFrom(fromAccount);
+				dao.setInterest(BigDecimal.valueOf(2));
 				Account toAccount = dao.getTo();
 				toAccount.change(dao);
 
@@ -59,6 +49,7 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				Account toAccount = dao.getService().getAccountService().create();
 				dao.setTo(toAccount);
+				dao.setInterest(BigDecimal.valueOf(1));
 				toAccount.change(dao);
 				dao.setValue(dao.getValue().negate());
 				Account fromAccount = dao.getFromAccount();
@@ -83,8 +74,9 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				dao.getTo().change(dao);
 				BigDecimal balance = dao.getTo().getBalance();
-				History history = dao.getHistoryService().create(dao, balance);
-				dao.getHistoryService().store(history);
+				HistoryService hs = dao.getHistoryService();
+				History history = hs.create(dao, balance);
+				hs.store(history);
 			}
 
 			@Override

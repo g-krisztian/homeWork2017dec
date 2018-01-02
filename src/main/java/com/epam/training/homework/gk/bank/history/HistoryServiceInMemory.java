@@ -11,11 +11,11 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public class HistoryServiceInMemory extends ServiceSuperClass implements HistoryService {
 	List<History> history;
-	
+
 	public HistoryServiceInMemory(DataStore datastore) {
 		this.history = datastore.getHistory();
 	}
-	
+
 	@Override
 	public History[] getWhere(Account account) {
 		List<History> toReturn = new ArrayList<>();
@@ -56,8 +56,10 @@ public class HistoryServiceInMemory extends ServiceSuperClass implements History
 
 	@Override
 	public History create(Transfer transfer, BigDecimal balance) {
+		transfer.setHistoryService(this);
 		History h = new HistoryDao(transfer, balance);
 		h.setId(getMaxId(this.history) + 1);
 		return h;
 	}
+
 }

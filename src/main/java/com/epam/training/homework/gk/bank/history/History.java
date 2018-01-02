@@ -5,13 +5,11 @@ import java.math.BigDecimal;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
 
-public interface History extends Persist{
+public interface History extends Persist {
 
 	Long getId();
 
 	void setId(Long id);
-
-	String toString();
 
 	BigDecimal getBalance();
 
@@ -20,5 +18,8 @@ public interface History extends Persist{
 	Account getFromAccount();
 
 	Account getToAccount();
+	
+	@Override
+	String toString();
 
 }

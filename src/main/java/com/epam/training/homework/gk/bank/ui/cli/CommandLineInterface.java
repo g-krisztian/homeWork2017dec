@@ -3,7 +3,8 @@ package com.epam.training.homework.gk.bank.ui.cli;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Date;
-
+import java.util.Iterator;
+import java.util.Map;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
 import com.epam.training.homework.gk.bank.history.History;
@@ -82,9 +83,9 @@ public class CommandLineInterface implements UserInterface {
 		do {
 			try {
 
-				Account[] accounts = facade.listAllAccounts(user);
+				Account[] accounts = facade.listUserAccounts(user);
 
-				accountSelectionPrompt(user, accounts);
+				accountSelectionPrompt(accounts);
 
 				command = br.readLine();
 				if (command.equals("new")) {
@@ -145,14 +146,51 @@ public class CommandLineInterface implements UserInterface {
 					System.out.println(strategies[strategyId]);
 
 					Transfer dao = facade.addTransfer();
+
 					dao.setStrategy(strategy);
 					dao.setDate(new Date());
-					
-					
-					
-					
-					
-					strategies[strategyId].doTransfer(dao);
+
+					Map<String, Boolean> filedsInUse = strategy.getFiledsInUse();
+
+					Iterator it = filedsInUse.entrySet().iterator();
+					while (it.hasNext()) {
+						Map.Entry field = (Map.Entry) it.next();
+						if ((boolean) field.getValue()) {
+							switch ((String) field.getKey()) {
+							case "fromAccount": {
+								System.out.print("From which account? : ");
+								command = br.readLine();
+								Long id = idFromCommand();
+								Account from = facade.getAccountById(id);
+								dao.setFrom(from);
+							}
+								break;
+							case "toAccount": {
+								System.out.print("To which account? : ");
+								command = br.readLine();
+								Long id = idFromCommand();
+								Account to = facade.getAccountById(id);
+								dao.setTo(to);
+							}
+								break;
+							case "reason": {
+								System.out.print("What reason? : ");
+								command = br.readLine();
+								dao.setReason(command);
+							}
+
+								break;
+							case "value": {
+								System.out.print("What amount? : ");
+								command = br.readLine();
+								Long value = idFromCommand();
+								dao.setValue(value);
+							}
+							}
+						}
+					}
+
+					facade.doTransfer(dao);
 
 				}
 			} catch (Exception e) {
@@ -166,30 +204,39 @@ public class CommandLineInterface implements UserInterface {
 
 		do {
 			try {
-				History[] history = null;
 				historyPrompt(account);
 				command = br.readLine();
 				if (command.toLowerCase().equals("full")) {
-					history = facade.listHistory(account);
+					
+					History[] history = facade.listHistory(account);
+					printHistory(history);
 				} else if (command.toLowerCase().equals("to")) {
-					history = facade.listHistoryTo(account);
+					History[] history = facade.listHistoryTo(account);
+					printHistory(history);
+
 				} else if (command.toLowerCase().equals("from")) {
-					history = facade.listHistoryFrom(account);
+					History[] history = facade.listHistoryFrom(account);
+					printHistory(history);
 				}
 
-				if (history != null) {
-					if (history.length > 0) {
-						System.out.println(history);
-					} else {
-						System.out.print("There is no history record for account\n");
-					}
-				}
 
 			} catch (Exception e) {
 
 			}
 		} while (!command.toLowerCase().equals("exit"));
 		command = "";
+	}
+
+	private void printHistory(History[] history) {
+		if (history != null) {
+			if (history.length > 0) {
+				for (History history2 : history) {
+					System.out.println(history2);
+				}
+			} else {
+				System.out.print("There is no history record for account\n");
+			}
+		}
 	}
 
 	private void historyPrompt(Account account) {
@@ -219,10 +266,8 @@ public class CommandLineInterface implements UserInterface {
 		System.out.println(prompt);
 	}
 
-	private void accountSelectionPrompt(User user, Account[] accounts) {
+	private void accountSelectionPrompt(Account[] accounts) {
 		prompt.setLength(0);
-		prompt.append("Selected user: ");
-		prompt.append(user);
 		prompt.append("\n\nSelect account by Id, or type 'new' for add a new one:");
 		for (Account account : accounts) {
 			prompt.append("\n");

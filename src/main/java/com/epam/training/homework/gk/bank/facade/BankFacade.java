@@ -49,10 +49,16 @@ public class BankFacade implements Facade {
 
 		return service.getAccountService().getById(id);
 	}
+	
 
 	@Override
 	public void removeAccount(Account account) {
 		service.getAccountService().delete(account);
+	}
+
+	@Override
+	public Account[] listUserAccounts(User user) {
+		return service.getUserService().getAccounts(user);
 	}
 
 	@Override
@@ -74,6 +80,7 @@ public class BankFacade implements Facade {
 
 	@Override
 	public void doTransfer(Transfer transfer) {
+		System.out.println("do transfer" + transfer);
 		transfer.doTransfer();
 	}
 

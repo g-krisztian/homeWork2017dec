@@ -16,6 +16,7 @@ public interface Facade {
 	Account addAccount(User user);
 	Account getAccountById(Long id);
 	void removeAccount(Account account);
+	Account[] listUserAccounts(User user);
 	Account[] listAllAccounts(User user);
 	
 	TransferStrategy[] listAllStrategies();

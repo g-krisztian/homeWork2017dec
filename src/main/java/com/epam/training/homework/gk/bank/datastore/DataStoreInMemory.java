@@ -39,7 +39,6 @@ public class DataStoreInMemory implements DataStore {
 
 	@Override
 	public List<History> getHistory() {
-
 		return history;
 	}
 

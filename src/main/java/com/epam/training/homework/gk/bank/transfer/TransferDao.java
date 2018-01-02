@@ -9,9 +9,22 @@ import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.HistoryService;
 
 public class TransferDao implements Transfer, Persist {
-	
-	
+
+	Long id;
+	boolean active;
+
+	TransferStrategy strategy;
+
+	private Services service;
 	private HistoryService historyService;
+
+	private Account fromAccount;
+
+	private Account toAccount;
+	private String reason;
+	private BigDecimal value;
+	private BigDecimal interest;
+	private Date date;
 
 	public TransferDao() {
 
@@ -20,21 +33,9 @@ public class TransferDao implements Transfer, Persist {
 	public TransferDao(HistoryService historyService) {
 		this.historyService = historyService;
 	}
-
-	Long id;
-	boolean active;
-	
-	TransferStrategy strategy;
-	
-	private Services service;
-	
-	private Account fromAccount;
-	
-	private Account toAccount;
-	private String reason;
-	private BigDecimal value;
-	private BigDecimal interest;
-	private Date date;
+	public TransferDao(Services service) {
+		this.historyService = service.getHistoryService();
+	}
 
 	@Override
 	public Long getId() {
@@ -71,7 +72,7 @@ public class TransferDao implements Transfer, Persist {
 	@Override
 	public Transfer setService(Services service) {
 		this.service = service;
-		this.historyService=service.getHistoryService();
+		this.historyService = service.getHistoryService();
 		return this;
 	}
 
@@ -82,7 +83,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setFrom(Account from) {
-		this.fromAccount =  from;
+		this.fromAccount = from;
 		return this;
 	}
 
@@ -99,7 +100,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setReason(String reason) {
-		this.reason=reason;
+		this.reason = reason;
 		return this;
 	}
 
@@ -113,6 +114,7 @@ public class TransferDao implements Transfer, Persist {
 
 		return this.value;
 	}
+
 	@Override
 	public Transfer setValue(double i) {
 		this.setValue(BigDecimal.valueOf(i));
@@ -121,7 +123,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setValue(BigDecimal value) {
-		this.value=value;
+		this.value = value;
 		return this;
 	}
 
@@ -132,7 +134,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setInterest(BigDecimal interest) {
-		this.interest=interest;
+		this.interest = interest;
 		return this;
 	}
 
@@ -143,10 +145,9 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer setDate(Date date) {
-		this.date=date;
+		this.date = date;
 		return this;
 	}
-
 
 	@Override
 	public void doTransfer() {
@@ -156,43 +157,39 @@ public class TransferDao implements Transfer, Persist {
 	@Override
 	public Transfer build() {
 
-		
 		return this;
 	}
-	
+
 	@Override
-    public String toString() {
-            StringBuilder builder = new StringBuilder();
-            if (id != null)
-                    builder.append("Transfer [id=").append(id);
-            if (fromAccount != null)
-                    builder.append(", fromAccount=").append(fromAccount.getId());
-            if (toAccount != null)
-                    builder.append(", toAccount=").append(toAccount.getId());
-            if (reason != null)
-                    builder.append(", reason=").append(reason);
-            if (value != null)
-                    builder.append(", value=").append(value);
-            if (interest != null)
-                    builder.append(", interest=").append(interest);
-            if (date != null)
-                    builder.append(", date=").append(date);
-            if (strategy != null)
-                    builder.append(", strategy=").append(strategy);
-            
-            builder.append("]");
-            return builder.toString();
-    }
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		if (id != null)
+			builder.append("Transfer [id=").append(id);
+		if (fromAccount != null)
+			builder.append(", fromAccount=").append(fromAccount.getId());
+		if (toAccount != null)
+			builder.append(", toAccount=").append(toAccount.getId());
+		if (reason != null)
+			builder.append(", reason=").append(reason);
+		if (value != null)
+			builder.append(", value=").append(value);
+		if (interest != null)
+			builder.append(", interest=").append(interest);
+		if (date != null)
+			builder.append(", date=").append(date);
+		if (strategy != null)
+			builder.append(", strategy=").append(strategy);
+
+		builder.append("]");
+		return builder.toString();
+	}
 
 	public HistoryService getHistoryService() {
-		return historyService;
+		return this.historyService;
 	}
 
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
 	}
-
-	
-
 
 }

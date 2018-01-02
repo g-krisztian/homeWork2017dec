@@ -38,6 +38,11 @@ public class UserServiceInMemory extends ServiceSuperClass implements UserServic
 	}
 
 	@Override
+	public Account[] getAccounts(User user) {
+		return user.getAccounts();
+	}
+
+	@Override
 	public User getById(Long id) {
 		User nuser = null;
 		for (User user : users) {
