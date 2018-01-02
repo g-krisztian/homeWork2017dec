@@ -3,6 +3,7 @@ package com.epam.training.homework.gk.bank.facade;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.user.User;
 
 public interface Facade {
@@ -17,9 +18,12 @@ public interface Facade {
 	void removeAccount(Account account);
 	Account[] listAllAccounts(User user);
 	
+	TransferStrategy[] listAllStrategies();
 	Transfer addTransfer();
 	void doTransfer(Transfer transfer);
-	History[] getHistory(Account account);
-	History[] getHistoryFrom(Account account);
-	History[] getHistoryTo(Account account);
+	
+	
+	History[] listHistory(Account account);
+	History[] listHistoryFrom(Account account);
+	History[] listHistoryTo(Account account);
 }

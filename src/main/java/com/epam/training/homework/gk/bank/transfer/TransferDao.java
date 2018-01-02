@@ -7,7 +7,6 @@ import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.HistoryService;
-import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public class TransferDao implements Transfer, Persist {
 	
@@ -180,8 +179,7 @@ public class TransferDao implements Transfer, Persist {
                     builder.append(", date=").append(date);
             if (strategy != null)
                     builder.append(", strategy=").append(strategy);
-            if (service != null)
-                    builder.append(", service=").append(service);
+            
             builder.append("]");
             return builder.toString();
     }

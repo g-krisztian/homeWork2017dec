@@ -7,7 +7,6 @@ import com.epam.training.homework.gk.bank.ServiceSuperClass;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 import com.epam.training.homework.gk.bank.history.HistoryService;
-import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public class TransferServiceInMemory extends ServiceSuperClass implements TransferService {
 	Transfer selfBuild;
@@ -82,6 +81,11 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	public Transfer setStrategy(TransferStrategy strategy) {
 		selfBuild.setStrategy(strategy);
 		return selfBuild;
+	}
+	
+	@Override
+	public TransferStrategy[] getAllStrategies() {
+		return TransferStrategy.Strategies.values();
 	}
 
 	@Override

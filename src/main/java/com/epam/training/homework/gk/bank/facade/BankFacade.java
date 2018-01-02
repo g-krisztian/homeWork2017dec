@@ -4,6 +4,7 @@ import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.user.User;
 
 public class BankFacade implements Facade {
@@ -19,7 +20,7 @@ public class BankFacade implements Facade {
 	public User addUser(String name) {
 		return service.getUserService().create(name);
 	}
-	
+
 	@Override
 	public User getUserById(Long id) {
 		return service.getUserService().getById(id);
@@ -42,10 +43,10 @@ public class BankFacade implements Facade {
 		service.getUserService().addAccountToUser(account, user);
 		return account;
 	}
-	
+
 	@Override
 	public Account getAccountById(Long id) {
-	
+
 		return service.getAccountService().getById(id);
 	}
 
@@ -61,6 +62,11 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
+	public TransferStrategy[] listAllStrategies() {
+		return service.getTransferService().getAllStrategies();
+	}
+
+	@Override
 	public Transfer addTransfer() {
 		return service.getTransferService().create(service.getHistoryService());
 
@@ -72,17 +78,17 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public History[] getHistory(Account account) {
+	public History[] listHistory(Account account) {
 		return service.getHistoryService().getWhere(account);
 	}
 
 	@Override
-	public History[] getHistoryFrom(Account account) {
+	public History[] listHistoryFrom(Account account) {
 		return service.getHistoryService().getWhereFrom(account);
 	}
 
 	@Override
-	public History[] getHistoryTo(Account account) {
+	public History[] listHistoryTo(Account account) {
 		return service.getHistoryService().getWhereTo(account);
 	}
 }

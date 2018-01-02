@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.HistoryService;
-import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public interface TransferService {
 
@@ -31,5 +30,7 @@ public interface TransferService {
 	Transfer setValue(BigDecimal value);
 
 	Transfer setStrategy(TransferStrategy strategy);
+
+	TransferStrategy[] getAllStrategies();
 
 }

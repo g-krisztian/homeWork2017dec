@@ -7,7 +7,6 @@ import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.HistoryService;
-import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public interface Transfer extends Persist {
 
