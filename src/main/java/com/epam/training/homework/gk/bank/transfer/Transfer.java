@@ -6,6 +6,7 @@ import java.util.Date;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.history.HistoryService;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public interface Transfer extends Persist {
@@ -47,6 +48,12 @@ public interface Transfer extends Persist {
 	Transfer build();
 
 	String toString();
+
+	Transfer setValue(double i);
+	
+	HistoryService getHistoryService();
+	
+	void setHistoryService(HistoryService historyService);
 
 
 }

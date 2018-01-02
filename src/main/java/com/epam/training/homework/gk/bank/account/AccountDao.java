@@ -5,16 +5,17 @@ import java.math.BigDecimal;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 
-
 public class AccountDao implements Account, Persist {
 
 	private Long id;
 	BigDecimal balance;
+	BigDecimal interest;
 	boolean active;
 
 	public AccountDao() {
 		active = true;
 		balance = new BigDecimal("0");
+		interest = BigDecimal.ZERO;
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class AccountDao implements Account, Persist {
 	}
 
 	@Override
-	public Long  getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -47,8 +48,28 @@ public class AccountDao implements Account, Persist {
 		this.active = active;
 	}
 
+	public BigDecimal getInterest() {
+		return interest;
+	}
+
+	public void setInterest(BigDecimal interest) {
+		this.interest = interest;
+	}
+
 	@Override
 	public String toString() {
-		return "\nAccountDao [id=" + id + ", balance=" + balance + ", active=" + active + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("AccountDao [id=");
+		builder.append(id);
+		builder.append(", balance=");
+		builder.append(balance);
+		builder.append(", interest=");
+		builder.append(interest);
+		builder.append(", active=");
+		builder.append(active);
+		builder.append("]");
+		return builder.toString();
 	}
+	
+	
 }

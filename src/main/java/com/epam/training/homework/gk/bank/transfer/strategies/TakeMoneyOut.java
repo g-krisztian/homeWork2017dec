@@ -9,12 +9,12 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 public class TakeMoneyOut implements TransferStrategy {
 
 	@Override
-	public void doTransfer(Transfer dao, Services service) {
+	public void doTransfer(Transfer dao) {
 		dao.setValue(dao.getValue().negate());
 		dao.getFromAccount().change(dao);
 		BigDecimal balance = dao.getFromAccount().getBalance();
-		History history = service.getHistoryService().create(dao, balance);
-		service.getHistoryService().store(history);
+		History history = dao.getService().getHistoryService().create(dao, balance);
+		dao.getService().getHistoryService().store(history);
 		
 		
 	}

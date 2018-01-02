@@ -7,8 +7,8 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 public class LentToBank implements TransferStrategy {
 
 	@Override
-	public void doTransfer(Transfer dao, Services service) {
-		Account toAccount = service.getAccountService().create();
+	public void doTransfer(Transfer dao) {
+		Account toAccount = dao.getService().getAccountService().create();
 		dao.setTo(toAccount);
 		toAccount.change(dao);
 		dao.setValue(dao.getValue().negate());

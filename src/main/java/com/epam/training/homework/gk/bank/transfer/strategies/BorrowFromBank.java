@@ -1,14 +1,13 @@
 package com.epam.training.homework.gk.bank.transfer.strategies;
 
-import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public class BorrowFromBank implements TransferStrategy {
 
 	@Override
-	public void doTransfer(Transfer dao, Services service) {
-		Account fromAccount = service.getAccountService().create();
+	public void doTransfer(Transfer dao) {
+		Account fromAccount = dao.getService().getAccountService().create();
 		dao.setFrom(fromAccount);
 		Account toAccount = dao.getTo();
 		toAccount.change(dao);

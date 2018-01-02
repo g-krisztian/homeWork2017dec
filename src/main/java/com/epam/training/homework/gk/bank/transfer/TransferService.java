@@ -3,10 +3,13 @@ package com.epam.training.homework.gk.bank.transfer;
 import java.math.BigDecimal;
 
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.history.HistoryService;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public interface TransferService {
 
+	Transfer create(HistoryService historyService);
+	
 	Transfer create();
 
 	Transfer getById(Long id);

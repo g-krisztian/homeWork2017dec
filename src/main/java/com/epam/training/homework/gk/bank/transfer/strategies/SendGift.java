@@ -11,8 +11,8 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 public class SendGift implements TransferStrategy {
 
 	@Override
-	public void doTransfer(Transfer dao, Services service) {
-		HistoryService historyService = service.getHistoryService();
+	public void doTransfer(Transfer dao) {
+		HistoryService historyService = dao.getService().getHistoryService();
 		Account toAccount = dao.getTo();
 		toAccount.change(dao);
 		BigDecimal toBalance = toAccount.getBalance();
@@ -20,7 +20,7 @@ public class SendGift implements TransferStrategy {
 		historyService.store(toHistory);
 
 		Account fromAccount = dao.getFromAccount();
-		Transfer fromDao = copyDao(dao,service);
+		Transfer fromDao = copyDao(dao,dao.getService());
 		fromDao.setValue(fromDao.getValue().negate());
 		fromAccount.change(fromDao);
 		BigDecimal fromBalance = fromAccount.getBalance();

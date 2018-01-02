@@ -6,11 +6,22 @@ import java.util.Date;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.history.HistoryService;
 import com.epam.training.homework.gk.bank.transfer.strategies.TransferStrategy;
 
 public class TransferDao implements Transfer, Persist {
 	
 	
+	private HistoryService historyService;
+
+	public TransferDao() {
+
+	}
+
+	public TransferDao(HistoryService historyService) {
+		this.historyService = historyService;
+	}
+
 	Long id;
 	boolean active;
 	
@@ -55,13 +66,13 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Services getService() {
-
 		return this.service;
 	}
 
 	@Override
 	public Transfer setService(Services service) {
 		this.service = service;
+		this.historyService=service.getHistoryService();
 		return this;
 	}
 
@@ -103,6 +114,11 @@ public class TransferDao implements Transfer, Persist {
 
 		return this.value;
 	}
+	@Override
+	public Transfer setValue(double i) {
+		this.setValue(BigDecimal.valueOf(i));
+		return this;
+	}
 
 	@Override
 	public Transfer setValue(BigDecimal value) {
@@ -135,7 +151,7 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public void doTransfer() {
-		this.strategy.doTransfer(this, service);
+		this.strategy.doTransfer(this);
 	}
 
 	@Override
@@ -169,6 +185,14 @@ public class TransferDao implements Transfer, Persist {
             builder.append("]");
             return builder.toString();
     }
+
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
+	}
 
 	
 

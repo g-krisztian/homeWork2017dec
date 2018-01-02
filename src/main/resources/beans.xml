@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+
+
+
+	<util:list id="accounts"
+		value-type="com.epam.training.homework.gk.bank.account.Account">
+	</util:list>
+	<util:list id="users" value-type="com.epam.training.homework.gk.bank.user.User">
+	</util:list>
+	<util:list id="transfers"
+		value-type="com.epam.training.homework.gk.bank.transfer.Transfer">
+	</util:list>
+	<util:list id="history"
+		value-type="com.epam.training.homework.gk.bank.history.History">
+	</util:list>
+
+	<bean id="dataStore"
+		class="com.epam.training.homework.gk.bank.datastore.DataStoreInMemory">
+		<constructor-arg ref="accounts" />
+		<constructor-arg ref="users" />
+		<constructor-arg ref="transfers" />
+		<constructor-arg ref="history" />
+	</bean>
+
+	<bean id="accountService"
+		class="com.epam.training.homework.gk.bank.account.AccountServiceInMemory">
+		<constructor-arg ref="dataStore" />
+	</bean>
+
+
+	<bean id="historyService"
+		class="com.epam.training.homework.gk.bank.history.HistoryServiceInMemory">
+		<constructor-arg ref="dataStore" />
+	</bean>
+
+	<bean id="transferService"
+		class="com.epam.training.homework.gk.bank.transfer.TransferServiceInMemory">
+		<constructor-arg ref="dataStore" />
+	</bean>
+
+	<bean id="userService"
+		class="com.epam.training.homework.gk.bank.user.UserServiceInMemory">
+		<constructor-arg ref="dataStore" />
+	</bean>
+
+	<bean id="service" class="com.epam.training.homework.gk.bank.Services">
+		<constructor-arg ref="accountService" />
+		<constructor-arg ref="userService" />
+		<constructor-arg ref="transferService" />
+		<constructor-arg ref="historyService" />
+	</bean>
+
+
+
+	<bean id="facade" class="com.epam.training.homework.gk.bank.facade.BankFacade">
+		<constructor-arg ref="service" />
+	</bean>
+
+
+
+</beans>

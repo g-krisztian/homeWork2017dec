@@ -5,7 +5,7 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public interface TransferStrategy {
 
-	void doTransfer(Transfer dao, Services service);
+	void doTransfer(Transfer dao);
 
 	// void putMoney(Transaction transactionData);
 	//
@@ -20,7 +20,7 @@ public interface TransferStrategy {
 	// HistoryDao[] getHistory();
 
 	default Transfer copyDao(Transfer dao, Services service) {
-		Transfer newDao = service.getTransferService().create();
+		Transfer newDao = service.getTransferService().create(dao.getHistoryService());
 		newDao.setDate(dao.getDate());
 		newDao.setFrom(dao.getFromAccount());
 		newDao.setInterest(dao.getInterest());
