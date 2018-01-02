@@ -1,8 +1,8 @@
 package com.epam.training.homework.gk.bank.ui.cli;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
@@ -14,12 +14,12 @@ import com.epam.training.homework.gk.bank.user.User;
 
 public class CommandLineInterface implements UserInterface {
 
-	StringBuilder prompt;
+	private StringBuilder prompt;
 
 	private BufferedReader br;
-	String command;
+	private String command;
 
-	Facade facade;
+	private Facade facade;
 
 	public CommandLineInterface(Facade facade) {
 		this.facade = facade;
@@ -35,144 +35,161 @@ public class CommandLineInterface implements UserInterface {
 	}
 
 	private void userSelectionMenu() {
+
+		User[] users = facade.listAllUsers();
+
+		userPrompt(users);
+
 		try {
-
-			User[] users = facade.listAllUsers();
-
-			userPrompt(users);
-
 			command = br.readLine();
 
 			if (command.equals("new")) {
-				newUserPrompt();
-				String name = br.readLine();
-				facade.addUser(name);
+				createNewUser();
 			} else {
-				try {
-					User userById = facade.getUserById(Long.valueOf(command));
-					if (userById != null) {
-						accountSelectionMenu(userById);
-					}
-				} catch (Exception e) {
+
+				User userById = facade.getUserById(idFromCommand());
+				if (userById != null) {
+					accountSelectionMenu(userById);
 				}
 			}
+		} catch (Exception e) {
+		}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+	}
+
+	private Long idFromCommand() {
+		Long ret = null;
+		try {
+			ret = Long.valueOf(command);
+		} catch (NumberFormatException e) {
+		}
+		return ret;
+	}
+
+	private void createNewUser() {
+		newUserPrompt();
+		String name;
+		try {
+			name = br.readLine();
+			facade.addUser(name);
+		} catch (Exception e) {
+
 		}
 	}
 
 	private void accountSelectionMenu(User user) {
-		command = null;
+		command = "";
 		do {
-
-			Account[] accounts = facade.listAllAccounts(user);
-
-			accountSelectionPrompt(user, accounts);
-
 			try {
+
+				Account[] accounts = facade.listAllAccounts(user);
+
+				accountSelectionPrompt(user, accounts);
+
 				command = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (command.equals("new")) {
-				facade.addAccount(user);
-			} else {
-				try {
-					Account accountById = facade.getAccountById((Long.valueOf(command)));
+				if (command.equals("new")) {
+					facade.addAccount(user);
+				} else {
+
+					Account accountById = facade.getAccountById(idFromCommand());
 					if (accountById != null) {
 						historyOrTransactionMenu(accountById);
 					}
-				} catch (Exception e) {
 				}
-			}
+			} catch (Exception e) {
 
+			}
 		} while (!command.toLowerCase().equals("exit"));
+		command = "";
 	}
 
 	private void historyOrTransactionMenu(Account account) {
-		command = null;
+
 		do {
-			prompt.setLength(0);
-			prompt.append("Selected account: ");
-			prompt.append(account);
-			prompt.append("\ntype 'history' to view account history, or 'transfer' to make a transfer");
-			System.out.println(prompt);
-			
-			
 			try {
+				historyOrTransactionPath(account);
+
 				command = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (command.toLowerCase().equals("history")) {
-				historyMenu(account);
-			} else  if (command.toLowerCase().equals("transfer")){
-				transactionMenu(account);
+
+				if (command.toLowerCase().equals("history")) {
+					historyMenu(account);
+				} else if (command.toLowerCase().equals("transfer")) {
+					transactionMenu(account);
+				}
+			} catch (Exception e) {
+
 			}
 
 		} while (!command.toLowerCase().equals("exit"));
+		command = "";
 	}
 
 	private void transactionMenu(Account account) {
-		command = null;
+
 		do {
-
-			TransferStrategy[] strategies = facade.listAllStrategies();
-
-			transferSelectionPrompt(account, strategies);
-
 			try {
+
+				TransferStrategy[] strategies = facade.listAllStrategies();
+
+				transferSelectionPrompt(account, strategies);
+
 				command = br.readLine();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (command.toLowerCase().equals("history")) {
-				historyMenu(account);
-			} else {
-				try {
-					Integer strategyId = Integer.valueOf(command);
+				if (command.toLowerCase().equals("history")) {
+					historyMenu(account);
+				} else {
+
+					Integer strategyId = null;
+					strategyId = Integer.valueOf(command);
 					TransferStrategy strategy = strategies[strategyId];
 					System.out.println(strategies[strategyId]);
 
 					Transfer dao = facade.addTransfer();
 					dao.setStrategy(strategy);
-
+					dao.setDate(new Date());
+					
+					
+					
+					
+					
 					strategies[strategyId].doTransfer(dao);
-				} catch (Exception e) {
+
 				}
+			} catch (Exception e) {
+
 			}
 		} while (!command.toLowerCase().equals("exit"));
-
+		command = "";
 	}
 
 	private void historyMenu(Account account) {
-		command = null;
 
 		do {
-			History[] history = null;
-			historyPrompt(account);
 			try {
+				History[] history = null;
+				historyPrompt(account);
 				command = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (command.toLowerCase().equals("full")) {
-				history = facade.listHistory(account);
-			} else if (command.toLowerCase().equals("to")) {
-				history = facade.listHistoryTo(account);
-			} else if (command.toLowerCase().equals("from")) {
-				history = facade.listHistoryFrom(account);
-			}
-			if (history.length > 0) {
-				System.out.println(history);
-			} else {
-				System.out.print("There is no history record for account\n");
-			}
+				if (command.toLowerCase().equals("full")) {
+					history = facade.listHistory(account);
+				} else if (command.toLowerCase().equals("to")) {
+					history = facade.listHistoryTo(account);
+				} else if (command.toLowerCase().equals("from")) {
+					history = facade.listHistoryFrom(account);
+				}
 
+				if (history != null) {
+					if (history.length > 0) {
+						System.out.println(history);
+					} else {
+						System.out.print("There is no history record for account\n");
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
 		} while (!command.toLowerCase().equals("exit"));
-
+		command = "";
 	}
 
 	private void historyPrompt(Account account) {
@@ -227,9 +244,16 @@ public class CommandLineInterface implements UserInterface {
 			prompt.append("id: " + i + ": ");
 			prompt.append(str);
 		}
-		// prompt.append("\ntype 'history' for get account history");
 		prompt.append("\nor type 'exit' to select new account");
 
+		System.out.println(prompt);
+	}
+
+	private void historyOrTransactionPath(Account account) {
+		prompt.setLength(0);
+		prompt.append("Selected account: ");
+		prompt.append(account);
+		prompt.append("\ntype 'history' to view account history, or 'transfer' to make a transfer");
 		System.out.println(prompt);
 	}
 
