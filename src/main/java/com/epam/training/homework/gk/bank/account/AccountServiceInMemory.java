@@ -23,7 +23,7 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
-	public Account getById(int id) {
+	public Account getById(Long id) {
 		Account account = null;
 		for (Account a : accounts) {
 			if (a.getId() == id) {

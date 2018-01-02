@@ -7,7 +7,7 @@ public interface AccountService {
 
 	void delete(Account account);
 
-	Account getById(int fromAccountId);
+	Account getById(Long fromAccountId);
 
 	Account[] getAll();
 

@@ -8,10 +8,12 @@ import com.epam.training.homework.gk.bank.user.User;
 public interface Facade {
 	
 	User addUser(String name);
+	User getUserById(Long id);
 	void deleteUser(User user);
 	User[] listAllUsers();
 	
 	Account addAccount(User user);
+	Account getAccountById(Long id);
 	void removeAccount(Account account);
 	Account[] listAllAccounts(User user);
 	

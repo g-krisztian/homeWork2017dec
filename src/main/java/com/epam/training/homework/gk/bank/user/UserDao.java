@@ -67,7 +67,7 @@ public class UserDao implements User {
 
 	@Override
 	public String toString() {
-		return "\nUserDao [id=" + id + ", name=" + name + ", active=" + active + ",\n accounts=" + accounts + "]";
+		return "\nUser "+ name+ ": [id=" + id + ", active=" + active +  "]";
 	}
 
 }

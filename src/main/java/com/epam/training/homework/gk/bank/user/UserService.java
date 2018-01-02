@@ -12,6 +12,6 @@ public interface UserService{
 
 	User[] getAll();
 
-	User getById(int id);
+	User getById(Long id);
 
 }

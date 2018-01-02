@@ -19,6 +19,11 @@ public class BankFacade implements Facade {
 	public User addUser(String name) {
 		return service.getUserService().create(name);
 	}
+	
+	@Override
+	public User getUserById(Long id) {
+		return service.getUserService().getById(id);
+	}
 
 	@Override
 	public void deleteUser(User user) {
@@ -36,6 +41,12 @@ public class BankFacade implements Facade {
 		Account account = service.getAccountService().create();
 		service.getUserService().addAccountToUser(account, user);
 		return account;
+	}
+	
+	@Override
+	public Account getAccountById(Long id) {
+	
+		return service.getAccountService().getById(id);
 	}
 
 	@Override

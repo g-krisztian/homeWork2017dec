@@ -38,7 +38,7 @@ public class UserServiceInMemory extends ServiceSuperClass implements UserServic
 	}
 
 	@Override
-	public User getById(int id) {
+	public User getById(Long id) {
 		User nuser = null;
 		for (User user : users) {
 			if (user.getId() == id) {

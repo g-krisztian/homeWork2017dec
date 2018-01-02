@@ -65,6 +65,8 @@
 		<constructor-arg ref="service" />
 	</bean>
 
-
-
+	<bean id="ui"
+		class="com.epam.training.homework.gk.bank.ui.cli.CommandLineInterface">
+		<constructor-arg ref="facade" />
+	</bean>
 </beans>
