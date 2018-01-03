@@ -6,17 +6,21 @@
 
 	<persistence-unit name="homeWork" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<mapping-file>META-INF/account-orm.xml</mapping-file>
+		<mapping-file>META-INF/history-orm.xml</mapping-file>
+		<mapping-file>META-INF/transfer-orm.xml</mapping-file>
+		<mapping-file>META-INF/user-orm.xml</mapping-file>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/homeworkbank" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
-			
+
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
-			
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
-		
+
 	</persistence-unit>
 </persistence>

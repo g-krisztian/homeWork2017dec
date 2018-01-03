@@ -88,7 +88,7 @@ public class TransferDao implements Transfer, Persist {
 	}
 
 	@Override
-	public Account getTo() {
+	public Account getToAccount() {
 		return this.toAccount;
 	}
 
@@ -190,6 +190,18 @@ public class TransferDao implements Transfer, Persist {
 
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setFromAccount(Account fromAccount) {
+		this.fromAccount = fromAccount;
+	}
+
+	public void setToAccount(Account toAccount) {
+		this.toAccount = toAccount;
 	}
 
 }

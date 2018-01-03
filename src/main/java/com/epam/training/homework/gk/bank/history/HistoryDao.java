@@ -59,12 +59,20 @@ public class HistoryDao implements History {
 
 	@Override
 	public Account getToAccount() {
-		return this.transfer.getTo();
+		return this.transfer.getToAccount();
 	}
 
 	@Override
 	public Account getFromAccount() {
 		return this.transfer.getFromAccount();
+	}
+
+	public TransferDao getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(TransferDao transfer) {
+		this.transfer = transfer;
 	}
 
 }

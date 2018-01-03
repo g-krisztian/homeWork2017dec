@@ -70,4 +70,8 @@ public class UserDao implements User {
 		return "\nUser "+ name+ ": [id=" + id + ", active=" + active +  "]";
 	}
 
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
 }

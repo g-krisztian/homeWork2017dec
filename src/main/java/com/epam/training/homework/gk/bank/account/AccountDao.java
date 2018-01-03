@@ -11,6 +11,7 @@ public class AccountDao implements Account, Persist {
 	BigDecimal balance;
 	BigDecimal interest;
 	boolean active;
+	private Long order;
 
 	public AccountDao() {
 		active = true;
@@ -69,6 +70,18 @@ public class AccountDao implements Account, Persist {
 		builder.append(active);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public Long getOrder() {
+		return order;
+	}
+
+	public void setOrder(Long order) {
+		this.order = order;
 	}
 	
 	

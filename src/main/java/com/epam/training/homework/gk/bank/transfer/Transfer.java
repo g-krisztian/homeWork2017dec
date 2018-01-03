@@ -22,7 +22,7 @@ public interface Transfer extends Persist {
 
 	Transfer setFrom(Account from);
 
-	Account getTo();
+	Account getToAccount();
 
 	Transfer setTo(Account account);
 

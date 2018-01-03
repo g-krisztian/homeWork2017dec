@@ -69,4 +69,6 @@
 		class="com.epam.training.homework.gk.bank.ui.cli.CommandLineInterface">
 		<constructor-arg ref="facade" />
 	</bean>
+
+	<bean id="dbConnector" class="com.epam.training.homework.gk.bank.jpa.DbConnector"></bean>
 </beans>
