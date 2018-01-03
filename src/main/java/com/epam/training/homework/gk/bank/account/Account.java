@@ -7,8 +7,7 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public interface Account extends Persist {
 
-	
-	void change(Transfer dao);
+    void change(Transfer dao);
 
 	BigDecimal getBalance();
 
@@ -16,4 +15,15 @@ public interface Account extends Persist {
 
 	@Override
 	String toString();
+
+    BigDecimal getInterest();
+
+
+
+    boolean isActive();
+
+    void setBalance(BigDecimal balance);
+
+    void setInterest(BigDecimal interest);
+
 }

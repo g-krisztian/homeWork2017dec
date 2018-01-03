@@ -7,13 +7,23 @@
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
 			</id>
-			
-			<one-to-many name="accounts" target-entity="com.epam.training.homework.gk.bank.account.AccountDao"
-				mapped-by="id"> 
-				<order-column name="order"/>
-				</one-to-many>
 
+
+
+			<one-to-many name="accounts" target-entity="com.epam.training.homework.gk.bank.account.AccountDao">
+				<collection-table name="PHONE">
+					<join-column name="OWNER_ID" />
+				</collection-table>
+			</element-collection>
+
+			<one-to-many name="accounts"
+				
+				mapped-by="id"
 			
+				<join-table name="accounts" />
+				/>
+
+
 
 		</attributes>
 	</entity>

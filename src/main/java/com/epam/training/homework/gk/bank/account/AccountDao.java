@@ -11,7 +11,6 @@ public class AccountDao implements Account, Persist {
 	BigDecimal balance;
 	BigDecimal interest;
 	boolean active;
-	private Long order;
 
 	public AccountDao() {
 		active = true;
@@ -39,7 +38,7 @@ public class AccountDao implements Account, Persist {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+    @Override
 	public boolean isActive() {
 		return active;
 	}
@@ -48,11 +47,11 @@ public class AccountDao implements Account, Persist {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
+    @Override
 	public BigDecimal getInterest() {
 		return interest;
 	}
-
+    @Override
 	public void setInterest(BigDecimal interest) {
 		this.interest = interest;
 	}
@@ -71,18 +70,11 @@ public class AccountDao implements Account, Persist {
 		builder.append("]");
 		return builder.toString();
 	}
-
+    @Override
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
-	public Long getOrder() {
-		return order;
-	}
-
-	public void setOrder(Long order) {
-		this.order = order;
-	}
 	
 	
 }

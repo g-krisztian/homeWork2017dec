@@ -8,71 +8,78 @@ import com.epam.training.homework.gk.bank.transfer.TransferDao;
 
 public class HistoryDao implements History {
 
-	private Long  id;
-	private BigDecimal balance;
-	private TransferDao transfer;
+    private Long id;
+    private BigDecimal balance;
+    private TransferDao transfer;
 
-	@Override
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	@Override
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public HistoryDao(Transfer transfer, BigDecimal balance) {
-		this.transfer = (TransferDao) transfer;
-		this.balance = balance;
-	}
+    public HistoryDao(Transfer transfer, BigDecimal balance) {
+        this.transfer = (TransferDao) transfer;
+        this.balance = balance;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("\n");
-		builder.append("HistoryDao [id=");
-		builder.append(id);
-		builder.append(", balance=");
-		builder.append(balance);
-		builder.append(", transfer=");
-		builder.append(transfer);
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append("HistoryDao [id=");
+        builder.append(id);
+        builder.append(", balance=");
+        builder.append(balance);
+        builder.append(", transfer=");
+        builder.append(transfer);
+        builder.append("]");
+        return builder.toString();
+    }
 
-	@Override
-	public BigDecimal getBalance() {
-		return balance;
-	}
+    @Override
+    public BigDecimal getBalance() {
+        return balance;
+    }
 
-	@Override
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
+    @Override
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
-	@Override
-	public void setActive(boolean b) {
+    @Override
+    public void setActive(boolean b) {
 
-	}
+    }
 
+    @Override
+    public Account getToAccount() {
+        return this.transfer.getToAccount();
+    }
 
-	@Override
-	public Account getToAccount() {
-		return this.transfer.getToAccount();
-	}
+    @Override
+    public Account getFromAccount() {
+        return this.transfer.getFromAccount();
+    }
+    @Override
+    public void setFromAccount(Account account) {
+        this.transfer.setFrom(account);
+    }
+    @Override
+    public void setToAccount(Account account) {
+        this.transfer.setToAccount(account);
+    }
 
-	@Override
-	public Account getFromAccount() {
-		return this.transfer.getFromAccount();
-	}
+    public TransferDao getTransfer() {
+        return transfer;
+    }
 
-	public TransferDao getTransfer() {
-		return transfer;
-	}
-
-	public void setTransfer(TransferDao transfer) {
-		this.transfer = transfer;
-	}
+    public void setTransfer(TransferDao transfer) {
+        this.transfer = transfer;
+    }
 
 }

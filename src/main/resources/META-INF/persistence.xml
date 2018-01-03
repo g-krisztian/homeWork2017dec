@@ -4,7 +4,7 @@
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<persistence-unit name="homeWork" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="homeWork">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<mapping-file>META-INF/account-orm.xml</mapping-file>
 		<mapping-file>META-INF/history-orm.xml</mapping-file>
@@ -19,7 +19,7 @@
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
 
 	</persistence-unit>

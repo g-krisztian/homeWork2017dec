@@ -30,7 +30,7 @@ public class SpringJpaApplication {
 		
 		facade.doTransfer(transfer);
 
-		cli.start();
+		//cli.start();
 
 		ctx.close();
 	}

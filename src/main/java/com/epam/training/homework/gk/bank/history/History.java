@@ -22,4 +22,8 @@ public interface History extends Persist {
 	@Override
 	String toString();
 
+    void setFromAccount(Account account);
+
+    void setToAccount(Account account);
+
 }
