@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
 import com.epam.training.homework.gk.bank.history.History;
@@ -152,7 +154,7 @@ public class CommandLineInterface implements UserInterface {
 
 					Map<String, Boolean> filedsInUse = strategy.getFiledsInUse();
 
-					Iterator it = filedsInUse.entrySet().iterator();
+					Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
 					while (it.hasNext()) {
 						Map.Entry field = (Map.Entry) it.next();
 						if ((boolean) field.getValue()) {

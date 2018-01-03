@@ -2,10 +2,15 @@ package com.epam.training.homework.gk.bank.application;
 
 import java.math.BigDecimal;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.transaction.Transaction;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
+import com.epam.training.homework.gk.bank.jpa.DbConnector;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.ui.UserInterface;
@@ -16,7 +21,7 @@ public class SpringJpaApplication {
 
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/beans.xml");
 		Facade facade = (Facade) ctx.getBean("facade");
-		UserInterface cli = (UserInterface) ctx.getBean("ui");
+		ctx.getBean("ui");
 
 		User Bank = facade.addUser("Bank");
 		facade.addAccount(Bank);
@@ -29,6 +34,27 @@ public class SpringJpaApplication {
 				.setStrategy(TransferStrategy.Strategies.PutMoneyIn).build();
 		
 		facade.doTransfer(transfer);
+		
+		DbConnector dbconnector = (DbConnector) ctx.getBean("dbConnector");
+		
+		EntityManager em = dbconnector.getEm();
+		EntityTransaction transaction = em.getTransaction();
+		
+		User[] listAllUsers = facade.listAllUsers();
+		for (User user : listAllUsers) {
+		    for (Account account: facade.listUserAccounts(user)) {
+		        em.persist(account);
+		    }
+		    
+		    System.out.println(user);
+		    
+		    em.persist(user);    
+        }
+		transaction.commit();
+		em.flush();
+		em.close();
+		dbconnector.close();
+		
 
 		//cli.start();
 
