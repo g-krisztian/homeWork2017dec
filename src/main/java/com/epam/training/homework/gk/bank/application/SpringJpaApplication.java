@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transaction;
 
+import org.slf4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.epam.training.homework.gk.bank.account.Account;
@@ -43,13 +44,18 @@ public class SpringJpaApplication {
 		User[] listAllUsers = facade.listAllUsers();
 		for (User user : listAllUsers) {
 		    for (Account account: facade.listUserAccounts(user)) {
-		        em.persist(account);
+		    	System.out.println(account);
+		    	account.setId(null);
+		        em.merge(account);
 		    }
 		    
-		    System.out.println(user);
+		        
 		    
-		    em.persist(user);    
+		    System.out.println(user);
+		    user.setId(null);
+		    em.merge(user);    
         }
+		em.flush();
 		transaction.commit();
 		em.flush();
 		em.close();

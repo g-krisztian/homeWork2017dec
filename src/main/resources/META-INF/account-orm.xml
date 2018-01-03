@@ -5,7 +5,7 @@
 	<entity class="com.epam.training.homework.gk.bank.account.AccountDao">
 		<attributes>
 			<id name="id">
-				<generated-value strategy="IDENTITY" />
+				<generated-value strategy="TABLE" />
 			</id>
 		</attributes>
 	</entity>

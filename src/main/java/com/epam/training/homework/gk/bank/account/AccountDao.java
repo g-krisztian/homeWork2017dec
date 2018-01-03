@@ -2,9 +2,11 @@ package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
-
+@Entity
 public class AccountDao implements Account, Persist {
 
 	private Long id;
@@ -16,6 +18,13 @@ public class AccountDao implements Account, Persist {
 		active = true;
 		balance = new BigDecimal("0");
 		interest = BigDecimal.ZERO;
+	}
+
+	public AccountDao(Long id, BigDecimal balance, BigDecimal interest, boolean active) {
+		this.id = id;
+		this.balance = balance;
+		this.interest = interest;
+		this.active = active;
 	}
 
 	@Override
