@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -85,7 +86,7 @@ public class CommandLineInterface implements UserInterface {
 		do {
 			try {
 
-				Account[] accounts = facade.listUserAccounts(user);
+				List<Account> accounts = facade.listUserAccounts(user);
 
 				accountSelectionPrompt(accounts);
 
@@ -268,7 +269,7 @@ public class CommandLineInterface implements UserInterface {
 		System.out.println(prompt);
 	}
 
-	private void accountSelectionPrompt(Account[] accounts) {
+	private void accountSelectionPrompt(List<Account> accounts) {
 		prompt.setLength(0);
 		prompt.append("\n\nSelect account by Id, or type 'new' for add a new one:");
 		for (Account account : accounts) {

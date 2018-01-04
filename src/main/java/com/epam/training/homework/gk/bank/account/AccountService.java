@@ -1,5 +1,6 @@
 package com.epam.training.homework.gk.bank.account;
 
+import java.util.List;
 
 public interface AccountService {
 
@@ -9,6 +10,6 @@ public interface AccountService {
 
 	Account getById(Long fromAccountId);
 
-	Account[] getAll();
+	List<Account> getAll();
 
 }

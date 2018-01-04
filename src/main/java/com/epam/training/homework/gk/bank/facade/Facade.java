@@ -1,5 +1,7 @@
 package com.epam.training.homework.gk.bank.facade;
 
+import java.util.List;
+
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
@@ -16,8 +18,8 @@ public interface Facade {
 	Account addAccount(User user);
 	Account getAccountById(Long id);
 	void removeAccount(Account account);
-	Account[] listUserAccounts(User user);
-	Account[] listAllAccounts(User user);
+	List<Account> listUserAccounts(User user);
+	List<Account> listAllAccounts(User user);
 	
 	TransferStrategy[] listAllStrategies();
 	Transfer addTransfer();

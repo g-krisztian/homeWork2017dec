@@ -33,8 +33,8 @@ public class UserDao implements User {
 	}
 
 	@Override
-	public Account[] getAccounts() {
-		return accounts.toArray(new Account[accounts.size()]);
+	public List<Account> getAccounts() {
+		return accounts;
 
 	}
 

@@ -35,8 +35,8 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
-	public Account[] getAll() {
-		return accounts.toArray(new Account[accounts.size()]);
+	public List<Account >getAll() {
+		return accounts;
 	}
 
 	@Override

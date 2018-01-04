@@ -1,5 +1,7 @@
 package com.epam.training.homework.gk.bank.user;
 
+import java.util.List;
+
 import com.epam.training.homework.gk.bank.account.Account;
 
 public interface UserService{
@@ -14,6 +16,6 @@ public interface UserService{
 
 	User getById(Long id);
 
-	Account[] getAccounts(User user);
+	List<Account> getAccounts(User user);
 
 }

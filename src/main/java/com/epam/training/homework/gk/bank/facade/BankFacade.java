@@ -1,5 +1,7 @@
 package com.epam.training.homework.gk.bank.facade;
 
+import java.util.List;
+
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.history.History;
@@ -57,12 +59,12 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public Account[] listUserAccounts(User user) {
+	public List<Account> listUserAccounts(User user) {
 		return service.getUserService().getAccounts(user);
 	}
 
 	@Override
-	public Account[] listAllAccounts(User user) {
+	public List<Account> listAllAccounts(User user) {
 
 		return service.getAccountService().getAll();
 	}

@@ -1,5 +1,7 @@
 package com.epam.training.homework.gk.bank.user;
 
+import java.util.List;
+
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
 
@@ -8,7 +10,7 @@ public interface User extends Persist {
 
 	void addNewAccount(Account account);
 
-	Account[] getAccounts();
+	List<Account> getAccounts();
 
 	String getName();
 

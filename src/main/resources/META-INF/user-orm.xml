@@ -8,10 +8,10 @@
 				<generated-value strategy="IDENTITY" />
 			</id>
 
-			<one-to-many name="accounts" target-entity="com.epam.training.homework.gk.bank.transfer.TransferDao">
+			<one-to-many name="accounts" target-entity="com.epam.training.homework.gk.bank.account.AccountDao">
 
 			
-			<order-column name=""/>
+<!-- 			<order-column name=""/> -->
 			 </one-to-many>
 
 			
