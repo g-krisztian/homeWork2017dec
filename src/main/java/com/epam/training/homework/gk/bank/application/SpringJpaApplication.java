@@ -15,6 +15,11 @@ import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.user.User;
 
+
+//TODO create JPA aop 
+//TODO remove id creation in it
+
+
 public class SpringJpaApplication {
     public static void main(String[] args) {
 
