@@ -156,7 +156,7 @@ public class CommandLineInterface implements UserInterface {
 
 					Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
 					while (it.hasNext()) {
-						Map.Entry field = (Map.Entry) it.next();
+						Entry<String, Boolean> field = it.next();
 						if ((boolean) field.getValue()) {
 							switch ((String) field.getKey()) {
 							case "fromAccount": {
