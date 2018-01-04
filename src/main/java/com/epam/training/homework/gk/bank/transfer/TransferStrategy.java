@@ -6,8 +6,6 @@ import java.util.Map;
 
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.history.History;
-import com.epam.training.homework.gk.bank.history.HistoryService;
 
 public interface TransferStrategy {
 
@@ -26,9 +24,13 @@ public interface TransferStrategy {
 				dao.setInterest(BigDecimal.valueOf(2));
 				Account toAccount = dao.getToAccount();
 				toAccount.change(dao);
+				dao.setBalance(toAccount.getBalance());
 
-				dao.setValue(dao.getValue().negate());
-				fromAccount.change(dao);
+				Transfer newDao = copyDao(dao);
+				newDao.setValue(dao.getValue().negate());
+				fromAccount.change(newDao);
+				newDao.setBalance(toAccount.getBalance());
+				
 			}
 
 			@Override
@@ -51,9 +53,12 @@ public interface TransferStrategy {
 				dao.setTo(toAccount);
 				dao.setInterest(BigDecimal.valueOf(1));
 				toAccount.change(dao);
-				dao.setValue(dao.getValue().negate());
-				Account fromAccount = dao.getFromAccount();
-				fromAccount.change(dao);
+				dao.setBalance(toAccount.getBalance());
+				
+				Transfer newDao = copyDao(dao);
+				newDao.setValue(dao.getValue().negate());
+				Account fromAccount = newDao.getFromAccount();
+				fromAccount.change(newDao);
 
 			}
 
@@ -73,10 +78,8 @@ public interface TransferStrategy {
 			@Override
 			public void doTransfer(Transfer dao) {
 				dao.getToAccount().change(dao);
-				BigDecimal balance = dao.getToAccount().getBalance();
-				HistoryService hs = dao.getHistoryService();
-				History history = hs.create(dao, balance);
-				hs.store(history);
+				dao.setBalance(dao.getToAccount().getBalance());
+				
 			}
 
 			@Override
@@ -94,20 +97,16 @@ public interface TransferStrategy {
 
 			@Override
 			public void doTransfer(Transfer dao) {
-				HistoryService historyService = dao.getService().getHistoryService();
+				
 				Account toAccount = dao.getToAccount();
 				toAccount.change(dao);
-				BigDecimal toBalance = toAccount.getBalance();
-				History toHistory = historyService.create(dao, toBalance);
-				historyService.store(toHistory);
+				dao.setBalance(toAccount.getBalance());
 
 				Account fromAccount = dao.getFromAccount();
-				Transfer fromDao = copyDao(dao, dao.getService());
+				Transfer fromDao = copyDao(dao);
 				fromDao.setValue(fromDao.getValue().negate());
 				fromAccount.change(fromDao);
-				BigDecimal fromBalance = fromAccount.getBalance();
-				History fromHistory = historyService.create(fromDao, fromBalance);
-				historyService.store(fromHistory);
+				fromDao.setBalance(fromAccount.getBalance());
 
 			}
 
@@ -128,9 +127,7 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				dao.setValue(dao.getValue().negate());
 				dao.getFromAccount().change(dao);
-				BigDecimal balance = dao.getFromAccount().getBalance();
-				History history = dao.getService().getHistoryService().create(dao, balance);
-				dao.getService().getHistoryService().store(history);
+				dao.setBalance(dao.getFromAccount().getBalance());
 
 			}
 		};
@@ -146,8 +143,9 @@ public interface TransferStrategy {
 			return fields;
 		}	}
 
-	default Transfer copyDao(Transfer dao, Services service) {
-		Transfer newDao = service.getTransferService().create(dao.getHistoryService());
+	default Transfer copyDao(Transfer dao) {
+		Services service =dao.getService(); 
+		Transfer newDao = service.getTransferService().create(service);
 		newDao.setDate(dao.getDate());
 		newDao.setFrom(dao.getFromAccount());
 		newDao.setInterest(dao.getInterest());

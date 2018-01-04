@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
-import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.ui.UserInterface;
@@ -211,14 +210,14 @@ public class CommandLineInterface implements UserInterface {
 				command = br.readLine();
 				if (command.toLowerCase().equals("full")) {
 					
-					History[] history = facade.listHistory(account);
+					List<Transfer> history = facade.listHistory(account);
 					printHistory(history);
 				} else if (command.toLowerCase().equals("to")) {
-					History[] history = facade.listHistoryTo(account);
+					List<Transfer> history = facade.listHistoryTo(account);
 					printHistory(history);
 
 				} else if (command.toLowerCase().equals("from")) {
-					History[] history = facade.listHistoryFrom(account);
+					List<Transfer> history = facade.listHistoryFrom(account);
 					printHistory(history);
 				}
 
@@ -230,10 +229,10 @@ public class CommandLineInterface implements UserInterface {
 		command = "";
 	}
 
-	private void printHistory(History[] history) {
+	private void printHistory(List<Transfer> history) {
 		if (history != null) {
-			if (history.length > 0) {
-				for (History history2 : history) {
+			if (history.size() > 0) {
+				for (Transfer history2 : history) {
 					System.out.println(history2);
 				}
 			} else {

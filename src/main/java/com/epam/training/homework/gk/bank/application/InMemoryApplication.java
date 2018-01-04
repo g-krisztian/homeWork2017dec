@@ -10,9 +10,6 @@ import com.epam.training.homework.gk.bank.account.AccountService;
 import com.epam.training.homework.gk.bank.account.AccountServiceInMemory;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 import com.epam.training.homework.gk.bank.datastore.DataStoreInMemory;
-import com.epam.training.homework.gk.bank.history.History;
-import com.epam.training.homework.gk.bank.history.HistoryService;
-import com.epam.training.homework.gk.bank.history.HistoryServiceInMemory;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.transfer.TransferService;
 import com.epam.training.homework.gk.bank.transfer.TransferServiceInMemory;
@@ -26,15 +23,15 @@ public class InMemoryApplication {
 		List<User> users = new ArrayList<>();
 		List<Account> accounts = new ArrayList<>();
 		List<Transfer> transfers = new ArrayList<>();
-		List<History> history = new ArrayList<>();
 
-		DataStore dataStore = new DataStoreInMemory(users, accounts, transfers, history);
+
+		DataStore dataStore = new DataStoreInMemory(users, accounts, transfers);
 		UserService userService = new UserServiceInMemory(dataStore);
 		AccountService accountService = new AccountServiceInMemory(dataStore);
 		TransferService transferService = new TransferServiceInMemory(dataStore);
-		HistoryService historyService = new HistoryServiceInMemory(dataStore);
 
-		Services services = new Services(userService, accountService, transferService, historyService);
+
+		Services services = new Services(userService, accountService, transferService);
 
 		User pista = userService.create("Pista");
 		Account pistaAccount = accountService.create();
@@ -77,7 +74,7 @@ public class InMemoryApplication {
 
 		soutList(users);
 		soutList(accounts);
-		soutList(history);
+		soutList(transfers);
 
 	}
 

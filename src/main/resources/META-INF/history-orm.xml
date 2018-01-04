@@ -2,20 +2,4 @@
 <entity-mappings version="2.1"
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
-	<entity class="com.epam.training.homework.gk.bank.history.HistoryDao">
-		<attributes>
-			<id name="id">
-				<generated-value />
-			</id>
-
-
-
-			<one-to-one name="transfer"
-				target-entity="com.epam.training.homework.gk.bank.transfer.TransferDao">
-			</one-to-one>
-			
-			<transient name="toAccount" />
-			<transient name="fromAccount" />
-		</attributes>
-	</entity>
 </entity-mappings>

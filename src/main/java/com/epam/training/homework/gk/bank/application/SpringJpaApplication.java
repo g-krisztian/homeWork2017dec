@@ -9,7 +9,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.facade.Facade;
-import com.epam.training.homework.gk.bank.history.History;
 import com.epam.training.homework.gk.bank.jpa.DbConnector;
 import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
@@ -24,9 +23,17 @@ public class SpringJpaApplication {
     public static void main(String[] args) {
 
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/beans.xml");
-        Facade facade = (Facade) ctx.getBean("facade");
         ctx.getBean("ui");
 
+        testrun(ctx);
+
+        //cli.start();
+
+        ctx.close();
+    }
+
+	private static void testrun(ClassPathXmlApplicationContext ctx) {
+		Facade facade = (Facade) ctx.getBean("facade");
         DbConnector dbconnector = (DbConnector) ctx.getBean("dbConnector");
         EntityManager em = dbconnector.getEm();
         EntityTransaction transaction = em.getTransaction();
@@ -55,11 +62,6 @@ public class SpringJpaApplication {
                 System.out.println(account);
                 account.setId(null);
                 em.persist(account);
-                History[] listHistory = facade.listHistory(account);
-                for (History history : listHistory) {
-                    history.setId(null);
-                    em.persist(history);
-                }
             }
 
             if (user.getName() == null) {
@@ -75,13 +77,18 @@ public class SpringJpaApplication {
 
         em.flush();
         transaction.commit();
-
+        
+        Account nyunyeszb = facade.addAccount(nyunyesz);
+        nyunyeszb.setId(null);
+        transaction = em.getTransaction();
+        transaction.begin();
+        
+        em.persist(nyunyeszb);
+        em.flush();
+        transaction.commit();
+        
         em.close();
         dbconnector.close();
-
-        //cli.start();
-
-        ctx.close();
-    }
+	}
 
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.history.HistoryService;
+
 
 public interface Transfer extends Persist {
 
@@ -49,10 +49,8 @@ public interface Transfer extends Persist {
 	String toString();
 
 	Transfer setValue(double i);
-	
-	HistoryService getHistoryService();
-	
-	void setHistoryService(HistoryService historyService);
+
+	void setBalance(BigDecimal balance);
 
 
 }

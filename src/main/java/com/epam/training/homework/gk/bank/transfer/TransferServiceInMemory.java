@@ -1,12 +1,13 @@
 package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.ServiceSuperClass;
+import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
-import com.epam.training.homework.gk.bank.history.HistoryService;
 
 public class TransferServiceInMemory extends ServiceSuperClass implements TransferService {
 	Transfer selfBuild;
@@ -89,8 +90,8 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	}
 
 	@Override
-	public Transfer create(HistoryService historyService) {
-		this.selfBuild = new TransferDao(historyService);
+	public Transfer create(Services service) {
+		this.selfBuild = new TransferDao(service);
 		selfBuild.setId(getMaxId(transfers)+1);
 		transfers.add(selfBuild);
 		return this.selfBuild;
@@ -104,4 +105,39 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 		return this.selfBuild;
 	}
 
+	@Override
+	public List<Transfer> getWhere(Account account) {
+		List<Transfer> history = new ArrayList<>();
+		for (Transfer transfer : this.transfers) {
+			if ((transfer.getFromAccount()==account)||(transfer.getToAccount()==account)) {
+				history.add(transfer);
+			}
+		}
+		return history;
+	}
+
+	@Override
+	public List<Transfer> getWhereFrom(Account account) {
+		List<Transfer> history = new ArrayList<>();
+		for (Transfer transfer : this.transfers) {
+			if (transfer.getFromAccount()==account) {
+				history.add(transfer);
+			}
+		}
+		return history;
+	}
+
+	@Override
+	public List<Transfer> getWhereTo(Account account) {
+		List<Transfer> history = new ArrayList<>();
+		for (Transfer transfer : this.transfers) {
+			if (transfer.getToAccount()==account) {
+				history.add(transfer);
+			}
+		}
+		return history;
+	}
+
+	
+	
 }

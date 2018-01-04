@@ -1,13 +1,14 @@
 package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.history.HistoryService;
 
 public interface TransferService {
 
-	Transfer create(HistoryService historyService);
+	Transfer create(Services service);
 	
 	Transfer create();
 
@@ -32,5 +33,11 @@ public interface TransferService {
 	Transfer setStrategy(TransferStrategy strategy);
 
 	TransferStrategy[] getAllStrategies();
+	
+	List<Transfer> getWhere(Account account);
+
+	List<Transfer> getWhereFrom(Account account);
+
+	List<Transfer> getWhereTo(Account account);
 
 }

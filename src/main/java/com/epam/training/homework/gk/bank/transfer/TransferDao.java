@@ -6,7 +6,6 @@ import java.util.Date;
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.history.HistoryService;
 
 public class TransferDao implements Transfer, Persist {
 
@@ -16,7 +15,6 @@ public class TransferDao implements Transfer, Persist {
 	TransferStrategy strategy;
 
 	private Services service;
-	private HistoryService historyService;
 
 	private Account fromAccount;
 
@@ -25,16 +23,15 @@ public class TransferDao implements Transfer, Persist {
 	private BigDecimal value;
 	private BigDecimal interest;
 	private Date date;
+	private BigDecimal balance;
 
 	public TransferDao() {
 
 	}
 
-	public TransferDao(HistoryService historyService) {
-		this.historyService = historyService;
-	}
+
 	public TransferDao(Services service) {
-		this.historyService = service.getHistoryService();
+		this.service =service;
 	}
 
 	@Override
@@ -72,7 +69,6 @@ public class TransferDao implements Transfer, Persist {
 	@Override
 	public Transfer setService(Services service) {
 		this.service = service;
-		this.historyService = service.getHistoryService();
 		return this;
 	}
 
@@ -164,7 +160,7 @@ public class TransferDao implements Transfer, Persist {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		if (id != null)
-			builder.append("Transfer [id=").append(id);
+			builder.append("\nTransfer [id=").append(id);
 		if (fromAccount != null)
 			builder.append(", fromAccount=").append(fromAccount.getId());
 		if (toAccount != null)
@@ -184,14 +180,6 @@ public class TransferDao implements Transfer, Persist {
 		return builder.toString();
 	}
 
-	public HistoryService getHistoryService() {
-		return this.historyService;
-	}
-
-	public void setHistoryService(HistoryService historyService) {
-		this.historyService = historyService;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
@@ -202,6 +190,16 @@ public class TransferDao implements Transfer, Persist {
 
 	public void setToAccount(Account toAccount) {
 		this.toAccount = toAccount;
+	}
+
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 }
