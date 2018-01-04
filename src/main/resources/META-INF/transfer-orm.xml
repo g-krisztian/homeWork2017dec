@@ -5,7 +5,7 @@
 	<entity class="com.epam.training.homework.gk.bank.transfer.TransferDao">
 		<attributes>
 			<id name="id">
-				<generated-value strategy="IDENTITY"/>
+				<generated-value />
 			</id>
 			<many-to-one name="fromAccount"  target-entity="com.epam.training.homework.gk.bank.account.AccountDao"  ></many-to-one>
 			<many-to-one name="toAccount"  target-entity="com.epam.training.homework.gk.bank.account.AccountDao"  ></many-to-one>
