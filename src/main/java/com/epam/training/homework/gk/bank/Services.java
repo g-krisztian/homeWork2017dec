@@ -1,7 +1,7 @@
 package com.epam.training.homework.gk.bank;
 
 import com.epam.training.homework.gk.bank.account.AccountService;
-import com.epam.training.homework.gk.bank.transfer.TransferService;
+import com.epam.training.homework.gk.bank.account.transfer.TransferService;
 import com.epam.training.homework.gk.bank.user.UserService;
 
 public class Services {

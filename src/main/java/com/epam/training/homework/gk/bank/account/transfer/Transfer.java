@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.transfer;
+package com.epam.training.homework.gk.bank.account.transfer;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -36,7 +36,7 @@ public interface Transfer extends Persist {
 
 	BigDecimal getInterest();
 
-	Transfer setInterest(BigDecimal interest);
+	Transfer setInterest(double interest);
 
 	Date getDate();
 
@@ -51,6 +51,8 @@ public interface Transfer extends Persist {
 	Transfer setValue(double i);
 
 	void setBalance(BigDecimal balance);
+
+	Transfer setInterest(BigDecimal interest);
 
 
 }

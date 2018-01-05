@@ -1,8 +1,10 @@
 package com.epam.training.homework.gk.bank.account;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.ServiceSuperClass;
+import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 
 public class AccountServiceInMemory extends ServiceSuperClass implements AccountService {
@@ -35,7 +37,7 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
-	public List<Account >getAll() {
+	public List<Account> getAll() {
 		return accounts;
 	}
 
@@ -43,6 +45,33 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	public void delete(Account account) {
 		account.setActive(false);
 
+	}
+
+	@Override
+	public List<Transfer> getHistory(Account account) {
+		return account.getHistory();
+	}
+
+	@Override
+	public List<Transfer> getHistoryFrom(Account account) {
+		List<Transfer> history = account.getHistory();
+		List<Transfer> historyFrom = new ArrayList<>();
+		for (Transfer transfer : history) {
+			if (transfer.getFromAccount() == account)
+				historyFrom.add(transfer);
+		}
+		return history;
+	}
+
+	@Override
+	public List<Transfer> getHistoryTo(Account account) {
+		List<Transfer> history = account.getHistory();
+		List<Transfer> historyTo = new ArrayList<>();
+		for (Transfer transfer : history) {
+			if (transfer.getToAccount() == account)
+				historyTo.add(transfer);
+		}
+		return history;
 	}
 
 }

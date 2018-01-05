@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.transfer;
+package com.epam.training.homework.gk.bank.account.transfer;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -129,10 +129,17 @@ public class TransferDao implements Transfer, Persist {
 	}
 
 	@Override
+	public Transfer setInterest(double interest) {
+		this.interest = BigDecimal.valueOf(interest);
+		return this;
+	}
+	
+	@Override
 	public Transfer setInterest(BigDecimal interest) {
 		this.interest = interest;
 		return this;
 	}
+
 
 	@Override
 	public Date getDate() {

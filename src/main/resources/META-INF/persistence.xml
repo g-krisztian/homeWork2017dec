@@ -21,6 +21,9 @@
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="org.hibernate.flushMode" value="COMMIT"/>
+			<property name="javax.persistence.schema-generation.create-database-schemas" value="false"/>
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="javax.persistence.sql-load-script-source" value="create.sql"/>
 		</properties>
 
 	</persistence-unit>

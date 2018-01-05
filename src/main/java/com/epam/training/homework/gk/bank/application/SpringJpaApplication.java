@@ -4,10 +4,10 @@ import java.util.Date;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.facade.Facade;
 import com.epam.training.homework.gk.bank.jpa.DbConnector;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
-import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.ui.UserInterface;
 import com.epam.training.homework.gk.bank.user.User;
 

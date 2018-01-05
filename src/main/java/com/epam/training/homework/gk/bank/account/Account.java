@@ -1,13 +1,14 @@
 package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 
 public interface Account extends Persist {
 
-    void change(Transfer dao);
+    
 
 	BigDecimal getBalance();
 
@@ -18,12 +19,15 @@ public interface Account extends Persist {
 
     BigDecimal getInterest();
 
-
+    public List<Transfer> getHistory();
+    public void setHistory(List<Transfer> history);
 
     boolean isActive();
 
     void setBalance(BigDecimal balance);
 
     void setInterest(BigDecimal interest);
+
+	void change(Transfer dao);
 
 }

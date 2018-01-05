@@ -16,7 +16,7 @@
 
 	</util:list>
 	<util:list id="transfers"
-		value-type="com.epam.training.homework.gk.bank.transfer.Transfer">
+		value-type="com.epam.training.homework.gk.bank.account.transfer.Transfer">
 	</util:list>
 
 
@@ -42,7 +42,7 @@
 
 
 	<bean id="transferService"
-		class="com.epam.training.homework.gk.bank.transfer.TransferServiceInMemory">
+		class="com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory">
 		<constructor-arg ref="dataStore" />
 	</bean>
 

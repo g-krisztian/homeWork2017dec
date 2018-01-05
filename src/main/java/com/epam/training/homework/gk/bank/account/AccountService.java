@@ -2,6 +2,8 @@ package com.epam.training.homework.gk.bank.account;
 
 import java.util.List;
 
+import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+
 public interface AccountService {
 
 	Account create();
@@ -12,6 +14,10 @@ public interface AccountService {
 
 	List<Account> getAll();
 
+	List<Transfer> getHistory(Account account);
 
+	List<Transfer> getHistoryFrom(Account account);
+
+	List<Transfer> getHistoryTo(Account account);
 
 }

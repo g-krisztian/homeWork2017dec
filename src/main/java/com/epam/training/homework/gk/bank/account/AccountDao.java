@@ -1,11 +1,13 @@
 package com.epam.training.homework.gk.bank.account;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+
 @Entity
 public class AccountDao implements Account, Persist {
 
@@ -13,6 +15,7 @@ public class AccountDao implements Account, Persist {
 	BigDecimal balance;
 	BigDecimal interest;
 	boolean active;
+	List<Transfer> history;
 
 	public AccountDao() {
 		active = true;
@@ -47,7 +50,8 @@ public class AccountDao implements Account, Persist {
 	public void setId(Long id) {
 		this.id = id;
 	}
-    @Override
+
+	@Override
 	public boolean isActive() {
 		return active;
 	}
@@ -56,11 +60,13 @@ public class AccountDao implements Account, Persist {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-    @Override
+
+	@Override
 	public BigDecimal getInterest() {
 		return interest;
 	}
-    @Override
+
+	@Override
 	public void setInterest(BigDecimal interest) {
 		this.interest = interest;
 	}
@@ -79,11 +85,21 @@ public class AccountDao implements Account, Persist {
 		builder.append("]");
 		return builder.toString();
 	}
-    @Override
+
+	@Override
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
-	
-	
+	@Override
+	public List<Transfer> getHistory() {
+		return history;
+	}
+
+
+	@Override
+	public void setHistory(List<Transfer> history) {
+		this.history = history;
+	}
+
 }
