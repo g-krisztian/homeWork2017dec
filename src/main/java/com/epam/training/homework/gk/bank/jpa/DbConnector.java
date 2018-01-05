@@ -84,11 +84,17 @@ public class DbConnector implements Closeable {
 	}
 
 	public <T extends Persist> void saveMany(T[] args) {
+		System.out.println("\t" +args);
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		for (T t : args) {
-			em.persist(t);
+			System.out.println("\t!!!!" +t);
+			
+		}
+		for (T t : args) {
+			System.out.println("\tsaveMany Saving: " +t.getClass().getName());
+			em.merge(t);
 		}
 		transaction.commit();
 		em.close();

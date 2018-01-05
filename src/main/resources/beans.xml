@@ -70,6 +70,25 @@
 
 	<!-- AOP -->
 
+	<bean id="aopPersistence" class="com.epam.training.homework.gk.bank.aop.AopPersistence">
+		<constructor-arg ref="dbConnector" />
+	</bean>
+
+	<aop:config>
+
+		<aop:aspect id="persistence" ref="aopPersistence">
+			<aop:pointcut expression="execution(* *.create(..))" id="createAround" />
+			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.addAccountToUser(..))"
+				id="addAccountToUser" />
+			<aop:pointcut expression="execution(* *.doIt(..))" id="changeAccount" />
+
+			<aop:around method="saveCreated" pointcut-ref="createAround" />
+
+			<aop:around method="afterChange" pointcut-ref="addAccountToUser" />
+			<aop:around method="afterChange" pointcut-ref="changeAccount" />
+		</aop:aspect>
+
+	</aop:config>
 
 
 </beans>
