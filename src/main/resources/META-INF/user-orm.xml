@@ -8,18 +8,10 @@
 				<generated-value />
 			</id>
 
-			<one-to-many name="accounts" target-entity="com.epam.training.homework.gk.bank.account.AccountDao">
-
-			
-<!-- 			<order-column name=""/> -->
-			 </one-to-many>
-
-			
-				
-			
-			
-
-
+			<one-to-many name="accounts"
+				target-entity="com.epam.training.homework.gk.bank.account.AccountDao"
+				fetch="EAGER">
+			</one-to-many>
 
 		</attributes>
 	</entity>

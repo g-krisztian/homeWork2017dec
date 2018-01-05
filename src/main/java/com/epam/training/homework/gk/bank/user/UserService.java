@@ -17,5 +17,7 @@ public interface UserService{
 	User getById(Long id);
 
 	List<Account> getAccounts(User user);
+	
+	User getBank();
 
 }

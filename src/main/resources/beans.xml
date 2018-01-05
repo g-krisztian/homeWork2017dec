@@ -19,12 +19,21 @@
 		value-type="com.epam.training.homework.gk.bank.transfer.Transfer">
 	</util:list>
 
+
+
+	<!-- <bean id="dataStore" -->
+	<!-- class="com.epam.training.homework.gk.bank.datastore.DataStoreInMemory"> -->
+	<!-- <constructor-arg ref="accounts" /> -->
+	<!-- <constructor-arg ref="users" /> -->
+	<!-- <constructor-arg ref="transfers" /> -->
+	<!-- </bean> -->
+
+
 	<bean id="dataStore"
-		class="com.epam.training.homework.gk.bank.datastore.DataStoreInMemory">
-		<constructor-arg ref="accounts" />
-		<constructor-arg ref="users" />
-		<constructor-arg ref="transfers" />
+		class="com.epam.training.homework.gk.bank.datastore.DataStoreOnDb">
+		<constructor-arg ref="dbConnector" />
 	</bean>
+
 
 	<bean id="accountService"
 		class="com.epam.training.homework.gk.bank.account.AccountServiceInMemory">
@@ -48,8 +57,6 @@
 		<constructor-arg ref="transferService" />
 	</bean>
 
-
-
 	<bean id="facade" class="com.epam.training.homework.gk.bank.facade.BankFacade">
 		<constructor-arg ref="service" />
 	</bean>
@@ -60,4 +67,9 @@
 	</bean>
 
 	<bean id="dbConnector" class="com.epam.training.homework.gk.bank.jpa.DbConnector"></bean>
+
+	<!-- AOP -->
+
+
+
 </beans>
