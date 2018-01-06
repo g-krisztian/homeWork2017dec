@@ -161,8 +161,9 @@ public interface TransferStrategy {
 	}
 
 	default void doIt(Transfer dao, Account account) {
+		System.out.println("I'm doing it with: " +account+", " +dao);
 		account.change(dao);
-		dao.setBalance(dao.getToAccount().getBalance());
+		dao.setBalance(account.getBalance());
 	}
 
 	default Transfer negateDao(Transfer dao) {

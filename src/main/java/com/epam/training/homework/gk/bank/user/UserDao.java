@@ -3,10 +3,11 @@ package com.epam.training.homework.gk.bank.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
 
 
-public class UserDao implements User {
+public class UserDao implements User,Persist {
 
 	private Long id;
 	private String name;
@@ -29,6 +30,7 @@ public class UserDao implements User {
 
 	@Override
 	public void addNewAccount(Account account) {
+		System.out.println(this.accounts);
 		this.accounts.add(account);
 	}
 

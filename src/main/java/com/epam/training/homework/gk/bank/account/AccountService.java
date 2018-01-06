@@ -10,7 +10,7 @@ public interface AccountService {
 
 	void delete(Account account);
 
-	Account getById(Long fromAccountId);
+	Account getById(Long Id);
 
 	List<Account> getAll();
 
@@ -19,5 +19,7 @@ public interface AccountService {
 	List<Transfer> getHistoryFrom(Account account);
 
 	List<Transfer> getHistoryTo(Account account);
+
+	void addTransfer(Account account, Transfer transfer);
 
 }

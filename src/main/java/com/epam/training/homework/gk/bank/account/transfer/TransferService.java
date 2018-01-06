@@ -13,5 +13,7 @@ public interface TransferService {
 	Transfer[] getAll();
 	
 	TransferStrategy[] getAllStrategies();
+
+	void doTransfer(Transfer transfer);
 	
 }

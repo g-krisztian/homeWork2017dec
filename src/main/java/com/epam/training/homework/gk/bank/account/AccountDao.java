@@ -92,10 +92,14 @@ public class AccountDao implements Account, Persist {
 	}
 
 	@Override
+	public void addTransfer(Transfer transfer) {
+		this.history.add(transfer);
+	}
+
+	@Override
 	public List<Transfer> getHistory() {
 		return history;
 	}
-
 
 	@Override
 	public void setHistory(List<Transfer> history) {

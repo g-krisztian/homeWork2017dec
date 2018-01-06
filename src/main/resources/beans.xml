@@ -76,17 +76,28 @@
 
 	<aop:config>
 
-		<aop:aspect id="persistence" ref="aopPersistence">
+		<aop:aspect id="persistenceCreate" ref="aopPersistence">
 			<aop:pointcut expression="execution(* *.create(..))" id="createAround" />
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.addAccountToUser(..))"
-				id="addAccountToUser" />
-			<aop:pointcut expression="execution(* *.doIt(..))" id="changeAccount" />
-
 			<aop:around method="saveCreated" pointcut-ref="createAround" />
-
-			<aop:around method="afterChange" pointcut-ref="addAccountToUser" />
-			<aop:around method="afterChange" pointcut-ref="changeAccount" />
 		</aop:aspect>
+		
+		<aop:aspect id="persistenceAssign" ref="aopPersistence">
+			<aop:pointcut
+				expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.addAccountToUser(..))"
+				id="addAccountToUser" />
+			<aop:around method="update" pointcut-ref="addAccountToUser" />
+		</aop:aspect>
+		
+		<aop:aspect id="persistenceTransfer" ref="aopPersistence">
+			<aop:pointcut
+				expression="execution(* *doTransfer(..))"
+				id="doIt" />
+			<aop:around method="updateTransfer" pointcut-ref="doIt" />
+		</aop:aspect>
+		
+		
+		
+		
 
 	</aop:config>
 

@@ -33,8 +33,8 @@ public class UserServiceInMemory extends ServiceSuperClass implements UserServic
 	}
 
 	@Override
-	public User[] getAll() {
-		return users.toArray(new User[users.size()]);
+	public List<User> getAll() {
+		return users;
 	}
 
 	@Override

@@ -32,41 +32,30 @@ public class CommandLineInterface implements UserInterface {
 
 	@Override
 	public void start() {
-		do {
-			userSelectionMenu();
-		} while (!command.toLowerCase().equals("quit"));
+		userSelectionMenu();
 	}
 
 	private void userSelectionMenu() {
 
-		User[] users = facade.listAllUsers();
+		do {
+			List<User> users = facade.listAllUsers();
 
-		userPrompt(users);
+			userPrompt(users);
 
-		try {
-			command = br.readLine();
-
-			if (command.equals("new")) {
-				createNewUser();
-			} else {
-
-				User userById = facade.getUserById(idFromCommand());
-				if (userById != null) {
-					accountSelectionMenu(userById);
+			try {
+				command = br.readLine();
+				if (command.equals("new")) {
+					createNewUser();
+				} else {
+					User userById = facade.getUserById(idFromCommand(command));
+					if (userById != null) {
+						accountSelectionMenu(userById);
+					}
 				}
+			} catch (Exception e) {
 			}
-		} catch (Exception e) {
-		}
+		} while (!command.toLowerCase().equals("quit"));
 
-	}
-
-	private Long idFromCommand() {
-		Long ret = null;
-		try {
-			ret = Long.valueOf(command);
-		} catch (NumberFormatException e) {
-		}
-		return ret;
 	}
 
 	private void createNewUser() {
@@ -91,10 +80,10 @@ public class CommandLineInterface implements UserInterface {
 
 				command = br.readLine();
 				if (command.equals("new")) {
-					facade.addAccount(user);
+					facade.addAccountUser(user);
 				} else {
 
-					Account accountById = facade.getAccountById(idFromCommand());
+					Account accountById = facade.getAccountById(idFromCommand(command));
 					if (accountById != null) {
 						historyOrTransactionMenu(accountById);
 					}
@@ -128,7 +117,6 @@ public class CommandLineInterface implements UserInterface {
 	}
 
 	private void transactionMenu(Account account) {
-
 		do {
 			try {
 
@@ -138,66 +126,64 @@ public class CommandLineInterface implements UserInterface {
 
 				command = br.readLine();
 
-				if (command.toLowerCase().equals("history")) {
-					historyMenu(account);
-				} else {
+				Integer strategyId = null;
+				strategyId = Integer.valueOf(command);
+				TransferStrategy strategy = strategies[strategyId];
+				System.out.println(strategies[strategyId]);
 
-					Integer strategyId = null;
-					strategyId = Integer.valueOf(command);
-					TransferStrategy strategy = strategies[strategyId];
-					System.out.println(strategies[strategyId]);
+				Transfer transfer = facade.addTransfer(account);
+				
+				System.out.println(transfer);
 
-					Transfer dao = facade.addTransfer();
+				transfer.setStrategy(strategy);
+				transfer.setDate(new Date());
 
-					dao.setStrategy(strategy);
-					dao.setDate(new Date());
+				Map<String, Boolean> filedsInUse = strategy.getFiledsInUse();
 
-					Map<String, Boolean> filedsInUse = strategy.getFiledsInUse();
+				Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
+				while (it.hasNext()) {
+					Entry<String, Boolean> field = it.next();
+					if ((boolean) field.getValue()) {
+						switch ((String) field.getKey()) {
+						case "fromAccount": {
+							System.out.print("From which account? : ");
+							command = br.readLine();
+							Long id = idFromCommand(command);
+							Account from = facade.getAccountById(id);
+							transfer.setFrom(from);
+						}
+							break;
+						case "toAccount": {
+							System.out.print("To which account? : ");
+							command = br.readLine();
+							Long id = idFromCommand(command);
+							Account to = facade.getAccountById(id);
+							transfer.setTo(to);
+						}
+							break;
+						case "reason": {
+							System.out.print("What reason? : ");
+							command = br.readLine();
+							transfer.setReason(command);
+						}
 
-					Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
-					while (it.hasNext()) {
-						Entry<String, Boolean> field = it.next();
-						if ((boolean) field.getValue()) {
-							switch ((String) field.getKey()) {
-							case "fromAccount": {
-								System.out.print("From which account? : ");
-								command = br.readLine();
-								Long id = idFromCommand();
-								Account from = facade.getAccountById(id);
-								dao.setFrom(from);
-							}
-								break;
-							case "toAccount": {
-								System.out.print("To which account? : ");
-								command = br.readLine();
-								Long id = idFromCommand();
-								Account to = facade.getAccountById(id);
-								dao.setTo(to);
-							}
-								break;
-							case "reason": {
-								System.out.print("What reason? : ");
-								command = br.readLine();
-								dao.setReason(command);
-							}
-
-								break;
-							case "value": {
-								System.out.print("What amount? : ");
-								command = br.readLine();
-								Long value = idFromCommand();
-								dao.setValue(value);
-							}
-							}
+							break;
+						case "value": {
+							System.out.print("What amount? : ");
+							command = br.readLine();
+							Long value = idFromCommand(command);
+							transfer.setValue(value);
+						}
 						}
 					}
-
-					facade.doTransfer(dao);
-
 				}
-			} catch (Exception e) {
 
+				facade.doTransfer(account, transfer);
+
+			} catch (Exception e) {
+				System.out.println(e);
 			}
+
 		} while (!command.toLowerCase().equals("exit"));
 		command = "";
 	}
@@ -209,7 +195,7 @@ public class CommandLineInterface implements UserInterface {
 				historyPrompt(account);
 				command = br.readLine();
 				if (command.toLowerCase().equals("full")) {
-					
+
 					List<Transfer> history = facade.listHistory(account);
 					printHistory(history);
 				} else if (command.toLowerCase().equals("to")) {
@@ -220,7 +206,6 @@ public class CommandLineInterface implements UserInterface {
 					List<Transfer> history = facade.listHistoryFrom(account);
 					printHistory(history);
 				}
-
 
 			} catch (Exception e) {
 
@@ -252,7 +237,7 @@ public class CommandLineInterface implements UserInterface {
 		System.out.println(prompt);
 	}
 
-	private void userPrompt(User[] users) {
+	private void userPrompt(List<User> users) {
 		prompt.setLength(0);
 		prompt.append("Select user by Id, or type 'new' for create one: \n");
 		for (User user : users) {
@@ -304,4 +289,12 @@ public class CommandLineInterface implements UserInterface {
 		System.out.println(prompt);
 	}
 
+	private Long idFromCommand(String command) {
+		Long ret = null;
+		try {
+			ret = Long.valueOf(command);
+		} catch (NumberFormatException e) {
+		}
+		return ret;
+	}
 }

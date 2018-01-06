@@ -48,6 +48,11 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
+	public void addTransfer(Account account, Transfer transfer) {
+		account.addTransfer(transfer);
+	}
+
+	@Override
 	public List<Transfer> getHistory(Account account) {
 		return account.getHistory();
 	}

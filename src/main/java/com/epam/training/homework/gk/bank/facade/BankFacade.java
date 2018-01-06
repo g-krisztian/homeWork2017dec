@@ -15,6 +15,7 @@ public class BankFacade implements Facade {
 	public BankFacade(Services service) {
 		super();
 		this.service = service;
+
 	}
 
 	@Override
@@ -34,25 +35,26 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public User[] listAllUsers() {
+	public List<User> listAllUsers() {
 		return service.getUserService().getAll();
 	}
 
 	@Override
-	public Account addAccount(User user) {
-		Account account = service.getAccountService().create();
-		service.getUserService().addAccountToUser(account, user);
-		return account;
+	public User getBank() {
+		return service.getUserService().getBank();
 	}
 
 	@Override
-	public Account getAccountById(Long id) {
-
-
-		return service.getAccountService().getById(id);
-		
+	public Account addAccountUser(User user) {
+		Account account = service.getAccountService().create();
+		service.getUserService().addAccountToUser(account, user);
+		return null;
 	}
+	@Override
+	public Account getAccountById(Long id) {
 	
+		return service.getAccountService().getById(id);
+	}
 
 	@Override
 	public void removeAccount(Account account) {
@@ -65,26 +67,20 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public List<Account> listAllAccounts(User user) {
-
-		return service.getAccountService().getAll();
-	}
-
-	@Override
 	public TransferStrategy[] listAllStrategies() {
 		return service.getTransferService().getAllStrategies();
 	}
 
 	@Override
-	public Transfer addTransfer() {
-		return service.getTransferService().create(service);
-
+	public Transfer addTransfer(Account account) {
+		Transfer transfer = service.getTransferService().create();
+		service.getAccountService().addTransfer(account,transfer);
+		return transfer;
 	}
 
 	@Override
-	public void doTransfer(Transfer transfer) {
-		System.out.println("do transfer" + transfer);
-		transfer.doTransfer();
+	public void doTransfer(Account account, Transfer transfer) {
+		service.getTransferService().doTransfer(transfer);
 	}
 
 	@Override

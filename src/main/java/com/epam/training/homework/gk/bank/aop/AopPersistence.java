@@ -1,5 +1,8 @@
 package com.epam.training.homework.gk.bank.aop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.epam.training.homework.gk.bank.Persist;
@@ -13,28 +16,40 @@ public class AopPersistence {
 	}
 
 	public <T extends Persist> T saveCreated(ProceedingJoinPoint pjp) throws Throwable {
-		
 		T created = (T) pjp.proceed();
-		
-		System.out.println("\tsaveCreated SAVING " + created);
-		
 		created.setId(null);
-		dbConnector.saveAny(created);
+		dbConnector.saveNew(created);
 		return created;
 	}
 
-	public <T extends Persist> void afterChange(ProceedingJoinPoint pjp) throws Throwable {
-		
+	public <T extends Persist> T update(ProceedingJoinPoint pjp) throws Throwable {
+		Object[] objArgs = pjp.getArgs();
+		List<T> listArgs = tryConvert(objArgs);
+		T t = (T) pjp.proceed();
+		dbConnector.saveMany(listArgs);
+		return t;
+	}
+
+	public <T extends Persist> void updateTransfer(ProceedingJoinPoint pjp) throws Throwable {
+		System.out.println(pjp);
+		Object[] objArgs = pjp.getArgs();
+		List<T> listArgs = tryConvert(objArgs);
 		pjp.proceed();
-		Object[] args2 = pjp.getArgs();
-		System.out.println("\tafterChange SAVING: "+args2);
-		for (Object object : args2) {
-			dbConnector.saveAny((T) object);
+		dbConnector.saveMany(listArgs);
+	}
+
+	private <T extends Persist> List<T> tryConvert(Object[] args) {
+		List<T> args1 = new ArrayList<T>();
+
+		try {
+			for (int i = 0; i < args.length; i++) {
+				args1.add((T) args[i]);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		//T[] args = (T[]) args2;
-
-		//dbConnector.saveMany(args2);
-
+		return args1;
 	}
 
 }

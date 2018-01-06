@@ -27,7 +27,10 @@ public interface Account extends Persist {
     void setBalance(BigDecimal balance);
 
     void setInterest(BigDecimal interest);
+    
+    void addTransfer(Transfer transfer);
 
 	void change(Transfer dao);
+
 
 }

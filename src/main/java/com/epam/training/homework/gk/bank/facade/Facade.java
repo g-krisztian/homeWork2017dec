@@ -12,18 +12,19 @@ public interface Facade {
 	User addUser(String name);
 	User getUserById(Long id);
 	void deleteUser(User user);
-	User[] listAllUsers();
+	List<User> listAllUsers();
+	User getBank();
 	
-	Account addAccount(User user);
 	Account getAccountById(Long id);
+	Account addAccountUser(User user);
 	void removeAccount(Account account);
 	List<Account> listUserAccounts(User user);
-	List<Account> listAllAccounts(User user);
 	
 	TransferStrategy[] listAllStrategies();
-	Transfer addTransfer();
-	void doTransfer(Transfer transfer);
+
+	Transfer addTransfer(Account account);
 	
+	void doTransfer(Account account, Transfer transfer);
 	
 	List<Transfer> listHistory(Account account);
 	List<Transfer> listHistoryFrom(Account account);

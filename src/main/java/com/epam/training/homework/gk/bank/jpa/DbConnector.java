@@ -23,6 +23,10 @@ public class DbConnector implements Closeable {
 		emf = Persistence.createEntityManagerFactory("homeWork");
 
 	}
+	
+	public void createSchema() {
+		
+	}
 
 	public EntityManager getEm() {
 		return emf.createEntityManager();
@@ -54,18 +58,18 @@ public class DbConnector implements Closeable {
 	}
 
 	public User saveUser(User user) {
-		return saveAny(user);
+		return saveNew(user);
 	}
 
 	public Account saveAccount(Account account) {
-		return saveAny(account);
+		return saveNew(account);
 	}
 
 	public Transfer saveTransfer(Transfer transfer) {
-		return saveAny(transfer);
+		return saveNew(transfer);
 	}
 
-	public <T extends Persist> T saveAny(T o) {
+	public <T extends Persist> T saveNew(T o) {
 		EntityManager em = emf.createEntityManager();
 		if (!em.contains(o)) {
 			o.setId(null);
@@ -83,17 +87,24 @@ public class DbConnector implements Closeable {
 		emf.close();
 	}
 
-	public <T extends Persist> void saveMany(T[] args) {
-		System.out.println("\t" +args);
+	public <T extends Persist> void update(T t) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		em.persist(t);
+		transaction.commit();
+		em.close();
+	}
+
+	public <T extends Persist> void saveMany(List<T> args) {
+
+		System.out.println("IM in savemany");
+
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		for (T t : args) {
-			System.out.println("\t!!!!" +t);
-			
-		}
-		for (T t : args) {
-			System.out.println("\tsaveMany Saving: " +t.getClass().getName());
+			em.find(t.getClass(), t.getId());
 			em.merge(t);
 		}
 		transaction.commit();

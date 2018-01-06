@@ -42,7 +42,7 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	@Override
 	public Transfer create(Services service) {
 		this.selfBuild = new TransferDao(service);
-		selfBuild.setId(getMaxId(transfers)+1);
+		selfBuild.setId(getMaxId(transfers) + 1);
 		transfers.add(selfBuild);
 		return this.selfBuild;
 	}
@@ -50,10 +50,14 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	@Override
 	public Transfer create() {
 		this.selfBuild = new TransferDao();
-		selfBuild.setId(getMaxId(transfers)+1);
+		selfBuild.setId(getMaxId(transfers) + 1);
 		transfers.add(selfBuild);
 		return this.selfBuild;
 	}
 
-	
+	@Override
+	public void doTransfer(Transfer transfer) {
+		transfer.doTransfer();
+	}
+
 }
