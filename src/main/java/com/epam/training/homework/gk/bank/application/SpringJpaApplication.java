@@ -39,7 +39,7 @@ public class SpringJpaApplication {
 		transfer.setStrategy(TransferStrategy.Strategies.PutMoneyIn).setTo(nyunyesza).setReason("PayDay")
 				.setValue(250000).setDate(new Date()).build();
 
-		facade.doTransfer(nyunyesza, transfer);
+		facade.doTransfer(transfer);
 
 		Account nyunyeszb = facade.addAccountUser(nyunyesz);
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epam.training.homework.gk.bank.ServiceSuperClass;
 import com.epam.training.homework.gk.bank.Services;
+import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 
 public class TransferServiceInMemory extends ServiceSuperClass implements TransferService {
@@ -30,8 +31,8 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	}
 
 	@Override
-	public Transfer[] getAll() {
-		return transfers.toArray(new Transfer[transfers.size()]);
+	public List<Transfer> getAll() {
+		return transfers;
 	}
 
 	@Override

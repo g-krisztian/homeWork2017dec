@@ -24,10 +24,6 @@ public class DbConnector implements Closeable {
 
 	}
 	
-	public void createSchema() {
-		
-	}
-
 	public EntityManager getEm() {
 		return emf.createEntityManager();
 
@@ -110,4 +106,25 @@ public class DbConnector implements Closeable {
 		transaction.commit();
 		em.close();
 	}
+	
+	
+	public User getUserById(Long id) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u WHERE id=:id", User.class);
+		query.setParameter("id", id);
+		User user = query.getSingleResult();
+		em.close();
+		return user;
+	}
+	
+	public Account getAccountById(Long id) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Account> query = em.createQuery("SELECT a FROM AccountDao a WHERE id=:id", Account.class);
+		query.setParameter("id", id);
+		Account account = query.getSingleResult();
+		em.close();
+		return account;
+	}
+	
+	
 }

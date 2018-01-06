@@ -49,11 +49,13 @@ public class CommandLineInterface implements UserInterface {
 					createNewUser();
 				} else {
 					User userById = facade.getUserById(idFromCommand(command));
+					System.out.println(userById);
 					if (userById != null) {
 						accountSelectionMenu(userById);
 					}
 				}
 			} catch (Exception e) {
+				System.out.println(e);
 			}
 		} while (!command.toLowerCase().equals("quit"));
 
@@ -126,7 +128,7 @@ public class CommandLineInterface implements UserInterface {
 
 				Transfer transfer = createTransfer(account, strategies);
 				System.out.println(transfer+" to do");
-				facade.doTransfer(account, transfer);
+				facade.doTransfer(transfer);
 
 			} catch (Exception e) {
 				System.out.println(e);
@@ -142,6 +144,7 @@ public class CommandLineInterface implements UserInterface {
 		command = br.readLine();
 		Integer strategyId = null;
 		strategyId = Integer.valueOf(command);
+		command="";
 		TransferStrategy strategy = strategies[strategyId];
 		transfer.setStrategy(strategy);
 

@@ -25,7 +25,7 @@ public interface Facade {
 
 	Transfer addTransfer(Account account);
 	
-	void doTransfer(Account account, Transfer transfer);
+	void doTransfer(Transfer transfer);
 	
 	List<Transfer> listHistory(Account account);
 	List<Transfer> listHistoryFrom(Account account);

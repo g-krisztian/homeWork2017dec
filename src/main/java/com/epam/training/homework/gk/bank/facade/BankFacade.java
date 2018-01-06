@@ -91,7 +91,7 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public void doTransfer(Account account, Transfer transfer) {
+	public void doTransfer(Transfer transfer) {
 		service.getTransferService().doTransfer(transfer);
 	}
 
