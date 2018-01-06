@@ -12,6 +12,12 @@ public interface TransferStrategy {
 
 	Map<String, Boolean> getFiledsInUse();
 
+	void setOwner(Transfer dao, Account account);
+
+	boolean needsBank();
+
+	void setBank(Transfer transfer, Account account);
+
 	enum Strategies implements TransferStrategy {
 		BorrowFromBank {
 
@@ -19,8 +25,7 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				dao.setInterest(2);
 
-				Account fromAccount = newAccountToBank(dao);
-				dao.setFrom(fromAccount);
+				Account fromAccount = dao.getFromAccount();
 				Account toAccount = dao.getToAccount();
 
 				Transfer negateDao = negateDao(dao);
@@ -29,6 +34,20 @@ public interface TransferStrategy {
 
 				doIt(negateDao, fromAccount);
 
+			}
+
+			@Override
+			public void setOwner(Transfer dao, Account account) {
+				dao.setTo(account);
+			}
+			@Override
+			public boolean needsBank() {
+				return true;
+			}
+
+			@Override
+			public void setBank(Transfer transfer, Account account) {
+				transfer.setFrom(account);
 			}
 
 			@Override
@@ -49,7 +68,7 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				dao.setInterest(1);
 
-				Account toAccount = newAccountToBank(dao);
+				Account toAccount = dao.getToAccount();
 				Account fromAccount = dao.getFromAccount();
 
 				dao.setTo(toAccount);
@@ -58,6 +77,21 @@ public interface TransferStrategy {
 				doIt(dao, toAccount);
 				doIt(negateDao, fromAccount);
 
+			}
+
+			@Override
+			public void setOwner(Transfer dao, Account account) {
+				dao.setFrom(account);
+			}
+			@Override
+			public boolean needsBank() {
+				return true;
+			}
+
+			
+			@Override
+			public void setBank(Transfer transfer, Account account) {
+				transfer.setTo(account);
 			}
 
 			@Override
@@ -77,6 +111,20 @@ public interface TransferStrategy {
 			public void doTransfer(Transfer dao) {
 				doIt(dao, dao.getToAccount());
 
+			}
+
+			@Override
+			public void setOwner(Transfer dao, Account account) {
+				dao.setTo(account);
+			}
+			@Override
+			public boolean needsBank() {
+				return false;
+			}
+
+			
+			@Override
+			public void setBank(Transfer transfer, Account account) {
 			}
 
 			@Override
@@ -106,6 +154,21 @@ public interface TransferStrategy {
 			}
 
 			@Override
+			public void setOwner(Transfer dao, Account account) {
+				dao.setFrom(account);
+			}
+			@Override
+			public boolean needsBank() {
+				return false;
+			}
+
+			
+			@Override
+			public void setBank(Transfer transfer, Account account) {
+
+			}
+
+			@Override
 			public Map<String, Boolean> getFiledsInUse() {
 				Map<String, Boolean> fields = new HashMap<>();
 				fields.put("fromAccount", true);
@@ -126,17 +189,32 @@ public interface TransferStrategy {
 				doIt(dao, fromAccount);
 
 			}
-		};
-		@Override
 
-		public Map<String, Boolean> getFiledsInUse() {
-			Map<String, Boolean> fields = new HashMap<>();
-			fields.put("fromAccount", true);
-			fields.put("toAccount", false);
-			fields.put("reason", false);
-			fields.put("value", true);
-			fields.put("interest", false);
-			return fields;
+			@Override
+			public void setOwner(Transfer dao, Account account) {
+				dao.setFrom(account);
+			}
+			@Override
+			public boolean needsBank() {
+				return false;
+			}
+
+			
+			@Override
+			public void setBank(Transfer transfer, Account account) {
+
+			}
+
+			@Override
+			public Map<String, Boolean> getFiledsInUse() {
+				Map<String, Boolean> fields = new HashMap<>();
+				fields.put("fromAccount", true);
+				fields.put("toAccount", false);
+				fields.put("reason", false);
+				fields.put("value", true);
+				fields.put("interest", false);
+				return fields;
+			}
 		}
 	}
 
@@ -154,14 +232,8 @@ public interface TransferStrategy {
 		return newDao;
 	}
 
-	default Account newAccountToBank(Transfer dao) {
-		Account fromAccount = dao.getService().getAccountService().create();
-		dao.getService().getUserService().getBank().addNewAccount(fromAccount);
-		return fromAccount;
-	}
-
 	default void doIt(Transfer dao, Account account) {
-		System.out.println("I'm doing it with: " +account+", " +dao);
+		System.out.println("I'm doing it with: " + account + ", " + dao);
 		account.change(dao);
 		dao.setBalance(account.getBalance());
 	}
@@ -171,5 +243,7 @@ public interface TransferStrategy {
 		newDao.setValue(dao.getValue().negate());
 		return newDao;
 	}
+
+	
 
 }

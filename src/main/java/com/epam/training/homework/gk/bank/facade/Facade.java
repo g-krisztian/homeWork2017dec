@@ -17,6 +17,7 @@ public interface Facade {
 	
 	Account getAccountById(Long id);
 	Account addAccountUser(User user);
+	Account addBankAccount();
 	void removeAccount(Account account);
 	List<Account> listUserAccounts(User user);
 	

@@ -90,7 +90,7 @@
 		
 		<aop:aspect id="persistenceTransfer" ref="aopPersistence">
 			<aop:pointcut
-				expression="execution(* *doTransfer(..))"
+				expression="execution(* *Facade.doTransfer(..))"
 				id="doIt" />
 			<aop:around method="updateTransfer" pointcut-ref="doIt" />
 		</aop:aspect>

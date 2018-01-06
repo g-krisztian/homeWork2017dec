@@ -1,6 +1,7 @@
 package com.epam.training.homework.gk.bank.ui.cli;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Iterator;
@@ -121,63 +122,10 @@ public class CommandLineInterface implements UserInterface {
 			try {
 
 				TransferStrategy[] strategies = facade.listAllStrategies();
-
 				transferSelectionPrompt(account, strategies);
 
-				command = br.readLine();
-
-				Integer strategyId = null;
-				strategyId = Integer.valueOf(command);
-				TransferStrategy strategy = strategies[strategyId];
-				System.out.println(strategies[strategyId]);
-
-				Transfer transfer = facade.addTransfer(account);
-				
-				System.out.println(transfer);
-
-				transfer.setStrategy(strategy);
-				transfer.setDate(new Date());
-
-				Map<String, Boolean> filedsInUse = strategy.getFiledsInUse();
-
-				Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
-				while (it.hasNext()) {
-					Entry<String, Boolean> field = it.next();
-					if ((boolean) field.getValue()) {
-						switch ((String) field.getKey()) {
-						case "fromAccount": {
-							System.out.print("From which account? : ");
-							command = br.readLine();
-							Long id = idFromCommand(command);
-							Account from = facade.getAccountById(id);
-							transfer.setFrom(from);
-						}
-							break;
-						case "toAccount": {
-							System.out.print("To which account? : ");
-							command = br.readLine();
-							Long id = idFromCommand(command);
-							Account to = facade.getAccountById(id);
-							transfer.setTo(to);
-						}
-							break;
-						case "reason": {
-							System.out.print("What reason? : ");
-							command = br.readLine();
-							transfer.setReason(command);
-						}
-
-							break;
-						case "value": {
-							System.out.print("What amount? : ");
-							command = br.readLine();
-							Long value = idFromCommand(command);
-							transfer.setValue(value);
-						}
-						}
-					}
-				}
-
+				Transfer transfer = createTransfer(account, strategies);
+				System.out.println(transfer+" to do");
 				facade.doTransfer(account, transfer);
 
 			} catch (Exception e) {
@@ -186,6 +134,66 @@ public class CommandLineInterface implements UserInterface {
 
 		} while (!command.toLowerCase().equals("exit"));
 		command = "";
+	}
+
+	private Transfer createTransfer(Account account, TransferStrategy[] strategies) throws IOException {
+
+		Transfer transfer = facade.addTransfer(account);
+		command = br.readLine();
+		Integer strategyId = null;
+		strategyId = Integer.valueOf(command);
+		TransferStrategy strategy = strategies[strategyId];
+		transfer.setStrategy(strategy);
+
+		transfer.setDate(new Date());
+
+		Map<String, Boolean> filedsInUse = transfer.getStrategy().getFiledsInUse();
+
+		Iterator<Entry<String, Boolean>> it = filedsInUse.entrySet().iterator();
+
+		transfer.getStrategy().setOwner(transfer, account);
+		if (transfer.getStrategy().needsBank()) {
+			transfer.getStrategy().setBank(transfer, facade.addBankAccount());
+		}
+		while (it.hasNext()) {
+			Entry<String, Boolean> field = it.next();
+			if (field.getValue()) {
+				switch (field.getKey()) {
+				case "fromAccount":
+					if (transfer.getFromAccount() == null) {
+						System.out.print("From which account? : ");
+						command = br.readLine();
+						Long id = idFromCommand(command);
+						Account from = facade.getAccountById(id);
+						transfer.setFrom(from);
+					}
+					break;
+				case "toAccount":
+					if (transfer.getToAccount() == null) {
+						System.out.print("To which account? : ");
+						command = br.readLine();
+						Long id = idFromCommand(command);
+						Account to = facade.getAccountById(id);
+						transfer.setTo(to);
+					}
+					break;
+				case "reason": {
+					System.out.print("What reason? : ");
+					command = br.readLine();
+					transfer.setReason(command);
+				}
+
+					break;
+				case "value": {
+					System.out.print("What amount? : ");
+					command = br.readLine();
+					Long value = idFromCommand(command);
+					transfer.setValue(value);
+				}
+				}
+			}
+		}
+		return transfer;
 	}
 
 	private void historyMenu(Account account) {

@@ -53,15 +53,5 @@ public class UserServiceInMemory extends ServiceSuperClass implements UserServic
 		}
 		return nuser;
 	}
-
-	@Override
-	public User getBank() {
-	    for (User user : users) {
-	        if(user.getName().toLowerCase()=="bank") {
-	            return user;
-	        }
-        }
-	    return create("Bank");
-	}
 	
 }
