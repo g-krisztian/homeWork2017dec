@@ -68,6 +68,8 @@
 
 	<bean id="dbConnector" class="com.epam.training.homework.gk.bank.jpa.DbConnector"></bean>
 
+	<bean id="transferStrategy" class="com.epam.training.homework.gk.bank.account.transfer.TransferStrategy.Strategies"></bean>
+
 	<!-- AOP -->
 
 	<bean id="aopPersistence" class="com.epam.training.homework.gk.bank.aop.AopPersistence">
@@ -89,7 +91,7 @@
 		</aop:aspect>
 
 		<aop:aspect id="persistenceTransfer" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory.doTransfer(..))"
+			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory.doIt(..))"
 				id="doIt" />
 			<aop:around method="updateTransfer" pointcut-ref="doIt" />
 		</aop:aspect>

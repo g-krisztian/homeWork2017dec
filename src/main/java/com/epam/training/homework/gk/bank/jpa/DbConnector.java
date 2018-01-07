@@ -28,7 +28,7 @@ public class DbConnector implements Closeable {
 		return emf.createEntityManager();
 
 	}
-
+	
 	public List<User> getUsers() {
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u", User.class);
@@ -87,7 +87,8 @@ public class DbConnector implements Closeable {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
-		em.persist(t);
+		em.find(t.getClass(), t.getId());
+		em.merge(t);
 		transaction.commit();
 		em.close();
 	}

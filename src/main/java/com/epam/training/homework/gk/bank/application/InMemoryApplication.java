@@ -8,10 +8,10 @@ import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.account.AccountService;
 import com.epam.training.homework.gk.bank.account.AccountServiceInMemory;
+import com.epam.training.homework.gk.bank.account.transfer.Strategies;
 import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 import com.epam.training.homework.gk.bank.account.transfer.TransferService;
 import com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory;
-import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 import com.epam.training.homework.gk.bank.datastore.DataStoreInMemory;
 import com.epam.training.homework.gk.bank.user.User;
@@ -48,7 +48,7 @@ public class InMemoryApplication {
 				.setService(services)
 				.setReason("PayDay")
 				.setValue(BigDecimal.valueOf(250000))
-				.setStrategy(TransferStrategy.Strategies.PutMoneyIn)
+				.setStrategy(Strategies.PutMoneyIn)
 				.build();
 		transfer.doTransfer();
 		
@@ -60,14 +60,14 @@ public class InMemoryApplication {
 				.setTo(julcsaAccount)
 				.setReason("Gift")
 				.setValue(BigDecimal.valueOf(12000))
-				.setStrategy(TransferStrategy.Strategies.SendGift)
+				.setStrategy(Strategies.SendGift)
 				.build();
 		transfer.doTransfer();
 
 		transfer = transferService.create();
 		transfer.setFrom(julcsaAccount)
 				.setService(services)
-				.setStrategy(TransferStrategy.Strategies.TakeMoneyOut)
+				.setStrategy(Strategies.TakeMoneyOut)
 				.setValue(BigDecimal.valueOf(9000))
 				.build();
 		transfer.doTransfer();

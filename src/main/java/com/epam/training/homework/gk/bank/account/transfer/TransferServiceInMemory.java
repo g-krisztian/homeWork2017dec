@@ -37,7 +37,7 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 
 	@Override
 	public TransferStrategy[] getAllStrategies() {
-		return TransferStrategy.Strategies.values();
+		return Strategies.values();
 	}
 
 	@Override
@@ -58,7 +58,12 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 
 	@Override
 	public void doTransfer(Transfer transfer) {
-		transfer.doTransfer();
+		TransferStrategy strategy = transfer.getStrategy();
+		
+	}
+
+	public void doIt(Account account, Transfer tranfer) {
+		account.change(tranfer);
 	}
 
 }

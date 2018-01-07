@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.epam.training.homework.gk.bank.account.Account;
+import com.epam.training.homework.gk.bank.account.transfer.Strategies;
 import com.epam.training.homework.gk.bank.account.transfer.Transfer;
-import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.facade.Facade;
 import com.epam.training.homework.gk.bank.ui.UserInterface;
 import com.epam.training.homework.gk.bank.user.User;
@@ -36,7 +36,7 @@ public class SpringJpaApplication {
 		Account nyunyesza = facade.addAccountUser(nyunyesz);
 
 		Transfer transfer = facade.addTransfer(nyunyesza);
-		transfer.setStrategy(TransferStrategy.Strategies.PutMoneyIn).setTo(nyunyesza).setReason("PayDay")
+		transfer.setStrategy(Strategies.PutMoneyIn).setTo(nyunyesza).setReason("PayDay")
 				.setValue(250000).setDate(new Date()).build();
 
 		facade.doTransfer(transfer);

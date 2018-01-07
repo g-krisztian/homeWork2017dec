@@ -19,6 +19,7 @@ public class AopPersistence {
 	}
 
 	public <T extends Persist> T saveCreated(ProceedingJoinPoint pjp) throws Throwable {
+		@SuppressWarnings("unchecked")
 		T created = (T) pjp.proceed();
 		created.setId(null);
 		dbConnector.saveNew(created);
@@ -29,6 +30,7 @@ public class AopPersistence {
 		Object[] objArgs = pjp.getArgs();
 		List<T> listArgs = tryConvert(objArgs);
 
+		@SuppressWarnings("unchecked")
 		T t = (T) pjp.proceed();
 		dbConnector.saveMany(listArgs);
 		return t;
@@ -38,20 +40,20 @@ public class AopPersistence {
 
 		Object[] objArgs = pjp.getArgs();
 		Transfer transfer = (Transfer) objArgs[0];
-		List<T> listArgs = new ArrayList<>();
+		
 
 		pjp.proceed();
 
 		Account fromAccount = transfer.getFromAccount();
 		if (fromAccount != null) {
-			dbConnector.saveAccount(fromAccount);
+			dbConnector.update(fromAccount);
 		}
 
 		Account toAccount = transfer.getToAccount();
 		if (toAccount != null) {
-			dbConnector.saveAccount(toAccount);
+			dbConnector.update(toAccount);
 		}
-		dbConnector.saveTransfer(transfer);
+		dbConnector.update(transfer);
 
 	}
 
@@ -81,6 +83,7 @@ public class AopPersistence {
 		return dbConnector.getAccounts();
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T extends Persist> List<T> tryConvert(Object[] args) {
 		List<T> args1 = new ArrayList<T>();
 

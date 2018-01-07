@@ -127,9 +127,9 @@ public class CommandLineInterface implements UserInterface {
 				transferSelectionPrompt(account, strategies);
 
 				Transfer transfer = createTransfer(account, strategies);
-				System.out.println(transfer+" to do");
+				System.out.println("Doin:"+transfer);
 				facade.doTransfer(transfer);
-
+				System.out.println("done: "+transfer);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
