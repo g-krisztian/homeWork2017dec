@@ -68,66 +68,13 @@
 
 	<bean id="dbConnector" class="com.epam.training.homework.gk.bank.jpa.DbConnector"></bean>
 
-	<bean id="transferStrategy" class="com.epam.training.homework.gk.bank.account.transfer.TransferStrategy.Strategies"></bean>
 
 	<!-- AOP -->
 
-	<bean id="aopPersistence" class="com.epam.training.homework.gk.bank.aop.AopPersistence">
-		<constructor-arg ref="dbConnector" />
-	</bean>
-
-	<aop:config>
-
-		<aop:aspect id="persistenceCreate" ref="aopPersistence">
-			<aop:pointcut expression="execution(* *.create(..))" id="createAround" />
-			<aop:around method="saveCreated" pointcut-ref="createAround" />
-		</aop:aspect>
-
-		<aop:aspect id="persistenceAssign" ref="aopPersistence">
-			<aop:pointcut
-				expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.addAccountToUser(..))"
-				id="addAccountToUser" />
-			<aop:around method="update" pointcut-ref="addAccountToUser" />
-		</aop:aspect>
-
-		<aop:aspect id="persistenceTransfer" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory.doIt(..))"
-				id="doIt" />
-			<aop:around method="updateTransfer" pointcut-ref="doIt" />
-		</aop:aspect>
-
-		<aop:aspect id="getUserById" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.getById(..))"
-				id="getById" />
-			<aop:around method="getUserById" pointcut-ref="getById" />
-		</aop:aspect>
-
-		<aop:aspect id="getAccountById" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.AccountServiceInMemory.getById(..))"
-				id="getAccountById" />
-			<aop:around method="getAccountById" pointcut-ref="getAccountById" />
-		</aop:aspect>
-
-
-		<aop:aspect id="getAccounts" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.AccountServiceInMemory.getAll())"
-				id="getAccounts" />
-			<aop:around method="getAccounts" pointcut-ref="getAccounts" />
-		</aop:aspect>
-
-		<aop:aspect id="getUsers" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.user.UserServiceInMemory.getAll())"
-				id="getUsers" />
-			<aop:around method="getUsers" pointcut-ref="getUsers" />
-		</aop:aspect>
-		
-		<aop:aspect id="getTransfers" ref="aopPersistence">
-			<aop:pointcut expression="execution(* com.epam.training.homework.gk.bank.account.transfer.TransferServiceInMemory.getAll())"
-				id="getTransfers" />
-			<aop:around method="getTransfers" pointcut-ref="getTransfers" />
-		</aop:aspect>
-		
-	</aop:config>
-
+	<import resource="persistenceCommon.xml"/>
+	<import resource="persistenceAccount.xml"/>
+	<import resource="persistenceUser.xml"/>
+	<import resource="persistenceTransfer.xml"/>
+	<import resource="aopLogger.xml"/>
 
 </beans>

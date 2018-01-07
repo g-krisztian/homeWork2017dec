@@ -1,6 +1,8 @@
 package com.epam.training.homework.gk.bank.account.transfer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.epam.training.homework.gk.bank.account.Account;
@@ -9,7 +11,9 @@ public enum Strategies implements TransferStrategy {
 
 	BorrowFromBank {
 		@Override
-		public void doTransfer(Transfer dao) {
+		public List<Change> doTransfer(Transfer dao) {
+			List<Change> changes = new ArrayList<>();
+			
 			dao.setInterest(2);
 
 			Account fromAccount = dao.getFromAccount();
@@ -17,9 +21,11 @@ public enum Strategies implements TransferStrategy {
 
 			Transfer negateDao = negateDao(dao);
 
-			doIt(dao, toAccount);
+			changes.add(new Change(toAccount, dao));
 
-			doIt(negateDao, fromAccount);
+			changes.add(new Change(fromAccount, negateDao));
+
+			return changes;
 
 		}
 
@@ -52,7 +58,8 @@ public enum Strategies implements TransferStrategy {
 	},
 	LentToBank {
 		@Override
-		public void doTransfer(Transfer dao) {
+		public List<Change> doTransfer(Transfer dao) {
+			List<Change> changes = new ArrayList<>();
 			dao.setInterest(1);
 
 			Account toAccount = dao.getToAccount();
@@ -61,8 +68,11 @@ public enum Strategies implements TransferStrategy {
 			dao.setTo(toAccount);
 			Transfer negateDao = negateDao(dao);
 
-			doIt(dao, toAccount);
-			doIt(negateDao, fromAccount);
+			changes.add(new Change(toAccount, dao));
+
+			changes.add(new Change(fromAccount, negateDao));
+
+			return changes;
 
 		}
 
@@ -94,8 +104,11 @@ public enum Strategies implements TransferStrategy {
 	},
 	PutMoneyIn {
 		@Override
-		public void doTransfer(Transfer dao) {
-			doIt(dao, dao.getToAccount());
+		public List<Change> doTransfer(Transfer dao) {
+			List<Change> changes = new ArrayList<>();
+			changes.add(new Change(dao.getToAccount(), dao));
+
+			return changes;
 
 		}
 
@@ -126,15 +139,18 @@ public enum Strategies implements TransferStrategy {
 	},
 	SendGift {
 		@Override
-		public void doTransfer(Transfer dao) {
-
+		public List<Change> doTransfer(Transfer dao) {
+			List<Change> changes = new ArrayList<>();
 			Account toAccount = dao.getToAccount();
 			Account fromAccount = dao.getFromAccount();
 
 			Transfer negateDao = negateDao(dao);
 
-			doIt(dao, toAccount);
-			doIt(negateDao, fromAccount);
+			changes.add(new Change(toAccount, dao));
+
+			changes.add(new Change(fromAccount, negateDao));
+
+			return changes;
 
 		}
 
@@ -166,11 +182,16 @@ public enum Strategies implements TransferStrategy {
 	},
 	TakeMoneyOut {
 		@Override
-		public void doTransfer(Transfer dao) {
+		public List<Change> doTransfer(Transfer dao) {
+			List<Change> changes = new ArrayList<>();
 			dao.setValue(dao.getValue().negate());
 
 			Account fromAccount = dao.getFromAccount();
-			doIt(dao, fromAccount);
+
+
+			changes.add(new Change(fromAccount, dao));
+
+			return changes;
 
 		}
 

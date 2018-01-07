@@ -152,10 +152,10 @@ public class TransferDao implements Transfer, Persist {
 		return this;
 	}
 
-	@Override
-	public void doTransfer() {
-		this.strategy.doTransfer(this);
-	}
+//	@Override
+//	public void doTransfer() {
+//		this.strategy.doTransfer(this);
+//	}
 
 	@Override
 	public Transfer build() {
@@ -176,6 +176,8 @@ public class TransferDao implements Transfer, Persist {
 			builder.append(", reason=").append(reason);
 		if (value != null)
 			builder.append(", value=").append(value);
+		if (balance != null)
+			builder.append(", balance=").append(balance);
 		if (interest != null)
 			builder.append(", interest=").append(interest);
 		if (date != null)

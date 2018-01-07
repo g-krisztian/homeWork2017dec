@@ -1,5 +1,6 @@
 package com.epam.training.homework.gk.bank.account.transfer;
 
+import java.util.List;
 import java.util.Map;
 
 import com.epam.training.homework.gk.bank.Services;
@@ -7,7 +8,7 @@ import com.epam.training.homework.gk.bank.account.Account;
 
 public interface TransferStrategy {
 
-	void doTransfer(Transfer dao);
+	List<Change> doTransfer(Transfer dao);
 
 	Map<String, Boolean> getFiledsInUse();
 
@@ -29,11 +30,6 @@ public interface TransferStrategy {
 		newDao.setTo(dao.getToAccount());
 		newDao.setValue(dao.getValue());
 		return newDao;
-	}
-
-	default void doIt(Transfer dao, Account account) {
-		account.change(dao);
-		dao.setBalance(account.getBalance());
 	}
 
 	default Transfer negateDao(Transfer dao) {

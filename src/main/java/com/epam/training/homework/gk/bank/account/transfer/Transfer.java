@@ -42,7 +42,7 @@ public interface Transfer extends Persist {
 
 	Transfer setDate(Date date);
 
-	void doTransfer();
+	//void doTransfer();
 
 	Transfer build();
 

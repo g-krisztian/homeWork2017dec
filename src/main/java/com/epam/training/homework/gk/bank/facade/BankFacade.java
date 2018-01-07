@@ -41,13 +41,7 @@ public class BankFacade implements Facade {
 
 	@Override
 	public User getBank() {
-		List<User> users= service.getUserService().getAll();
-		for (User user : users) {
-			if (user.getName().toLowerCase().equals("bank")) {
-				return user;
-			}
-		}
-		return service.getUserService().create("Bank");
+		return service.getUserService().getBank();
 	}
 
 	@Override
@@ -56,16 +50,15 @@ public class BankFacade implements Facade {
 		service.getUserService().addAccountToUser(account, user);
 		return account;
 	}
-	
-	
+
 	@Override
 	public Account addBankAccount() {
-		return addAccountUser(getBank());
+		return addAccountUser(service.getUserService().getBank());
 	}
-	
+
 	@Override
 	public Account getAccountById(Long id) {
-			return service.getAccountService().getById(id);
+		return service.getAccountService().getById(id);
 	}
 
 	@Override
@@ -85,8 +78,8 @@ public class BankFacade implements Facade {
 
 	@Override
 	public Transfer addTransfer(Account account) {
-		Transfer transfer = service.getTransferService().create();
-		service.getAccountService().addTransfer(account,transfer);
+		Transfer transfer = service.getTransferService().create(service);
+		service.getAccountService().addTransfer(account, transfer);
 		return transfer;
 	}
 

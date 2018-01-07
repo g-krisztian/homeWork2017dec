@@ -53,5 +53,26 @@ public class UserServiceInMemory extends ServiceSuperClass implements UserServic
 		}
 		return nuser;
 	}
-	
+
+	@Override
+	public User getBank() {
+		User nuser = findByName("Bank");
+		if (nuser == null) {
+			nuser = create("Bank");
+		}
+		return nuser;
+	}
+
+	@Override
+	public User findByName(String name) {
+		User nuser = null;
+		for (User user : users) {
+			if (user.getName().toLowerCase().equals(name.toLowerCase())) {
+				nuser = user;
+				break;
+			}
+		}
+		return nuser;
+	}
+
 }

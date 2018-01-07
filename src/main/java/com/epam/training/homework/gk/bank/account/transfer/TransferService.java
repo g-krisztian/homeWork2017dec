@@ -8,7 +8,7 @@ public interface TransferService {
 
 	Transfer create(Services service);
 	
-	Transfer create();
+//	Transfer create();
 
 	Transfer getById(Long id);
 

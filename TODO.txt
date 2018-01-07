@@ -1,0 +1,22 @@
+//TODO
+ Account.create				Done common
+ Account.delete				Done common
+ Account.getById			Done
+ Account.getAll				Done
+ Account.getHistory			----
+ Account.getHistoryFrom		----
+ Account.getHistoryTo		----
+ Account.addTransfer		Done
+ 
+ User.addAccountToUser		????
+ User.create				Done common
+ User.delete				Done common
+ User.getAll				Done
+ User.getById				Done
+ User.getAccounts			Done
+ User.getBank				---- URGENT
+ 
+ Transfer.create			Done common
+ Transfer.getById			Done
+ Transfer.getAll			Done
+ Transfer.doTransfer		????

@@ -6,10 +6,7 @@ import java.util.List;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 import com.epam.training.homework.gk.bank.jpa.DbConnector;
-import com.epam.training.homework.gk.bank.user.User;
 
 public class AopPersistence {
 	DbConnector dbConnector;
@@ -31,57 +28,23 @@ public class AopPersistence {
 		List<T> listArgs = tryConvert(objArgs);
 
 		@SuppressWarnings("unchecked")
+		
 		T t = (T) pjp.proceed();
 		dbConnector.saveMany(listArgs);
 		return t;
 	}
 
-	public <T extends Persist> void updateTransfer(ProceedingJoinPoint pjp) throws Throwable {
-
+	public <T extends Persist> T markDelete(ProceedingJoinPoint pjp) throws Throwable {
 		Object[] objArgs = pjp.getArgs();
-		Transfer transfer = (Transfer) objArgs[0];
-		
+		List<T> listArgs = tryConvert(objArgs);
 
-		pjp.proceed();
-
-		Account fromAccount = transfer.getFromAccount();
-		if (fromAccount != null) {
-			dbConnector.update(fromAccount);
-		}
-
-		Account toAccount = transfer.getToAccount();
-		if (toAccount != null) {
-			dbConnector.update(toAccount);
-		}
-		dbConnector.update(transfer);
-
+		@SuppressWarnings("unchecked")
+		T t = (T) pjp.proceed();
+		t.setActive(false);
+		dbConnector.saveMany(listArgs);
+		return t;
 	}
-
-	public User getUserById(ProceedingJoinPoint pjp) throws Throwable {
-
-		Long id = (Long) pjp.getArgs()[0];
-		System.out.println(id);
-		return dbConnector.getUserById(id);
-	}
-
-	public Account getAccountById(ProceedingJoinPoint pjp) throws Throwable {
-
-		Long id = (Long) pjp.getArgs()[0];
-
-		return dbConnector.getAccountById(id);
-	}
-
-	public List<Transfer> getTransfers(ProceedingJoinPoint pjp) {
-		return dbConnector.getTransfers();
-	}
-
-	public List<User> getUsers(ProceedingJoinPoint pjp) {
-		return dbConnector.getUsers();
-	}
-
-	public List<Account> getAccounts(ProceedingJoinPoint pjp) {
-		return dbConnector.getAccounts();
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	private <T extends Persist> List<T> tryConvert(Object[] args) {

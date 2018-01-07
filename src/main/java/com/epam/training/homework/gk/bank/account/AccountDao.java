@@ -33,6 +33,7 @@ public class AccountDao implements Account, Persist {
 	@Override
 	public void change(Transfer dao) {
 		BigDecimal balance = this.balance.add(dao.getValue());
+		this.interest=dao.getInterest();
 		this.balance = balance;
 	}
 

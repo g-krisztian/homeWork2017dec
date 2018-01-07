@@ -23,18 +23,30 @@ public class DbConnector implements Closeable {
 		emf = Persistence.createEntityManagerFactory("homeWork");
 
 	}
-	
+
 	public EntityManager getEm() {
 		return emf.createEntityManager();
 
 	}
-	
+
 	public List<User> getUsers() {
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u", User.class);
 		List<User> users = query.getResultList();
 		em.close();
 		return users;
+	}
+
+	public User getBank() {
+		EntityManager em = emf.createEntityManager();
+
+		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u WHERE u.name=Bank", User.class);
+		User user = query.getSingleResult();
+		if (user == null) {
+
+		}
+		em.close();
+		return user;
 	}
 
 	public List<Account> getAccounts() {
@@ -84,19 +96,23 @@ public class DbConnector implements Closeable {
 	}
 
 	public <T extends Persist> void update(T t) {
+
+		System.out.println("\nUpdating: +" + t + "\n");
+
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
 		em.find(t.getClass(), t.getId());
-		em.merge(t);
+		if (em.contains(t)) {
+			em.merge(t);
+		} else {
+			em.persist(t);
+		}
 		transaction.commit();
 		em.close();
 	}
 
 	public <T extends Persist> void saveMany(List<T> args) {
-
-		System.out.println("IM in savemany");
-
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		transaction.begin();
@@ -107,8 +123,7 @@ public class DbConnector implements Closeable {
 		transaction.commit();
 		em.close();
 	}
-	
-	
+
 	public User getUserById(Long id) {
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u WHERE id=:id", User.class);
@@ -117,7 +132,7 @@ public class DbConnector implements Closeable {
 		em.close();
 		return user;
 	}
-	
+
 	public Account getAccountById(Long id) {
 		EntityManager em = emf.createEntityManager();
 		TypedQuery<Account> query = em.createQuery("SELECT a FROM AccountDao a WHERE id=:id", Account.class);
@@ -126,6 +141,35 @@ public class DbConnector implements Closeable {
 		em.close();
 		return account;
 	}
-	
-	
+
+	// select * from AccountDao where id IN (select Accounts_id from
+	// UserDao_AccountDao where UserDao_id=1);
+
+	public List<Transfer> getHistory(Long id) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<Transfer> query = em.createQuery(
+				"SELECT t FROM TransferDao t WHERE id IN (SELECT history_id WHERE AccountDao_id=:id)", Transfer.class);
+		query.setParameter("id", id);
+		List<Transfer> resultList = query.getResultList();
+		em.close();
+		return resultList;
+	}
+
+	public User getUserByName(String name) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<User> query = em.createQuery("SELECT u FROM UserDao u WHERE name=:name", User.class);
+		query.setParameter("name", name);
+		User result = query.getSingleResult();
+		em.close();
+		return result;
+	}
+
+	public void updateTransfer(Transfer transfer) {
+		update(transfer);
+	}
+
+	public void updateAccount(Account account) {
+		update(account);
+	}
+
 }

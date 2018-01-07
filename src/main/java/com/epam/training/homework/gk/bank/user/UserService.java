@@ -15,7 +15,11 @@ public interface UserService{
 	List<User> getAll();
 
 	User getById(Long id);
+	
+	User findByName(String name);
 
 	List<Account> getAccounts(User user);
+
+	User getBank();
 
 }

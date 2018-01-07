@@ -43,34 +43,31 @@ public class InMemoryApplication {
 
 		
 		
-		Transfer transfer = transferService.create();
+		Transfer transfer = transferService.create(services);
 		transfer.setTo(pistaAccount)
-				.setService(services)
 				.setReason("PayDay")
 				.setValue(BigDecimal.valueOf(250000))
 				.setStrategy(Strategies.PutMoneyIn)
 				.build();
-		transfer.doTransfer();
+		transferService.doTransfer(transfer);
 		
 		
 
-		transfer = transferService.create();
+		transfer = transferService.create(services);
 		transfer.setFrom(pistaAccount)
-				.setService(services)
 				.setTo(julcsaAccount)
 				.setReason("Gift")
 				.setValue(BigDecimal.valueOf(12000))
 				.setStrategy(Strategies.SendGift)
 				.build();
-		transfer.doTransfer();
+		transferService.doTransfer(transfer);
 
-		transfer = transferService.create();
+		transfer = transferService.create(services);
 		transfer.setFrom(julcsaAccount)
-				.setService(services)
 				.setStrategy(Strategies.TakeMoneyOut)
 				.setValue(BigDecimal.valueOf(9000))
 				.build();
-		transfer.doTransfer();
+		transferService.doTransfer(transfer);
 
 		soutList(users);
 		soutList(accounts);
