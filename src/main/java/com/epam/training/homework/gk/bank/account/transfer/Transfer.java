@@ -51,8 +51,12 @@ public interface Transfer extends Persist {
 	Transfer setValue(double i);
 
 	void setBalance(BigDecimal balance);
+	
+	BigDecimal getBalance();
 
 	Transfer setInterest(BigDecimal interest);
+
+	boolean getActive();
 
 
 }

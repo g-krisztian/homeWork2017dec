@@ -49,6 +49,10 @@ public class TransferDao implements Transfer, Persist {
 		this.active = b;
 
 	}
+	@Override
+	public boolean getActive() {
+		return this.active;
+	}
 
 	@Override
 	public TransferStrategy getStrategy() {

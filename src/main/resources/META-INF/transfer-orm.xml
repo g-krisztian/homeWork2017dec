@@ -13,14 +13,7 @@
 			
 			<transient name="strategy"/>
 			<transient name="active"/>
-			<transient name="historyService"/>
 			<transient name="service"/>
-			
-		
-			
-			
-
-
 
 		</attributes>
 	</entity>

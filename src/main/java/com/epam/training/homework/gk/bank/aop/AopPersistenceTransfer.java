@@ -16,7 +16,7 @@ public class AopPersistenceTransfer extends AopPersistence{
 		super(dbConnector);
 	}
 	
-	public <T extends Persist> void updateTransfer(JoinPoint pjp) throws Throwable {
+	public <T extends Persist> void updateTransfer(JoinPoint pjp) {
 		
 		System.out.println("\nIn updateTransfer with: " + pjp.getSourceLocation() + "\n");
 		

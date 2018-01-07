@@ -1,6 +1,7 @@
 package com.epam.training.homework.gk.bank.jpa;
 
 import java.io.Closeable;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,10 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import com.epam.training.homework.gk.bank.Persist;
+import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+import com.epam.training.homework.gk.bank.account.transfer.TransferDao;
 import com.epam.training.homework.gk.bank.user.User;
 
 public class DbConnector implements Closeable {
@@ -165,11 +168,41 @@ public class DbConnector implements Closeable {
 	}
 
 	public void updateTransfer(Transfer transfer) {
-		update(transfer);
+
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Transfer persisted = em.find(transfer.getClass(), transfer.getId());
+		copyTransfer(transfer, persisted);
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void updateAccount(Account account) {
-		update(account);
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Account persisted = em.find(account.getClass(), account.getId());
+		copyAccount(account, persisted);
+		em.getTransaction().commit();
+		em.close();
+	}
+
+	private void copyAccount(Account fromAccount, Account toAccount) {
+		toAccount.setInterest(fromAccount.getInterest());
+		toAccount.setBalance(fromAccount.getBalance());
+		fromAccount.setActive(fromAccount.isActive());
+	}
+
+	private void copyTransfer(Transfer fromDao, Transfer toDao) {
+		toDao.setBalance(fromDao.getBalance());
+		toDao.setDate(fromDao.getDate());
+		toDao.setInterest(fromDao.getInterest());
+		toDao.setReason(fromDao.getReason());
+		toDao.setValue(fromDao.getValue());
+		toDao.setFrom(fromDao.getFromAccount());
+		toDao.setTo(fromDao.getToAccount());
+		toDao.setStrategy(fromDao.getStrategy());
+		toDao.setService(fromDao.getService());
+		toDao.setActive(fromDao.getActive());
 	}
 
 }
