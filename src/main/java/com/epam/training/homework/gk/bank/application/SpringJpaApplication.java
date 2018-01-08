@@ -33,15 +33,15 @@ public class SpringJpaApplication {
 		User bank = facade.addUser("Bank");
 		User nyunyesz = facade.addUser("nyunyesz");
 
-		Account nyunyesza = facade.addAccountUser(nyunyesz);
+		Account nyunyesza = facade.addAccountToUser(nyunyesz);
 
-		Transfer transfer = facade.addTransfer(nyunyesza);
+		Transfer transfer = facade.addTransferToAccount(nyunyesza);
 		transfer.setStrategy(Strategies.PutMoneyIn).setTo(nyunyesza).setReason("PayDay")
 				.setValue(250000).setDate(new Date()).build();
 
 		facade.doTransfer(transfer);
 
-		Account nyunyeszb = facade.addAccountUser(nyunyesz);
+		Account nyunyeszb = facade.addAccountToUser(nyunyesz);
 	}
 
 }

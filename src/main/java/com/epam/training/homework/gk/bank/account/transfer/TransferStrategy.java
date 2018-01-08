@@ -8,7 +8,7 @@ import com.epam.training.homework.gk.bank.account.Account;
 
 public interface TransferStrategy {
 
-	List<Change> doTransfer(Transfer dao);
+	List<Change> getChanges(Transfer dao);
 
 	Map<String, Boolean> getFiledsInUse();
 

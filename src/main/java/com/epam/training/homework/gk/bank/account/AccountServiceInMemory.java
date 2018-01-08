@@ -48,7 +48,7 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
-	public void addTransfer(Account account, Transfer transfer) {
+	public void addTransferToAccount(Transfer transfer, Account account) {
 		account.addTransfer(transfer);
 	}
 

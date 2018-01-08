@@ -3,11 +3,10 @@ package com.epam.training.homework.gk.bank.account.transfer;
 import com.epam.training.homework.gk.bank.account.Account;
 
 public class Change {
-	Account account;
-	Transfer transfer;
+	private Account account;
+	private Transfer transfer;
 
 	public Change(Account account, Transfer transfer) {
-		super();
 		this.account = account;
 		this.transfer = transfer;
 	}

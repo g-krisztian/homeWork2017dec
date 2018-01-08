@@ -8,7 +8,7 @@ import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
 
 public class TransferServiceInMemory extends ServiceSuperClass implements TransferService {
-	Transfer selfBuild;
+
 	List<Transfer> transfers;
 
 	public TransferServiceInMemory(DataStore dataStore) {
@@ -42,28 +42,35 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 
 	@Override
 	public Transfer create(Services service) {
-		this.selfBuild = new TransferDao(service);
-		selfBuild.setId(getMaxId(transfers) + 1);
-		transfers.add(selfBuild);
-		return this.selfBuild;
+		Transfer transfer = new TransferDao(service);
+		transfer.setId(getMaxId(transfers) + 1);
+		transfers.add(transfer);
+		return transfer;
 	}
 
 	@Override
 	public void doTransfer(Transfer transfer) {
 		TransferStrategy strategy = transfer.getStrategy();
-		List<Change> changes = strategy.doTransfer(transfer);
+		List<Change> changes = strategy.getChanges(transfer);
 		System.out.println("changes: " + changes);
 		for (Change change : changes) {
 			System.out.println("change: " + change);
-			doIt(change.getAccount(), change.getTransfer());
+			doIt(change);
 		}
 		System.out.println("\nmost elhagyom\n");
 	}
 
-	public void doIt(Account account, Transfer transfer) {
+	public Change doIt(Change change) {
 		System.out.println("\nmost vagyok a TransfeServiceben!!!\n");
+		Transfer transfer= change.getTransfer();
+		Account account = change.getAccount();
+		System.out.println("Doit: "+transfer);
+		System.out.println("Doit: "+account);
 		account.change(transfer);
 		transfer.setBalance(account.getBalance());
+		System.out.println("Doit: "+transfer);
+		System.out.println("Doit: "+account);
+		return change;
 	}
 
 }

@@ -11,7 +11,7 @@ public enum Strategies implements TransferStrategy {
 
 	BorrowFromBank {
 		@Override
-		public List<Change> doTransfer(Transfer dao) {
+		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			
 			dao.setInterest(2);
@@ -58,7 +58,7 @@ public enum Strategies implements TransferStrategy {
 	},
 	LentToBank {
 		@Override
-		public List<Change> doTransfer(Transfer dao) {
+		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			dao.setInterest(1);
 
@@ -104,7 +104,7 @@ public enum Strategies implements TransferStrategy {
 	},
 	PutMoneyIn {
 		@Override
-		public List<Change> doTransfer(Transfer dao) {
+		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			changes.add(new Change(dao.getToAccount(), dao));
 
@@ -139,7 +139,7 @@ public enum Strategies implements TransferStrategy {
 	},
 	SendGift {
 		@Override
-		public List<Change> doTransfer(Transfer dao) {
+		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			Account toAccount = dao.getToAccount();
 			Account fromAccount = dao.getFromAccount();
@@ -182,7 +182,7 @@ public enum Strategies implements TransferStrategy {
 	},
 	TakeMoneyOut {
 		@Override
-		public List<Change> doTransfer(Transfer dao) {
+		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			dao.setValue(dao.getValue().negate());
 

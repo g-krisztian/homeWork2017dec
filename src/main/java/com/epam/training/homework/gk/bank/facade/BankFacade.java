@@ -12,7 +12,7 @@ public class BankFacade implements Facade {
 
 	Services service;
 
-	public BankFacade(Services service) {
+	BankFacade(Services service) {
 		super();
 		this.service = service;
 
@@ -45,7 +45,7 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public Account addAccountUser(User user) {
+	public Account addAccountToUser(User user) {
 		Account account = service.getAccountService().create();
 		service.getUserService().addAccountToUser(account, user);
 		return account;
@@ -53,7 +53,7 @@ public class BankFacade implements Facade {
 
 	@Override
 	public Account addBankAccount() {
-		return addAccountUser(service.getUserService().getBank());
+		return addAccountToUser(service.getUserService().getBank());
 	}
 
 	@Override
@@ -77,9 +77,9 @@ public class BankFacade implements Facade {
 	}
 
 	@Override
-	public Transfer addTransfer(Account account) {
+	public Transfer addTransferToAccount(Account account) {
 		Transfer transfer = service.getTransferService().create(service);
-		service.getAccountService().addTransfer(account, transfer);
+		service.getAccountService().addTransferToAccount(transfer, account);
 		return transfer;
 	}
 

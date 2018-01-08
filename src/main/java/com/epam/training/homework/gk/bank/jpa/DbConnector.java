@@ -1,7 +1,6 @@
 package com.epam.training.homework.gk.bank.jpa;
 
 import java.io.Closeable;
-import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,10 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
 import com.epam.training.homework.gk.bank.account.transfer.Transfer;
-import com.epam.training.homework.gk.bank.account.transfer.TransferDao;
 import com.epam.training.homework.gk.bank.user.User;
 
 public class DbConnector implements Closeable {

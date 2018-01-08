@@ -163,7 +163,6 @@ public class TransferDao implements Transfer, Persist {
 
 	@Override
 	public Transfer build() {
-
 		return this;
 	}
 

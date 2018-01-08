@@ -16,14 +16,14 @@ public interface Facade {
 	User getBank();
 	
 	Account getAccountById(Long id);
-	Account addAccountUser(User user);
+	Account addAccountToUser(User user);
 	Account addBankAccount();
 	void removeAccount(Account account);
 	List<Account> listUserAccounts(User user);
 	
 	TransferStrategy[] listAllStrategies();
 
-	Transfer addTransfer(Account account);
+	Transfer addTransferToAccount(Account account);
 	
 	void doTransfer(Transfer transfer);
 	

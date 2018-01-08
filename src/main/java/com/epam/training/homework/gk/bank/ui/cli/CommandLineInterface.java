@@ -83,7 +83,7 @@ public class CommandLineInterface implements UserInterface {
 
 				command = br.readLine();
 				if (command.equals("new")) {
-					facade.addAccountUser(user);
+					facade.addAccountToUser(user);
 				} else {
 
 					Account accountById = facade.getAccountById(idFromCommand(command));
@@ -102,7 +102,7 @@ public class CommandLineInterface implements UserInterface {
 
 		do {
 			try {
-				historyOrTransactionPath(account);
+				historyOrTransactionPrompt(account);
 
 				command = br.readLine();
 
@@ -126,7 +126,7 @@ public class CommandLineInterface implements UserInterface {
 				TransferStrategy[] strategies = facade.listAllStrategies();
 				transferSelectionPrompt(account, strategies);
 
-				Transfer transfer = createTransfer(account, strategies);
+				Transfer transfer = newTransfer(account, strategies);
 
 				facade.doTransfer(transfer);
 
@@ -138,13 +138,14 @@ public class CommandLineInterface implements UserInterface {
 		command = "";
 	}
 
-	private Transfer createTransfer(Account account, TransferStrategy[] strategies) throws IOException {
-
-		Transfer transfer = facade.addTransfer(account);
+	private Transfer newTransfer(Account account, TransferStrategy[] strategies) throws IOException {
+		command="";
 		command = br.readLine();
 		Integer strategyId = null;
 		strategyId = Integer.valueOf(command);
 		command="";
+
+		Transfer transfer = facade.addTransferToAccount(account);
 		TransferStrategy strategy = strategies[strategyId];
 		transfer.setStrategy(strategy);
 
@@ -239,7 +240,7 @@ public class CommandLineInterface implements UserInterface {
 
 	private void historyPrompt(Account account) {
 		prompt.setLength(0);
-		prompt.append("Selected account: ");
+		prompt.append("\nSelected account: ");
 		prompt.append(account);
 		prompt.append("\n");
 		prompt.append("To full history type 'full'\n");
@@ -250,7 +251,7 @@ public class CommandLineInterface implements UserInterface {
 
 	private void userPrompt(List<User> users) {
 		prompt.setLength(0);
-		prompt.append("Select user by Id, or type 'new' for create one: \n");
+		prompt.append("\nSelect user by Id, or type 'new' for create one: \n");
 		for (User user : users) {
 			prompt.append(user);
 		}
@@ -260,7 +261,7 @@ public class CommandLineInterface implements UserInterface {
 
 	private void newUserPrompt() {
 		prompt.setLength(0);
-		prompt.append("Add name to user:");
+		prompt.append("\nAdd name to user:");
 		System.out.println(prompt);
 	}
 
@@ -278,7 +279,7 @@ public class CommandLineInterface implements UserInterface {
 
 	private void transferSelectionPrompt(Account account, TransferStrategy[] strategies) {
 		prompt.setLength(0);
-		prompt.append("Selected account: ");
+		prompt.append("\nSelected account: ");
 		prompt.append(account);
 		prompt.append("\nSelect an option by Id:");
 		for (int i = 0; i < strategies.length; i++) {
@@ -292,9 +293,9 @@ public class CommandLineInterface implements UserInterface {
 		System.out.println(prompt);
 	}
 
-	private void historyOrTransactionPath(Account account) {
+	private void historyOrTransactionPrompt(Account account) {
 		prompt.setLength(0);
-		prompt.append("Selected account: ");
+		prompt.append("\nSelected account: ");
 		prompt.append(account);
 		prompt.append("\ntype 'history' to view account history, or 'transfer' to make a transfer");
 		System.out.println(prompt);

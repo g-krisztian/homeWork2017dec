@@ -20,6 +20,6 @@ public interface AccountService {
 
 	List<Transfer> getHistoryTo(Account account);
 
-	void addTransfer(Account account, Transfer transfer);
+	void addTransferToAccount(Transfer transfer, Account account);
 
 }
