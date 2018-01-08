@@ -9,7 +9,7 @@
 			</id>
 
 			<many-to-many name="history"
-				target-entity="com.epam.training.homework.gk.bank.account.transfer.TransferDao"
+				target-entity="com.epam.training.homework.gk.bank.transfer.TransferDao"
 				fetch="EAGER"></many-to-many>
 
 		</attributes>

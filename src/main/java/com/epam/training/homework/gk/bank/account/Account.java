@@ -4,11 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public interface Account extends Persist {
-
-    
 
 	BigDecimal getBalance();
 

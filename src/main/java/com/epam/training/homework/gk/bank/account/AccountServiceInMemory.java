@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.ServiceSuperClass;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 import com.epam.training.homework.gk.bank.datastore.DataStore;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 public class AccountServiceInMemory extends ServiceSuperClass implements AccountService {
 
@@ -53,7 +53,7 @@ public class AccountServiceInMemory extends ServiceSuperClass implements Account
 	}
 
 	@Override
-	public List<Transfer> getHistory(Account account) {
+	public List<Transfer> getHistoryFull(Account account) {
 		return account.getHistory();
 	}
 

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.epam.training.homework.gk.bank.Services;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
-import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.user.User;
 
 public class BankFacade implements Facade {
@@ -90,7 +90,7 @@ public class BankFacade implements Facade {
 
 	@Override
 	public List<Transfer> listHistory(Account account) {
-		return service.getAccountService().getHistory(account);
+		return service.getAccountService().getHistoryFull(account);
 	}
 
 	@Override

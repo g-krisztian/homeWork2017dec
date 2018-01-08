@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.account.transfer;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public interface TransferService {
 	
 	TransferStrategy[] getAllStrategies();
 
-	void doTransfer(Transfer transfer);
+	List<Change> doTransfer(Transfer transfer);
 	
 }

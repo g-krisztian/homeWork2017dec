@@ -3,8 +3,8 @@ package com.epam.training.homework.gk.bank.facade;
 import java.util.List;
 
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
-import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.user.User;
 
 public interface Facade {

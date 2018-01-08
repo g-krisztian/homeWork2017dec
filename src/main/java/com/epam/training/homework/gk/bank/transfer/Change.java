@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.account.transfer;
+package com.epam.training.homework.gk.bank.transfer;
 
 import com.epam.training.homework.gk.bank.account.Account;
 

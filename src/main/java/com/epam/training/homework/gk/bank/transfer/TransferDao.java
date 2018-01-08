@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.account.transfer;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.math.BigDecimal;
 import java.util.Date;

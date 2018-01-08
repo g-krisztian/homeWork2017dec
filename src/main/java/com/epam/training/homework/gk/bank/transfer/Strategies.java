@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.account.transfer;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,12 +14,12 @@ public enum Strategies implements TransferStrategy {
 		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
 			
-			dao.setInterest(2);
 
 			Account fromAccount = dao.getFromAccount();
 			Account toAccount = dao.getToAccount();
 
 			Transfer negateDao = negateDao(dao);
+			negateDao.setInterest(2);
 
 			changes.add(new Change(toAccount, dao));
 
@@ -60,13 +60,13 @@ public enum Strategies implements TransferStrategy {
 		@Override
 		public List<Change> getChanges(Transfer dao) {
 			List<Change> changes = new ArrayList<>();
-			dao.setInterest(1);
 
 			Account toAccount = dao.getToAccount();
 			Account fromAccount = dao.getFromAccount();
 
 			dao.setTo(toAccount);
 			Transfer negateDao = negateDao(dao);
+			dao.setInterest(1);
 
 			changes.add(new Change(toAccount, dao));
 

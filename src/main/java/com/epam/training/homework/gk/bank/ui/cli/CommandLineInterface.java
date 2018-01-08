@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
-import com.epam.training.homework.gk.bank.account.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.facade.Facade;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.TransferStrategy;
 import com.epam.training.homework.gk.bank.ui.UserInterface;
 import com.epam.training.homework.gk.bank.user.User;
 
@@ -55,7 +55,7 @@ public class CommandLineInterface implements UserInterface {
 					}
 				}
 			} catch (Exception e) {
-				System.out.println(e);
+//				System.out.println(e);
 			}
 		} while (!command.toLowerCase().equals("quit"));
 
@@ -131,7 +131,7 @@ public class CommandLineInterface implements UserInterface {
 				facade.doTransfer(transfer);
 
 			} catch (Exception e) {
-				System.out.println(e);
+				//System.out.println(e);
 			}
 
 		} while (!command.toLowerCase().equals("exit"));

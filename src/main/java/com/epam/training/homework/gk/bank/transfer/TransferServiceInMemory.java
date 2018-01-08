@@ -1,4 +1,4 @@
-package com.epam.training.homework.gk.bank.account.transfer;
+package com.epam.training.homework.gk.bank.transfer;
 
 import java.util.List;
 
@@ -49,28 +49,22 @@ public class TransferServiceInMemory extends ServiceSuperClass implements Transf
 	}
 
 	@Override
-	public void doTransfer(Transfer transfer) {
+	public List<Change> doTransfer(Transfer transfer) {
 		TransferStrategy strategy = transfer.getStrategy();
 		List<Change> changes = strategy.getChanges(transfer);
-		System.out.println("changes: " + changes);
 		for (Change change : changes) {
 			System.out.println("change: " + change);
 			doIt(change);
 		}
-		System.out.println("\nmost elhagyom\n");
+		return changes;
 	}
 
-	public Change doIt(Change change) {
-		System.out.println("\nmost vagyok a TransfeServiceben!!!\n");
+	public void doIt(Change change) {
+
 		Transfer transfer= change.getTransfer();
 		Account account = change.getAccount();
-		System.out.println("Doit: "+transfer);
-		System.out.println("Doit: "+account);
 		account.change(transfer);
 		transfer.setBalance(account.getBalance());
-		System.out.println("Doit: "+transfer);
-		System.out.println("Doit: "+account);
-		return change;
 	}
 
 }

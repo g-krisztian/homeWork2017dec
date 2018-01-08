@@ -3,15 +3,17 @@ package com.epam.training.homework.gk.bank.aop;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aspectj.lang.JoinPoint;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.LoggerFactory;
 
 import com.epam.training.homework.gk.bank.Persist;
 import com.epam.training.homework.gk.bank.account.Account;
-import com.epam.training.homework.gk.bank.account.transfer.Change;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
 import com.epam.training.homework.gk.bank.jpa.DbConnector;
+import com.epam.training.homework.gk.bank.transfer.Change;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 import com.epam.training.homework.gk.bank.user.User;
 
 public class AopPersistence {
@@ -30,7 +32,9 @@ public class AopPersistence {
 		return created;
 	}
 
-	public <T extends Persist> void update(ProceedingJoinPoint pjp) throws Throwable {
+	public <T extends Persist> T update(ProceedingJoinPoint pjp) throws Throwable {
+	    @SuppressWarnings("unchecked")
+        T t= (T) pjp.proceed();
 		System.out.println("\npj: " + pjp.getKind());
 		Object[] objArgs = pjp.getArgs();
 
@@ -42,20 +46,48 @@ public class AopPersistence {
 		List<T> listArgs = tryConvert(objArgs);
 
 		dbConnector.saveMany(listArgs);
+		return t;
 	}
 
+	
 	@SuppressWarnings("unchecked")
-	public <T extends Persist> void updateTransfer(ProceedingJoinPoint pjp) throws Throwable {
+    public <T extends Persist> List<Change> updateTransfer(ProceedingJoinPoint pjp) throws Throwable {
+	    System.out.println("\n\tUpdateTransfer:" + pjp);
+	    
+		ArrayList<Change> changes = (ArrayList<Change>) pjp.proceed();
 		
-		Change change = (Change) pjp.proceed();
-		Account account = change.getAccount();
-		Transfer transfer = change.getTransfer();
+		for (Change change : changes) {
+            System.out.println(change);
+        }
+		
+		System.out.println("\n\tupdateTranferben: ");
+
 		List<T> listArgs = new ArrayList<>();
+		
+		for (Change change : changes) {
+		    System.out.println(change);
+		    
+		    Account account;
+            Transfer transfer;
+            try {
+                account = change.getAccount();
+                transfer = change.getTransfer();
+                listArgs.add((T) transfer);
+                listArgs.add((T) account);
+                
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
+		
+		listArgs = tryConvert(listArgs.toArray());
 
-
-		listArgs.add((T) transfer);
-		listArgs.add((T) account);
 		dbConnector.saveMany(listArgs);
+		return changes;
+
+
 	}
 
 	public <T extends Persist> T markDelete(ProceedingJoinPoint pjp) throws Throwable {
@@ -104,6 +136,22 @@ public class AopPersistence {
 		String name = (String) pjp.getArgs()[0];
 		return dbConnector.getUserByName(name);
 	}
+	
+	public List<Transfer> getHistory(ProceedingJoinPoint pjp){
+	    Account account = (Account) pjp.getArgs()[0];
+	    System.out.println(account);
+	            
+        return dbConnector.getHistory(account.getId());
+      
+	}
+	
+//	
+//	SELECT e 
+//	FROM Employee e 
+//	WHERE e IN (SELECT emp
+//	              FROM Project p JOIN p.employees emp 
+//	             WHERE p.name = :project)
+	
 
 	@SuppressWarnings("unchecked")
 	private <T extends Persist> List<T> tryConvert(Object[] args) {

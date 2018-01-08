@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 import com.epam.training.homework.gk.bank.Persist;
-import com.epam.training.homework.gk.bank.account.transfer.Transfer;
+import com.epam.training.homework.gk.bank.transfer.Transfer;
 
 @Entity
 public class AccountDao implements Account, Persist {
